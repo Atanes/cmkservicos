@@ -1,0 +1,36 @@
+#botoes {
+    width: 960px; 
+    margin: 50px; 
+    float: center;
+    }
+
+button:focus, button::-moz-focus-inner{
+  outline:none;
+  border:none;
+}
+
+button {
+    background-color: gainsboro;
+    border-radius: 10px;
+    font-family: arial;
+    font-size:14px;
+    text-transform: uppercase;
+    font-weight:700;
+    border:none;
+    padding:10px;
+    cursor: pointer;
+    display:inline-block;
+    text-decoration: none;
+    box-shadow:0 5px 0 #b8b8b8;
+}
+button:hover {
+    background:#f8f8f8;
+    color:#e8e8e8;
+    box-shadow:0 5px 0 #b8b8b8;
+}
+
+button:active {
+    position:relative;
+    top:5px;
+    box-shadow:none;
+}

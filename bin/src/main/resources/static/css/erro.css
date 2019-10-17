@@ -1,0 +1,30 @@
+.center {
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  width: 50%;
+  text-align: center;
+}
+
+.imagemcentral {
+	width: 100%;
+	position: absolute;
+  	left: 0px;
+  	top: 0px;
+  	z-index: -1;
+}
+
+.textoErro {
+	color: #42459C;
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+@media(min-width: 749px) {
+  .textoErro {
+	color: #42459C;
+	font-size: 2.5rem;
+}
+}
+
+

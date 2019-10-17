@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorate="~{layout/layout}">
+<head>
+</head>
+
+<body>
+	<section class="aw-layout-content  js-content"
+		layout:fragment="content">
+		<div class="content center">
+			<div class="layout-pagina">
+				<div class="page-header">
+					<div>
+						<a href="https://cmk.com.br/"> <img alt="Pet Shop Teste"
+							th:src="@{/images/logo-cmk.png}" />
+						</a>
+					</div>
+					<h3>
+						<span sec:authentication="name"></span>, Bem vindo
+						ao sistema!
+					</h3>
+					<p>Use o menu acima para navegar.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

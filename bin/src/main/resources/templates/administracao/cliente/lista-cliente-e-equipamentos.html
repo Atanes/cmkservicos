@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+</head>
+
+<body>
+
+	<section layout:fragment="content">
+		<div class="layout-pagina">
+		
+		<h1 class="titulo-formulario"><i class="far fa-handshake"></i>
+			Cliente: <span class="text-primary" th:text="${cliente.nome}"></span>
+		</h1>
+		
+		<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+		
+			<input type="hidden" th:field="*{id}" />
+			
+			<div class="form-row">
+			
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label>Data de nascimento</label>
+						<p class="form-group text-primary" th:text="${cliente.getDataFormatada(cliente.data_nasc)}"></p>
+					</div>
+				</div>
+				
+				<div class="col-sm-3">
+					<div class="form-group">
+						<label>CPF</label>
+						<p class="form-group text-primary" th:text="${cliente.cpf}"></p>
+					</div>
+				</div>
+			
+				<div class="col-sm-4">
+					<div class="form-group">
+						<label>E-mail</label>
+						<p class="form-group text-primary" th:text="${cliente.email}"></p>
+					</div>
+				</div>
+				
+				<div class="col-sm-2">
+					<div class="form-group">
+						<label>Telefone principal</label>
+						<p class="form-group text-primary" th:text="${cliente.telefone1}"></p>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="row">
+			
+				<div class="col-sm-12 dadosDestaque">
+					<div class="form-group">
+						<label>Endereço: <span class="text-primary" th:text="${cliente.endereco.getEndereco()}"></span>
+						</label>
+					</div>
+				</div>			
+				
+			</div>
+			
+			<div class="container">
+				<div class="row justify-content-between">
+					
+					<a id="btnincluiranimal" class="btn btn-success btn-sm col-sm-2"
+						th:href="@{/clientes/animais/incluirAnimal/{id}(id=${cliente.id})}" th:title="'Incluir Animais'">
+						<span class="fa fa-paw"></span> Animal
+					</a>
+					<a id="btneditarcliente" class="btn btn-primary btn-sm col-sm-2"
+						th:href="@{/atendimento/clientes/editar/{id}(id=${cliente.id})}" th:title="'Editar Cliente'"> 
+						<span class="fa fa-pencil-alt"></span> Editar
+					</a>
+				</div>
+			</div>
+				
+			<h1 class="titulo-formulario titulo-lista"><i class="fa fa-paw"></i>Animais</h1>
+			<div class="form-row">
+			<div class="table-responsive-sm col-sm-12">
+				<table id="tabela-animais"
+					class="table table-sm table-striped table-bordered table-hover table-condensed js-sticky-table">
+					<thead>
+						<tr>
+							<th scope="col" class="text-center">Código</th>
+							<th scope="col">Nome</th>
+							<th scope="col">Idade</th>
+							<th scope="col">Raça</th>
+							<th scope="col">Espécie</th>
+							<th scope="col">Pedigree</th>
+							<th scope="col" class="text-center">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="animal: ${animais}">
+							<td class="text-center" th:text="${animal.id}">a1</td>
+
+							<td>
+								<a class="btn btn-info btn-sm" th:href="@{/atendimento/consultas/novo/{id}(id=${animal.id})}"
+										th:title="'Incluir Consultas'"> <span class="fa fa-user-md acoes"></span>
+									</a>
+									<span th:text="${animal.nome}"></span>
+								</td>
+							<td	th:text="${animal.getIdade()}">idade</td>
+							<td th:text="${animal.raca.nome}">raca</td>
+
+							<td th:text="${animal.raca.especie}">especie</td>
+							
+							<td th:text="${animal.getPedigree()}">pedigree</td>
+
+							<td class="text-center">
+								<form method="POST"
+									th:onsubmit="'return confirm(\'Posso remover o animal: ' + 
+								${animal.nome} + ' da base de dados?\');'"
+									th:action="@{/clientes/animais/excluir/{id}(id=${animal.id})}">
+									<a class="btn btn-success btn-sm" href="/atendimento/servicos/novo"
+										th:title="'Incluir Serviços'"> <span class="fa fa-cart-arrow-down"></span>
+									</a>
+									<a class="btn btn-primary btn-sm" th:href="@{/clientes/animais/{id}(id=${animal.id})}"
+										th:title="Editar"> <span class="fa fa-pencil-alt acoes"></span>
+									</a>
+									<button type="submit" class="btn btn-danger btn-sm" title="Excluir">
+										<span class="far fa-trash-alt acoes"></span>
+									</button>
+								</form>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="7" th:if="${animais.empty}">Nenhum Animal cadastrado na base de dados para esse cliente!</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

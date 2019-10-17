@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}">
+	
+	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">A2D - RA CMK</title>
+	
+	<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"	rel="stylesheet" />
+	
+	<link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet" />
+	
+	<link th:href="@{/css/estilo_IridiumIT.css}" rel="stylesheet" />
+	
+	<script th:src="@{/webjars/jquery/jquery.js}"></script>
+	
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</head>
+
+<body>
+
+	<div th:replace="layout/fragments/navbarsuperior :: menusuperior"></div>
+
+	<div class="container">
+		<div layout:fragment="content">O conteúdo das páginas filhas
+			aparecerão aqui.</div>
+	</div>
+
+	<div th:replace="layout/fragments/footer :: rodape"></div>
+	
+</body>
+</html>

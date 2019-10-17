@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+	<title>Cadastro de Clientes</title>
+	<script th:src="@{/js/BuscaCEP.js}"></script>
+	<script th:src="@{/js/jquery.mask.min.js}"></script>
+	
+	<script th:src="@{/webjars/jquery.inputmask/4.0.5/jquery.inputmask.bundle.js}"></script>
+	
+	<script th:src="@{/js/mascaras.js}"></script>
+</head>
+
+<body>
+	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
+		
+			<h1 class="titulo-formulario"><i class="fas fa-user-plus"></i>Cadastro de cliente</h1>
+			
+			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			
+			<form method="POST" class="form-vertical  js-form-loading"
+				th:object="${cliente}" th:action="@{/administracao/clientes/salvar}">
+				
+				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{endereco}" />
+
+				<div class="form-row">
+					
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label class="campo_obrigatório" for="nome">Nome</label>
+							<input id="nome" type="text" class="form-control" th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="col-sm-6 form-group">
+						<label class="campo_obrigatório" for="email">E-mail</label>
+						<input id="email" type="text" class="form-control" th:field="*{email}"/>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+				
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="telefone1">Telefone principal</label>
+						<input id="telefone1" type="text" class="form-control fone" th:field="*{telefone1}"/>
+					</div>
+							
+					<div class="col-sm-3 form-group">
+						<label for="telefone2">Telefone adicional</label>
+						<input id="telefone2" type="text" class="form-control fone" th:field="*{telefone2}"/>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="cep">CEP</label>
+							<input id="cep" type="text"	class="form-control cep" onblur="pesquisacep(this.value);" th:field="*{endereco.CEP}"/>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="logradouro">Logradouro</label>
+							<input id="logradouro" type="text"	class="form-control" th:field="*{endereco.logradouro}"/>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<div class="form-group">
+							<label for="nr">Nº</label>
+							<input id="nr" type="text" class="form-control sonumeros" th:field="*{endereco.nr}"/>
+						</div>
+					</div>
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label for="complemento">Complemento</label>
+							<input id="complemento" type="text"	class="form-control" th:field="*{endereco.complemento}"/>
+						</div>
+					</div>
+				
+				</div>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="bairro">Bairro</label> 
+							<input id="bairro" type="text" class="form-control" th:field="*{endereco.bairro}"/>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="cidade">Cidade</label> 
+							<input id="cidade" type="text" class="form-control" th:field="*{endereco.cidade}"/>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<label for="estado">Estado</label> 
+							<input id="estado" type="text" class="form-control" th:field="*{endereco.estado}"/>
+						</div>
+					</div>
+				
+				</div>
+				<div class="container">
+					<div class="form-row justify-content-between">
+						
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Salvar
+						</button>
+						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
+							th:href="@{/administracao/clientes}" th:title="'Cancelar operação'"> 
+							<i class="far fa-window-close"></i> Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</section>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	<body>
+	<nav class="navbar navbar-light navbar-expand-lg justify-content-between fixed-top layout-menu" th:fragment="menusuperior">
+			<div class="container">
+				<a class="navbar-brand" href="/">
+					<img class="logo_cliente_P" th:src="@{/images/logo_cmk.png}">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+   					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div id="navbarSupportedContent" class="collapse navbar-collapse">
+
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> Atendimento 
+							</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="/atendimentos">
+									<i class="fas fa-list-ol"></i>
+										&nbsp; Listar RA´s
+									</a>
+									<a class="dropdown-item" href="/atendimentos/novo">
+									<i class="fas fa-clipboard-list"></i>
+										&nbsp; Incluir RA
+									</a>
+								</div>
+							</li>
+						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+							role="button" aria-haspopup="true" aria-expanded="false">
+								Relatórios
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/relatorio/clientes"
+									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									<i class="far fa-handshake"></i>&nbsp;
+										Clientes
+								</a>
+								<a class="dropdown-item" href="/relatorio/usuarios"
+									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									<i class="fas fa-file-pdf"></i>&nbsp;
+										Usuários - PDF
+								</a>
+								<a class="dropdown-item" href="/relatorio/usuarios_Excel" target="_blank">
+									<i class="fas fa-file-excel"></i>&nbsp; Usuários - Excel
+								</a>
+								<a class="dropdown-item" href="/relatorio/usuarios_CSV" target="_blank"> 
+									<i class="fas fa-file-csv"></i>&nbsp; Usuários - CSV
+								</a>
+							</div>
+						</li>
+					
+					<!-- Menu com as funções de administração do sistema -->
+
+						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+							<a	href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false">
+									Administração
+							</a>
+
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/administracao/usuarios">
+									<i class="fas fa-users"></i>&nbsp;
+										Listar Usuários
+								</a>
+								<a class="dropdown-item" href="/administracao/usuarios/novo">
+									<i class="fas fa-user-plus"></i>&nbsp;
+										Incluir Usuário
+								</a>
+								<a class="dropdown-item" href="/administracao/clientes">
+									<i class="fas fa-address-card"></i>
+										&nbsp; Listar Clientes
+								</a>
+								<a class="dropdown-item" href="/administracao/clientes/novo">
+									<i class="far fa-handshake"></i>
+										&nbsp; Incluir Cliente
+								</a>
+								<a class="dropdown-item" href="/administracao/clientes/equipamentos">
+									<i class="fas fa-list-ol"></i>
+										&nbsp; Listar Equipamentos
+								</a>							
+							</div>
+						</li>
+					</ul>
+					<form class="form-inline my-2 my-lg-0" action="/logout" method="post">
+						<i class="far fa-user-circle"></i>&nbsp;
+						<span sec:authentication="name">Bob</span>&nbsp;
+						<button type="submit" class="btn btn-secondary my-2 my-sm-0">
+							<i class="fas fa-sign-out-alt"></i>&nbsp;Sair
+						</button>
+
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+					</form>
+				</div>
+			</div>
+		</nav>
+	</body>
+</html>
