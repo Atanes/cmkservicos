@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorate="~{layout/layout}">
+<head>
+	<title>Cadastro de Relatório de Atendimento - RA</title>
+	<script th:src="@{/js/BuscaCEP.js}"></script>
+	
+	<script th:src="@{/js/jquery.mask.min.js}"></script>
+	
+	<script th:src="@{/webjars/jquery.inputmask/4.0.5/jquery.inputmask.bundle.js}"></script>
+	
+	<script th:src="@{/js/mascaras.js}"></script>
+</head>
+
+<body>
+	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
+		
+			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>
+				Cadastro de Atendimento para o Equipamento: 
+				<span th:text="${equipamento.getNrFabricanteModelo()}"></span>
+				, do Cliente: <span th:text="${cliente.nome}"></span>
+			</h1>
+			
+			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			
+			<form method="POST" class="form-vertical js-form-loading" 
+				 th:action="@{/atendimentos/salvar}" th:object="${atendimento}">
+				
+				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+				
+				<input type="hidden" th:field="*{numero}" />
+				<input type="hidden" id="equipamento" name="equipamento" th:value="${equipamento.id}"/>
+				<input type="hidden" id="cliente" name="cliente" th:value="${cliente.nome}"/>
+				<input type="hidden" id="emissor" name="emissor" th:value="${emissor}"/>
+
+				<div class="form-row">
+					
+					<div class="col-sm-2 form-group">
+						<label class="campo_obrigatório" for="nros">Nr. OS</label>
+						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
+					</div>
+					
+					<div class="col-sm-2 form-group">
+						<label class="campo_obrigatório" for="cbotipo">Tipo</label>
+						<select	id="cbotipo" class="form-control" th:field="*{tipo}">
+								<option value="">Selecione o tipo do Atendimento</option>
+								<option th:each="listaTipo: ${ListaTipos}" th:value="${listaTipo}"
+									th:text="${listaTipo.descricao}">Opção 1</option>		
+							</select>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="solicitante">Solicitante</label>
+						<input id="solicitante" type="text" class="form-control" th:field="*{solicitante}" />
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="programado"
+								th:field="*{programada}">
+							<label class="form-check-label"	for="programada"> Programada </label>
+						</div>
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="mparada"
+								th:field="*{mparada}">
+							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+				
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="planta">Planta</label>
+						<input id="planta" type="text" class="form-control" th:field="*{planta}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="area">Area</label>
+						<input id="area" type="text" class="form-control" th:field="*{area}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="unidade">Unidade</label>
+						<input id="unidade" type="text" class="form-control" th:field="*{unidade}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="cbostatus">Status</label>
+						<select	id="cbostatus" class="form-control" th:field="*{status}">
+								<option th:if="${atendimento.status}" th:value="${atendimento.status}">
+								<option th:unless="${atendimento.status}" value="">Selecione o status do Atendimento</option>
+								<option th:each="listaStatus: ${ListaStatus}" th:value="${listaStatus}"
+									th:text="${listaStatus.descricao}">Opção 1</option>		
+						</select>
+					</div>
+				
+				</div>
+				
+				<div class="form-row">
+				
+					<div class="col-sm-6 form-group">
+						<label class="campo_obrigatório" for="descricao">Descrição</label>
+						<textarea id="descricao" class="form-control" th:field="*{descricao}"></textarea>
+					</div>
+					
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="cboresponsavel">Responsável</label>
+						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
+								<option value="">Selecione o responsável pelo Atendimento</option>
+								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
+									th:text="${usuario.nome}">Opção 1</option>		
+						</select>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="cboaprovador">Aprovador</label>
+						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
+								<option value="">Selecione o gestor do responsável pelo atendimento</option>
+								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
+									th:text="${usuario.nome}">Opção 1</option>		
+						</select>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+				
+					<div class="col-sm-12 form-group">
+						<label class="campo_obrigatório" for="nota">Nota</label>
+						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
+					</div>
+					
+				</div>
+
+				<div class="container">
+					<div class="form-row justify-content-between">
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Salvar
+						</button>
+						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
+							th:href="@{/atendimentos}" th:title="'Cancelar operação'"> 
+							<i class="far fa-window-close"></i> Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+	</section>
+</body>
+</html>

@@ -72,17 +72,25 @@ public class AtendimentoController {
 	}
 
 	@GetMapping("/{id}")
-	public ModelAndView raClientes(@PathVariable Integer id) {
+	public ModelAndView atendimentoEquipamento(Atendimento atendimento, @PathVariable Long id) {
+		
+		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
 
-		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos-e-clientes");
+		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-RAEquipamento");
+		
+		Equipamento e = equipamentos.getOne(id);
 
-		Cliente c = clientes.getOne(id);
+		Cliente c = e.getCliente();
+		
+		modelAndView.addObject("emissor", userLogin);
+		
+		modelAndView.addObject("usuarios", usuarios.findAllByOrderByNome());
 
-		modelAndView.addObject(c);
-
-		modelAndView.addObject("atendimentos", atendimentos.findByCliente(c.getNome()));
-
-		modelAndView.addObject("mensagem", "Atendimento salvo com sucesso!");
+		modelAndView.addObject("cliente", c);
+		
+		modelAndView.addObject("equipamento", e);
+		
+		modelAndView.addObject(atendimento);
 
 		return modelAndView;
 	}
@@ -132,8 +140,6 @@ public class AtendimentoController {
 		modelAndView.addObject("clientes", clientes.findAll());
 		
 		modelAndView.addObject("equipamentos", equipamentos.findAll());
-		
-		modelAndView.addObject("usuarios", usuarios.findAllByOrderByNome());
 
 		return modelAndView;
 	}

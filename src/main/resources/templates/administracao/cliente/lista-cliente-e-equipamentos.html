@@ -56,7 +56,7 @@
 			<div class="container">
 				<div class="row justify-content-between">
 					
-					<a id="btnincluiranimal" class="btn btn-success btn-sm col-sm-2"
+					<a id="btnincluirequipamento" class="btn btn-success btn-sm col-sm-2"
 						th:href="@{/administracao/clientes/equipamentos/incluirEquipamento/{id}(id=${cliente.id})}" th:title="'Incluir Equipamento'">
 						<span class="fas fa-cogs"></span> Equipamento
 					</a>
@@ -98,10 +98,13 @@
 								${equipamento.nrcmk} + ' da base de dados?\');'"
 									th:action="@{/administracao/clientes/equipamentos/excluir/{id}(id=${equipamento.id})}">
 									<a class="btn btn-primary btn-sm" th:href="@{/administracao/clientes/equipamentos/editar/{id}(id=${equipamento.id})}"
-										th:title="Editar"> <span class="fa fa-pencil-alt acoes"></span>
+										th:title="Editar"> <span class="fa fa-pencil-alt"></span>
+									</a>
+									<a class="btn btn-success btn-sm" th:href="@{/atendimentos/{id}(id=${equipamento.id})}"
+										th:title="Atendimento"> <span class="fa fa-clipboard-list"></span>
 									</a>
 									<button type="submit" class="btn btn-danger btn-sm" title="Excluir">
-										<span class="far fa-trash-alt acoes"></span>
+										<span class="far fa-trash-alt"></span>
 									</button>
 								</form>
 							</td>
