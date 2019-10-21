@@ -34,29 +34,29 @@
 					
 					<div class="col-sm-2">
 						<div class="form-group">
-							<label class="campo_obrigatorio"for="cpf">CPF</label>
+							<label class="campo_obrigatorio" for="cpf">CPF</label>
 							<input id="cpf" type="text"	class="form-control cpf" onblur="preencher_cpf(this)" 
 							placeholder="Ex: 000.000.000-00" th:field="*{cpf}" />
 						</div>
 					</div>
 				
 					<div class="col-sm-4 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">
-						<label class="obrigatorio" for="nome">Nome</label>
+						<label class="campo_obrigatorio" for="nome">Nome</label>
 						<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 					</div>
 					
 					<div class="col-sm-4 form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">
-						<label class="obrigatorio"for="email">E-mail></label>
+						<label class="campo_obrigatorio" for="email">E-mail</label>
 						<input id="email" class="form-control" th:field="*{email}" type="text" placeholder="seunome@dominio.com.br" title="E-mail"/>
 					</div>
 					
 					<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('permissoes')} ? has-error">
-						<label class="obrigatorio" for="permissao">Permissão</label>
+						<label class="campo_obrigatorio" for="permissao">Permissão</label>
 						
 						<select id="permissao" class="form-control" th:field="*{permissoes}">
 							<option value="">Selecione o tipo de permissão</option>
 							<option th:each="permissao: ${permissoes}"
-							th:value="${permissao.id}" th:text="${#strings.substring(permissao.nome,8)}">Opção 1</option>
+							th:value="${permissao.id}" th:text="${#strings.substring(permissao.nome,9)}">Opção 1</option>
 						</select>
 					</div>
 					
@@ -65,7 +65,7 @@
 				<div class="form-row">
 				
 					<div class="col-sm-2 form-group">
-						<label class="obrigatorio" for="telefone1">Telefone principal</label>
+						<label class="campo_obrigatorio" for="telefone1">Telefone principal</label>
 						<input id="telefone1" type="text" class="form-control fone" th:field="*{telefone1}"/>
 					</div>
 							

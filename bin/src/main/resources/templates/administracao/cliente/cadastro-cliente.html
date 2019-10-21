@@ -6,6 +6,7 @@
 <head>
 	<title>Cadastro de Clientes</title>
 	<script th:src="@{/js/BuscaCEP.js}"></script>
+	
 	<script th:src="@{/js/jquery.mask.min.js}"></script>
 	
 	<script th:src="@{/webjars/jquery.inputmask/4.0.5/jquery.inputmask.bundle.js}"></script>
@@ -16,11 +17,11 @@
 <body>
 	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
 		
-			<h1 class="titulo-formulario"><i class="fas fa-user-plus"></i>Cadastro de cliente</h1>
+			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>Cadastro de cliente</h1>
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
 			
-			<form method="POST" class="form-vertical  js-form-loading"
+			<form method="POST" class="form-vertical js-form-loading"
 				th:object="${cliente}" th:action="@{/administracao/clientes/salvar}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
@@ -111,7 +112,6 @@
 				</div>
 				<div class="container">
 					<div class="form-row justify-content-between">
-						
 						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
 							<i class="far fa-save"></i> Salvar
 						</button>
