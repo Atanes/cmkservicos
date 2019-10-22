@@ -4,7 +4,7 @@ public enum StatusAtendimento {
 	
 	AGENDADO("Agendado"),
 	ELABORADO("Elaborado"),
-	AGUARDANDO("Aguardando Pedido"),
+	AGUARDANDO_PEDIDO("Aguardando Pedido"),
 	ATENDIMENTO("Em atendimento"), 
 	CANCELADO("Cancelado"),
 	VALIDADO("Validado"),

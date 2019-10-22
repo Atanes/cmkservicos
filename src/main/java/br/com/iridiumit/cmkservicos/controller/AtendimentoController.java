@@ -100,7 +100,7 @@ public class AtendimentoController {
 
 		Cliente c = clientes.getOne(id);
 
-		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos-e-clientes");
+		ModelAndView modelAndView = new ModelAndView("atendimento/lista-RACliente");
 
 		modelAndView.addObject(c);
 
@@ -123,7 +123,7 @@ public class AtendimentoController {
 	@GetMapping("editar/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
 
-		return novo(atendimentos.getOne(id));
+		return atendimentoEquipamento(atendimentos.getOne(id), atendimentos.getOne(id).getEquipamento().getId());
 	}
 
 	@GetMapping("/novo")

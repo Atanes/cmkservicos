@@ -63,6 +63,10 @@
 										th:href="@{/administracao/clientes/editar/{id}(id=${cliente.id})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
 									</a>
+									<a class="btn btn-success btn-sm"
+										th:href="@{/atendimentos/selecao/{id}(id=${cliente.id})}"
+										th:title="Atendimentos"> <i class="fa fa-clipboard-list"></i>
+									</a>
 									<!-- Se usuário ativo -->
 										<a th:if="${cliente.ativo}" class="btn btn-danger btn-sm"
 										th:title="Desativar" th:href="@{/administracao/clientes/inativar/{id}(id=${cliente.id})}"
