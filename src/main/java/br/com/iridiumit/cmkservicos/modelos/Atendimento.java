@@ -50,12 +50,6 @@ public class Atendimento {
 	@NotEmpty(message = "{cliente.not.empty}")
 	private String cliente;
 	
-	private String planta;
-	
-	private String area;
-	
-	private String unidade;
-	
 	@NotEmpty(message = "{solicitante.not.empty}")
 	private String solicitante;
 	
@@ -147,14 +141,6 @@ public class Atendimento {
 		this.cliente = cliente;
 	}
 
-	public String getUnidade() {
-		return unidade;
-	}
-
-	public void setUnidade(String unidade) {
-		this.unidade = unidade;
-	}
-
 	public String getSolicitante() {
 		return solicitante;
 	}
@@ -177,22 +163,6 @@ public class Atendimento {
 
 	public void setNros(Integer nros) {
 		this.nros = nros;
-	}
-
-	public String getPlanta() {
-		return planta;
-	}
-
-	public void setPlanta(String planta) {
-		this.planta = planta;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
 	}
 
 	public String getNota() {

@@ -18,10 +18,12 @@
 <body>
 	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
 		
-			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>
-				Cadastro de Atendimento para o Equipamento: 
-				<span th:text="${equipamento.getNrFabricanteModelo()}"></span>
-				, do Cliente: <span th:text="${cliente.nome}"></span>
+			<h1 class="titulo-formulario">
+				<i class="fa fa-clipboard-list"></i>
+				Atendimento para o Equipamento:
+				<span class="text-primary" th:text="${equipamento.cliente.nome}"></span> 
+				<span class="text-primary" th:text="${equipamento.getNrFabricanteModelo()}"></span>
+				, do Cliente: <span class="text-primary" th:text="${cliente.nome}"></span>
 			</h1>
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
@@ -38,12 +40,12 @@
 
 				<div class="form-row">
 					
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatório" for="nros">Nr. OS</label>
 						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
 					</div>
 					
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatório" for="cbotipo">Tipo</label>
 						<select	id="cbotipo" class="form-control" th:field="*{tipo}">
 								<option value="">Selecione o tipo do Atendimento</option>
@@ -57,41 +59,6 @@
 						<input id="solicitante" type="text" class="form-control" th:field="*{solicitante}" />
 					</div>
 					
-					<div class="col-sm-2">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
-					</div>
-					
-					<div class="col-sm-2">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="mparada"
-								th:field="*{mparada}">
-							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="form-row">
-				
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="planta">Planta</label>
-						<input id="planta" type="text" class="form-control" th:field="*{planta}" />
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="area">Area</label>
-						<input id="area" type="text" class="form-control" th:field="*{area}" />
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="unidade">Unidade</label>
-						<input id="unidade" type="text" class="form-control" th:field="*{unidade}" />
-					</div>
-					
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatório" for="cbostatus">Status</label>
 						<select	id="cbostatus" class="form-control" th:field="*{status}">
@@ -101,6 +68,12 @@
 									th:text="${listaStatus.descricao}">Opção 1</option>		
 						</select>
 					</div>
+					
+				</div>
+				
+				<div class="form-row">
+				
+					
 				
 				</div>
 				
@@ -134,9 +107,25 @@
 				
 				<div class="form-row">
 				
-					<div class="col-sm-12 form-group">
+					<div class="col-sm-8 form-group">
 						<label class="campo_obrigatório" for="nota">Nota</label>
 						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="programado"
+								th:field="*{programada}">
+							<label class="form-check-label"	for="programada"> Programada </label>
+						</div>
+					</div>
+					
+					<div class="col-sm-2">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="mparada"
+								th:field="*{mparada}">
+							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
+						</div>
 					</div>
 					
 				</div>

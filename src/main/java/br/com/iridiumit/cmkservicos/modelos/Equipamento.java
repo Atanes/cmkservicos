@@ -10,30 +10,34 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Equipamento {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer nrcmk;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
-	
+	@JoinColumn(name = "cliente_id", nullable = false)
+	private Cliente cliente;
+
 	private String tipo;
-	
+
 	private String fabricante;
-	
+
 	private String modelo;
-	
+
 	private String capacidade;
-	
+
 	private String nrserie;
-	
+
 	private String setor;
-	
+
 	private String area;
+
+	private String planta;
+
+	private String unidade;
 
 	public Long getId() {
 		return id;
@@ -42,7 +46,7 @@ public class Equipamento {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Integer getNrcmk() {
 		return nrcmk;
 	}
@@ -98,7 +102,7 @@ public class Equipamento {
 	public void setNrserie(String nrserie) {
 		this.nrserie = nrserie;
 	}
-	
+
 	public String getSetor() {
 		return setor;
 	}
@@ -114,20 +118,33 @@ public class Equipamento {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
+
+	public String getPlanta() {
+		return planta;
+	}
+
+	public void setPlanta(String planta) {
+		this.planta = planta;
+	}
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
+
 	public String getNrFabricanteModelo() {
-		
+
 		String resposta = "";
-		
-		if(this.modelo == null) {
-			resposta = this.nrcmk + " - " + this.tipo 
-					+ " - " + this.fabricante;
+
+		if (this.modelo == null) {
+			resposta = this.nrcmk + " - " + this.tipo + " - " + this.fabricante;
 		} else {
-			resposta = this.nrcmk + " - " + this.tipo 
-					+ " - " + this.fabricante + " - " +
-					this.modelo;
+			resposta = this.nrcmk + " - " + this.tipo + " - " + this.fabricante + " - " + this.modelo;
 		}
-		
+
 		return resposta;
 	}
 
@@ -155,5 +172,5 @@ public class Equipamento {
 			return false;
 		return true;
 	}
-	
+
 }
