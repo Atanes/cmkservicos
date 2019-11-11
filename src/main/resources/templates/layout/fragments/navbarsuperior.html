@@ -28,6 +28,18 @@
 									</a>
 								</div>
 							</li>
+							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA')">
+							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> Pendencias 
+							</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="/atendimentos/pendencias">
+										<i class="fas fa-list-ol"></i>
+										&nbsp; Listar Atendimentos
+									</a>
+								</div>
+							</li>
 						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">

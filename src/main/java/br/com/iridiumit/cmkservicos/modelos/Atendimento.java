@@ -81,8 +81,10 @@ public class Atendimento {
 	@NotNull(message = "{emissor.not.null}")
 	private String emissor;
 	
+	@NotNull(message = "{executor.not.null}")
 	private String executor;
 	
+	@NotNull(message = "{aprovador.not.null}")
 	private String aprovador;
 	
 	public Long getNumero() {
@@ -228,6 +230,14 @@ public class Atendimento {
 	public void setAprovador(String aprovador) {
 		this.aprovador = aprovador;
 	}
+	
+	public String getExecutor() {
+		return executor;
+	}
+
+	public void setExecutor(String executor) {
+		this.executor = executor;
+	}
 
 	public boolean isProgramada() {
 		return programada;
@@ -276,14 +286,6 @@ public class Atendimento {
 		} else if (!numero.equals(other.numero))
 			return false;
 		return true;
-	}
-
-	public String getExecutor() {
-		return executor;
-	}
-
-	public void setExecutor(String executor) {
-		this.executor = executor;
 	}	
 
 }

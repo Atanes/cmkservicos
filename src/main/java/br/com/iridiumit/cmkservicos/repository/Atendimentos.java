@@ -13,6 +13,8 @@ public interface Atendimentos extends JpaRepository<Atendimento, Long>, PagingAn
 
 	List<Atendimento> findByTipo(String tipo);
 	
+	List<Atendimento> findByTipoAndExecutor(String tipo, String executor);
+	
 	Atendimento findByNros(Integer nros);
 	
 	List<Atendimento> findByStatus(String Status);
@@ -23,6 +25,10 @@ public interface Atendimentos extends JpaRepository<Atendimento, Long>, PagingAn
 	
 	List<Atendimento> findByAprovador(String aprovador);
 	
+	List<Atendimento> findByExecutor(String executor);
+	
 	Page<Atendimento> findAll(Pageable pageable);
+	
+	Page<Atendimento> findByExecutor(String executor, Pageable pageable);
 
 }

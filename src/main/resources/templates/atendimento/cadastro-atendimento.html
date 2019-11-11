@@ -6,13 +6,6 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Relatório de Atendimento - RA</title>
-	<script th:src="@{/js/BuscaCEP.js}"></script>
-	
-	<script th:src="@{/js/jquery.mask.min.js}"></script>
-	
-	<script th:src="@{/webjars/jquery.inputmask/4.0.5/jquery.inputmask.bundle.js}"></script>
-	
-	<script th:src="@{/js/mascaras.js}"></script>
 </head>
 
 <body>
@@ -28,18 +21,16 @@
 				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
 				
 				<input type="hidden" th:field="*{numero}" />
-				<input type="hidden" th:field="*{equipamento}" />
-				<input type="hidden" id="emissor" name="emissor" th:value="${emissor}"/>
 
 				<div class="form-row">
 					
 					<div class="col-sm-2 form-group">
-						<label class="campo_obrigatório" for="nros">Nr. OS</label>
+						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
 						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
 					</div>
 					
 					<div class="col-sm-2 form-group">
-						<label class="campo_obrigatório" for="cbotipo">Tipo</label>
+						<label class="campo_obrigatorio" for="cbotipo">Tipo</label>
 						<select	id="cbotipo" class="form-control" th:field="*{tipo}">
 								<option value="">Selecione o tipo do Atendimento</option>
 								<option th:each="listaTipo: ${ListaTipos}" th:value="${listaTipo}"
@@ -68,24 +59,9 @@
 				</div>
 				
 				<div class="form-row">
-				
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="planta">Planta</label>
-						<input id="planta" type="text" class="form-control" th:field="*{planta}" />
-					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="area">Area</label>
-						<input id="area" type="text" class="form-control" th:field="*{area}" />
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="unidade">Unidade</label>
-						<input id="unidade" type="text" class="form-control" th:field="*{unidade}" />
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="solicitante">Solicitante</label>
+						<label class="campo_obrigatorio" for="solicitante">Solicitante</label>
 						<input id="solicitante" type="text" class="form-control" th:field="*{solicitante}" />
 					</div>
 				
@@ -94,12 +70,12 @@
 				<div class="form-row">
 				
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="descricao">Descrição</label>
+						<label class="campo_obrigatorio" for="descricao">Descrição</label>
 						<textarea id="descricao" class="form-control" th:field="*{descricao}"></textarea>
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="cbostatus">Status</label>
+						<label class="campo_obrigatorio" for="cbostatus">Status</label>
 						<select	id="cbostatus" class="form-control" th:field="*{status}">
 								<option th:if="${atendimento.status}" th:value="${atendimento.status}">
 								<option th:unless="${atendimento.status}" value="">Selecione o status do Atendimento</option>
@@ -108,7 +84,7 @@
 						</select>
 					</div>
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="cboresponsavel">Responsável</label>
+						<label class="campo_obrigatorio" for="cboresponsavel">Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
 								<option value="">Selecione o responsável pelo Atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
@@ -117,7 +93,7 @@
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="cboaprovador">Aprovador</label>
+						<label class="campo_obrigatorio" for="cboaprovador">Aprovador</label>
 						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
 								<option value="">Selecione o gestor do responsável pelo atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
@@ -130,7 +106,7 @@
 				<div class="form-row">
 				
 					<div class="col-sm-6 form-group">
-						<label class="campo_obrigatório" for="nota">Nota</label>
+						<label class="campo_obrigatorio" for="nota">Nota</label>
 						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
 					</div>
 					

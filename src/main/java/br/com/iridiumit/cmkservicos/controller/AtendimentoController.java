@@ -31,7 +31,6 @@ import br.com.iridiumit.cmkservicos.modelos.TipoAtendimento;
 import br.com.iridiumit.cmkservicos.relatorio.AtendimentosREL;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
 import br.com.iridiumit.cmkservicos.repository.Clientes;
-import br.com.iridiumit.cmkservicos.repository.Enderecos;
 import br.com.iridiumit.cmkservicos.repository.Equipamentos;
 import br.com.iridiumit.cmkservicos.repository.Usuarios;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
@@ -53,9 +52,6 @@ public class AtendimentoController {
 	@Autowired
 	private Usuarios usuarios;
 
-	@Autowired
-	private Enderecos enderecos;
-
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro) {
 
@@ -70,6 +66,23 @@ public class AtendimentoController {
 
 		return modelAndView;
 	}
+	
+	@GetMapping("/pendencias")
+	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro) {
+		
+		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
+
+		ModelAndView modelAndView = new ModelAndView("atendimento/lista-pendencias");
+
+		if (filtro.getTextoFiltro() == null) {
+			modelAndView.addObject("atendimentos", atendimentos.findByExecutor(userLogin));
+		} else {
+			modelAndView.addObject("atendimentos",
+					atendimentos.findByTipoAndExecutor(filtro.getTextoFiltro(), userLogin));
+		}
+
+		return modelAndView;
+	}
 
 	@GetMapping("/{id}")
 	public ModelAndView atendimentoEquipamento(Atendimento atendimento, @PathVariable Long id) {
@@ -79,16 +92,28 @@ public class AtendimentoController {
 		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-RAEquipamento");
 		
 		Equipamento e = equipamentos.getOne(id);
-
-		Cliente c = e.getCliente();
 		
-		modelAndView.addObject("emissor", userLogin);
+		String cliente = e.getCliente().getNome();
+
+		atendimento.setEquipamento(e);
+		
+		atendimento.setCliente(cliente);
+		
+		atendimento.setEmissor(userLogin);
 		
 		modelAndView.addObject("usuarios", usuarios.findAllByOrderByNome());
-
-		modelAndView.addObject("cliente", c);
 		
-		modelAndView.addObject("equipamento", e);
+		modelAndView.addObject(atendimento);
+
+		return modelAndView;
+	}
+	
+	@GetMapping("/realizar/{id}")
+	public ModelAndView realizarAtendimento(@PathVariable Long id) {
+
+		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
+		
+		Atendimento atendimento = atendimentos.getOne(id);
 		
 		modelAndView.addObject(atendimento);
 
@@ -131,15 +156,11 @@ public class AtendimentoController {
 		
 		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
 
-		ModelAndView modelAndView = new ModelAndView("/atendimento/cadastro-Atendimento");
+		ModelAndView modelAndView = new ModelAndView("/atendimento/cadastro-RAEquipamento");
+		
+		atendimento.setEmissor(userLogin);
 		
 		modelAndView.addObject(atendimento);
-		
-		modelAndView.addObject("emissor", userLogin);
-		
-		modelAndView.addObject("clientes", clientes.findAll());
-		
-		modelAndView.addObject("equipamentos", equipamentos.findAll());
 
 		return modelAndView;
 	}
@@ -150,16 +171,28 @@ public class AtendimentoController {
 		if (result.hasErrors()) {
 			return novo(atendimento);
 		}
-
-		Equipamento e = equipamentos.getOne(atendimento.getEquipamento().getId());
-		
-		atendimento.setEquipamento(e);
 		
 		atendimentos.save(atendimento);
 
 		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/atendimentos");
+
+	}
+	
+	@PostMapping("/realizar/salvar")
+	public ModelAndView realizarSalvar(@Valid Atendimento atendimento, BindingResult result, RedirectAttributes attributes) {
+		
+		if (result.hasErrors()) {
+			System.out.println(result.getFieldErrorCount() + ", " + result.getFieldError());
+			return realizarAtendimento(atendimento.getNumero());
+		}
+		
+		atendimentos.save(atendimento);
+
+		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
+
+		return new ModelAndView("redirect:/atendimentos/pendencias");
 
 	}
 
