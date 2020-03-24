@@ -12,7 +12,8 @@
 		layout:fragment="content">
 
 		<h1 class="titulo-formulario">
-			<i class="fas fa-list"></i>Relatório de Atendimentos
+			<i class="fas fa-list"></i>Relatório de Atendimentos do cliente: 
+			<span th:text="${cliente.nome}"></span>
 		</h1>
 
 		<div class="alert  alert-success"
@@ -49,7 +50,6 @@
 							<th scope="col">Nr. OS</th>
 							<th scope="col">Tipo</th>
 							<th scope="col">Status</th>
-							<th scope="col">Cliente</th>
 							<th scope="col">Equipamento</th>
 							<th scope="col" class="text-center">Ações</th>
 						</tr>
@@ -58,24 +58,19 @@
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
 							<td th:text="${atendimento.nros}">123</td>
-							<td th:text="${atendimento.chamado.tipo}">123</td>
-							<td th:text="${atendimento.chamado.status}">123</td>
-							<td th:text="${atendimento.chamado.equipamento.cliente.nome}">123</td>
-							<td th:text="${atendimento.chamado.equipamento.getNrFabricanteModelo()}">123</td>
+							<td th:text="${atendimento.tipo}">123</td>
+							<td th:text="${atendimento.status}">123</td>
+							<td th:text="${atendimento.equipamento.getNrFabricanteModelo()}">123</td>
 							<td class="text-center">
 									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
-									</a>
-									<a class="btn btn-success btn-sm" th:href="@{/atendimentos/iniciar/{id}(id=${atendimento.numero})}"
-										th:title="'Iniciar atendimento'"> <i class="fas fa-id-card-alt"></i>
 									</a>
 							</td>
 						</tr>
 
 						<tr>
-							<td colspan="6" th:if="${atendimentos.empty}">
-								Nenhum Atendimento cadastrado!!
-							</td>
+							<td colspan="6" th:if="${atendimentos.empty}">Nenhum Atendimento
+								cadastrado!!</td>
 						</tr>
 
 					</tbody>

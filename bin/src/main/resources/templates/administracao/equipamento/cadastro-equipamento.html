@@ -13,8 +13,8 @@
 		layout:fragment="content">
 
 		<h1 class="titulo-formulario">
-			<i class="fas fa-cogs"></i>Cadastro de equipamentos do cliente: <span
-				class="text-primary" th:text="${equipamento.cliente.nome}"></span>
+			<i class="fas fa-cogs"></i>Cadastro de equipamentos do cliente:
+			<span class="text-primary" th:text="${equipamento.cliente.nome}"></span>
 		</h1>
 		
 		<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
@@ -57,7 +57,7 @@
 				
 				<div class="form-row">
 				
-					<div class="col-sm-1 form-group">
+					<div class="col-sm-4 form-group">
 						<label class="campo_obrigatório" for="capacidade">Capacidade</label>
 						<input id="capacidade" type="text" class="form-control" th:field="*{capacidade}"/>
 					</div>
@@ -67,14 +67,28 @@
 						<input id="nrserie" type="text" class="form-control" th:field="*{nrserie}"/>
 					</div>
 							
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-4 form-group">
 						<label for="setor">Setor</label>
 						<input id="setor" type="text" class="form-control" th:field="*{setor}"/>
 					</div>
 					
+				</div>
+				
+				<div class="form-row">
+					
 					<div class="col-sm-4 form-group">
-						<label for="area">Area</label>
-						<input id="area" type="text" class="form-control" th:field="*{area}"/>
+						<label class="campo_obrigatório" for="planta">Planta</label>
+						<input id="planta" type="text" class="form-control" th:field="*{planta}" />
+					</div>
+					
+					<div class="col-sm-4 form-group">
+						<label class="campo_obrigatório" for="area">Area</label>
+						<input id="area" type="text" class="form-control" th:field="*{area}" />
+					</div>
+					
+					<div class="col-sm-4 form-group">
+						<label class="campo_obrigatório" for="unidade">Unidade</label>
+						<input id="unidade" type="text" class="form-control" th:field="*{unidade}" />
 					</div>
 					
 				</div>

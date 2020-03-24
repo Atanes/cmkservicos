@@ -23,12 +23,20 @@
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="/atendimentos">
-									<i class="fas fa-list-ol"></i>
-										&nbsp; Listar RA´s
+										<i class="fas fa-list-ol"></i>
+										&nbsp; Listar Atendimentos
 									</a>
-									<a class="dropdown-item" href="/atendimentos/novo">
-									<i class="fas fa-clipboard-list"></i>
-										&nbsp; Incluir RA
+								</div>
+							</li>
+							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA')">
+							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-toggle="dropdown" aria-haspopup="true"
+								aria-expanded="false"> Pendencias 
+							</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="/atendimentos/pendencias">
+										<i class="fas fa-list-ol"></i>
+										&nbsp; Listar Atendimentos
 									</a>
 								</div>
 							</li>

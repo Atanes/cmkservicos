@@ -1,6 +1,6 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
-public enum TipoAtendimento {
+public enum Lista_de_Tipos {
 		
 	EMERGENCIAL("Emergencial"),
 	CORRETIVA_PROGRAMADA("Corretiva Programada"),
@@ -9,7 +9,7 @@ public enum TipoAtendimento {
 	
 	private String descricao;
 	
-	TipoAtendimento(String descricao){
+	Lista_de_Tipos(String descricao){
 		this.descricao = descricao;
 	}
 	

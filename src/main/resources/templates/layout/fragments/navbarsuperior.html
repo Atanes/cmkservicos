@@ -19,24 +19,36 @@
 						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Atendimento 
+								aria-expanded="false">Chamados 
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/atendimentos">
+									<a class="dropdown-item" href="/administracao/clientes/equipamentos">
+										<i class="fas fa-pen"></i>
+										Abertura
+									</a>
+									<a class="dropdown-item" href="#">
+										<i class="far fa-check-circle"></i>
+										Validação
+									</a>
+									<a class="dropdown-item" href="/chamados">
 										<i class="fas fa-list-ol"></i>
-										&nbsp; Listar Atendimentos
+										Listar Chamados
 									</a>
 								</div>
 							</li>
-							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA')">
+							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA') or hasRole('CMK_ADMIN')">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> Pendencias 
+								aria-expanded="false">Atendimentos 
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/atendimentos/pendencias">
+								<a class="dropdown-item" href="#">
+										<i class="fas fa-id-card-alt"></i>
+										Atender
+									</a>
+									<a class="dropdown-item" href="/atendimentos">
 										<i class="fas fa-list-ol"></i>
-										&nbsp; Listar Atendimentos
+										Listar Atendimentos
 									</a>
 								</div>
 							</li>
@@ -46,21 +58,28 @@
 								Relatórios
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/relatorio/atendimentos"
+									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									<i class="fas fa-headset"></i>
+									Atendimentos
+								</a>
 								<a class="dropdown-item" href="/relatorio/clientes"
 									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
-									<i class="far fa-handshake"></i>&nbsp;
-										Clientes
+									<i class="far fa-handshake"></i>
+									Clientes
 								</a>
 								<a class="dropdown-item" href="/relatorio/usuarios"
 									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
-									<i class="fas fa-file-pdf"></i>&nbsp;
-										Usuários - PDF
+									<i class="fas fa-file-pdf"></i>
+									Usuários - PDF
 								</a>
 								<a class="dropdown-item" href="/relatorio/usuarios_Excel" target="_blank">
-									<i class="fas fa-file-excel"></i>&nbsp; Usuários - Excel
+									<i class="fas fa-file-excel"></i>
+									Usuários - Excel
 								</a>
 								<a class="dropdown-item" href="/relatorio/usuarios_CSV" target="_blank"> 
-									<i class="fas fa-file-csv"></i>&nbsp; Usuários - CSV
+									<i class="fas fa-file-csv"></i>
+									Usuários - CSV
 								</a>
 							</div>
 						</li>
@@ -75,24 +94,24 @@
 
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="/administracao/usuarios">
-									<i class="fas fa-users"></i>&nbsp;
-										Listar Usuários
+									<i class="fas fa-users"></i>
+									Listar Usuários
 								</a>
 								<a class="dropdown-item" href="/administracao/usuarios/novo">
-									<i class="fas fa-user-plus"></i>&nbsp;
-										Incluir Usuário
+									<i class="fas fa-user-plus"></i>
+									Incluir Usuário
 								</a>
 								<a class="dropdown-item" href="/administracao/clientes">
 									<i class="fas fa-address-card"></i>
-										&nbsp; Listar Clientes
+									Listar Clientes
 								</a>
 								<a class="dropdown-item" href="/administracao/clientes/novo">
 									<i class="far fa-handshake"></i>
-										&nbsp; Incluir Cliente
+									Incluir Cliente
 								</a>
 								<a class="dropdown-item" href="/administracao/clientes/equipamentos">
 									<i class="fas fa-list-ol"></i>
-										&nbsp; Listar Equipamentos
+									Listar Equipamentos
 								</a>							
 							</div>
 						</li>

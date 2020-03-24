@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,9 +24,6 @@ public class Atendimento {
 	private Long numero;
 	
 	private Integer nros;
-	
-	@NotEmpty(message = "{tipo.not.empty}")
-	private String tipo;
 	
 	@Column(name="data_atendimento")
 	@Temporal(TemporalType.DATE)
@@ -44,24 +40,12 @@ public class Atendimento {
 	@DateTimeFormat(pattern = "HH:mm")
 	private Date fimAtendimento;
 	
-	@NotEmpty(message = "{status.not.empty}")
-	private String status;
-	
-	@NotEmpty(message = "{cliente.not.empty}")
-	private String cliente;
-	
-	@NotEmpty(message = "{solicitante.not.empty}")
-	private String solicitante;
-	
 	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipamento_id", nullable = false)
-    private Equipamento equipamento;
+    @JoinColumn(name = "chamado_id", nullable = false)
+    private Chamado chamado;
 	
 	//@NotEmpty(message = "{nota.not.empty}")
 	private String nota;
-	
-	@NotEmpty(message = "{descricao.not.empty}")
-	private String descricao;
 	
 	//@NotEmpty(message = "{diagnostico.not.empty}")
 	private String diagnostico;
@@ -78,9 +62,6 @@ public class Atendimento {
 	
 	private String ObsNaoApto;
 	
-	@NotNull(message = "{emissor.not.null}")
-	private String emissor;
-	
 	@NotNull(message = "{executor.not.null}")
 	private String executor;
 	
@@ -95,12 +76,12 @@ public class Atendimento {
 		this.numero = numero;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public Chamado getChamado() {
+		return chamado;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setChamado(Chamado chamado) {
+		this.chamado = chamado;
 	}
 
 	public Date getDataAtendimento() {
@@ -127,38 +108,6 @@ public class Atendimento {
 		this.inicioAtendimento = inicioAtendimento;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
-
-	public String getSolicitante() {
-		return solicitante;
-	}
-
-	public void setSolicitante(String solicitante) {
-		this.solicitante = solicitante;
-	}
-
-	public Equipamento getEquipamento() {
-		return equipamento;
-	}
-
-	public void setEquipamento(Equipamento equipamento) {
-		this.equipamento = equipamento;
-	}
-
 	public Integer getNros() {
 		return nros;
 	}
@@ -173,14 +122,6 @@ public class Atendimento {
 
 	public void setNota(String nota) {
 		this.nota = nota;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public String getDiagnostico() {
@@ -213,14 +154,6 @@ public class Atendimento {
 
 	public void setObsNaoApto(String obsNaoApto) {
 		ObsNaoApto = obsNaoApto;
-	}
-
-	public String getEmissor() {
-		return emissor;
-	}
-
-	public void setEmissor(String emissor) {
-		this.emissor = emissor;
 	}
 
 	public String getAprovador() {
@@ -261,6 +194,12 @@ public class Atendimento {
 
 	public void setCobrar(boolean cobrar) {
 		this.cobrar = cobrar;
+	}
+	
+	public String resumoAtendimento() {
+		return "tipo: " + this.getChamado().getTipo() + ", cliente: " + this.getChamado().getEquipamento().getCliente().getNome()
+				+ ", equipamaneto: " + this.getChamado().getEquipamento().getNrFabricanteModelo() + ", descrição: "
+				+ this.getChamado().getDescricao();
 	}
 
 	@Override
