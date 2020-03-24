@@ -42,7 +42,11 @@
 								aria-expanded="false">Atendimentos 
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">
+									<a class="dropdown-item" href="/chamados">
+										<i class="fas fa-clipboard-check"></i>
+										Incluir
+									</a>
+									<a class="dropdown-item" href="#">
 										<i class="fas fa-id-card-alt"></i>
 										Atender
 									</a>
@@ -58,14 +62,19 @@
 								Relatórios
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/relatorio/atendimentos"
+								<a class="dropdown-item" href="/relatorio/chamados"
 									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
 									<i class="fas fa-headset"></i>
+									Chamados
+								</a>
+								<a class="dropdown-item" href="/relatorio/atendimentos"
+									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									<i class="fas fa-clipboard-check"></i>
 									Atendimentos
 								</a>
 								<a class="dropdown-item" href="/relatorio/clientes"
 									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
-									<i class="far fa-handshake"></i>
+									<i class="fas fa-address-card"></i>
 									Clientes
 								</a>
 								<a class="dropdown-item" href="/relatorio/usuarios"

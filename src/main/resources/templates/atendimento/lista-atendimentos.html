@@ -12,7 +12,7 @@
 		layout:fragment="content">
 
 		<h1 class="titulo-formulario">
-			<i class="fas fa-list"></i>Relatório de Atendimentos
+			<i class="fas fa-list"></i>Listagem de Atendimentos
 		</h1>
 
 		<div class="alert  alert-success"
@@ -46,22 +46,14 @@
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">Código</th>
-							<th scope="col">Nr. OS</th>
-							<th scope="col">Tipo</th>
-							<th scope="col">Status</th>
-							<th scope="col">Cliente</th>
-							<th scope="col">Equipamento</th>
+							<th scope="col">Detalhes</th>
 							<th scope="col" class="text-center">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
-							<td th:text="${atendimento.nros}">123</td>
-							<td th:text="${atendimento.chamado.tipo}">123</td>
-							<td th:text="${atendimento.chamado.status}">123</td>
-							<td th:text="${atendimento.chamado.equipamento.cliente.nome}">123</td>
-							<td th:text="${atendimento.chamado.equipamento.getNrFabricanteModelo()}">123</td>
+							<td th:text="${atendimento.dadosAtendimento()}">123</td>
 							<td class="text-center">
 									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>

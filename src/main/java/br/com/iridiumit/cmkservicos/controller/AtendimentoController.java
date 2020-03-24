@@ -44,28 +44,28 @@ import br.com.iridiumit.cmkservicos.security.cmkUserDetails;
 @Controller
 @RequestMapping("/atendimentos")
 public class AtendimentoController {
-	
-	private static final String ORDERBYATENDIMENTO = "dataAbertura";
+
+	private static final String ORDERBYATENDIMENTO = "dataAtendimento";
 	private static final int RECORDSPERPAGE = 10;
 
 	@Autowired
 	private Atendimentos atendimentos;
-	
+
 	@Autowired
 	private Clientes clientes;
-	
+
 	@Autowired
 	private Equipamentos equipamentos;
-	
+
 	@Autowired
 	private Chamados chamados;
-	
+
 	@Autowired
 	private Usuarios usuarios;
 
 	@GetMapping
-	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro, 
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable, 
+	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
+			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos");
@@ -79,11 +79,12 @@ public class AtendimentoController {
 
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/pendencias")
 	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro) {
-		
-		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
+
+		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getLogin();
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-pendencias");
 
@@ -101,38 +102,39 @@ public class AtendimentoController {
 	public ModelAndView atendimentoEquipamento(Atendimento atendimento, @PathVariable Long id) {
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-atendimento");
-		
+
 		Chamado c = chamados.getOne(id);
 
 		atendimento.setChamado(c);
-		
+
 		modelAndView.addObject("usuarios", usuarios.findAllByOrderByNome());
-		
+
 		modelAndView.addObject(atendimento);
 
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/realizar/{id}")
 	public ModelAndView realizarAtendimento(@PathVariable Long id) {
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
-		
+
 		Atendimento atendimento = atendimentos.getOne(id);
-		
+
 		modelAndView.addObject(atendimento);
 
 		return modelAndView;
 	}
-	
+
 	@PostMapping("/realizar/salvar")
-	public ModelAndView realizarAtendimentoSalvar(@Valid Atendimento atendimento, BindingResult result, RedirectAttributes attributes) {
-		
+	public ModelAndView realizarAtendimentoSalvar(@Valid Atendimento atendimento, BindingResult result,
+			RedirectAttributes attributes) {
+
 		if (result.hasErrors()) {
 			System.out.println(result.getFieldErrorCount() + ", " + result.getFieldError());
 			return realizarAtendimento(atendimento.getNumero());
 		}
-		
+
 		atendimentos.save(atendimento);
 
 		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
@@ -142,8 +144,8 @@ public class AtendimentoController {
 	}
 
 	@GetMapping("/cliente/{id}")
-	public ModelAndView SelecaoPorCliente(@PathVariable Integer id,
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable, 
+	public ModelAndView SelecaoPorCliente(@ModelAttribute("filtro") FiltroGeral filtro, @PathVariable Integer id,
+			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 
 		Cliente c = clientes.getOne(id);
@@ -152,7 +154,11 @@ public class AtendimentoController {
 
 		modelAndView.addObject(c);
 
-		modelAndView.addObject("atendimentos", atendimentos.findByCliente(id, pageable));
+		if (filtro.getTextoFiltro() == null) {
+			modelAndView.addObject("atendimentos", atendimentos.findByCliente(id, pageable));
+		} else {
+			modelAndView.addObject("atendimentos", atendimentos.findByClienteTipo(id, filtro.getTextoFiltro(), pageable));
+		}
 
 		return modelAndView;
 
@@ -170,15 +176,17 @@ public class AtendimentoController {
 
 	@GetMapping("editar/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
+		
+		Atendimento a = atendimentos.getOne(id);
 
-		return atendimentoEquipamento(atendimentos.getOne(id), atendimentos.getOne(id).getChamado().getEquipamento().getId());
+		return atendimentoEquipamento(a, a.getChamado().getNra());
 	}
 
 	@GetMapping("/novo")
 	public ModelAndView novo(Atendimento atendimento) {
 
 		ModelAndView modelAndView = new ModelAndView("/atendimento/cadastro-RAEquipamento");
-		
+
 		modelAndView.addObject(atendimento);
 
 		return modelAndView;
@@ -186,11 +194,11 @@ public class AtendimentoController {
 
 	@PostMapping("/salvar")
 	public ModelAndView salvar(@Valid Atendimento atendimento, BindingResult result, RedirectAttributes attributes) {
-		
+
 		if (result.hasErrors()) {
 			return novo(atendimento);
 		}
-		
+
 		atendimentos.save(atendimento);
 
 		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
@@ -214,14 +222,14 @@ public class AtendimentoController {
 		return IOUtils.toByteArray(in);
 
 	}
-	
+
 	@ModelAttribute("ListaStatus")
-	public List<Lista_de_Status> ListaStatus(){
+	public List<Lista_de_Status> ListaStatus() {
 		return Arrays.asList(Lista_de_Status.values());
 	}
-	
+
 	@ModelAttribute("ListaTipos")
-	public List<Lista_de_Tipos> ListaTipos(){
+	public List<Lista_de_Tipos> ListaTipos() {
 		return Arrays.asList(Lista_de_Tipos.values());
 	}
 

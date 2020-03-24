@@ -16,8 +16,11 @@ public interface Atendimentos extends JpaRepository<Atendimento, Long>, PagingAn
 	@Query("select a from Atendimento a where lower(a.chamado.equipamento.tipo) like lower(concat('%', :tipo,'%'))")
 	Page<Atendimento> findByEquipamentoTipo(@Param("tipo")String tipo, Pageable pageable);
 	
-	@Query("select a from Atendimento a where a.chamado.equipamento.cliente.id = ?1")
-	Page<Atendimento> findByCliente(Integer id, Pageable pageable);
+	@Query("select a from Atendimento a where a.chamado.equipamento.cliente.id = :id")
+	Page<Atendimento> findByCliente(@Param("id")Integer id, Pageable pageable);
+	
+	@Query("select a from Atendimento a where lower(a.chamado.equipamento.tipo) like lower(concat('%', :tipo,'%')) and a.chamado.equipamento.cliente.id = :id")
+	Page<Atendimento> findByClienteTipo(@Param("id")Integer id, @Param("tipo")String tipo, Pageable pageable);
 	
 	@Query("SELECT a FROM Atendimento a WHERE a.chamado.tipo = ?1 and a.executor = ?2")
 	List<Atendimento> findByTipoAndExecutor(String tipo, String executor);
