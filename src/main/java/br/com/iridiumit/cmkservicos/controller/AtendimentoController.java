@@ -36,7 +36,6 @@ import br.com.iridiumit.cmkservicos.relatorio.AtendimentosREL;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
 import br.com.iridiumit.cmkservicos.repository.Clientes;
-import br.com.iridiumit.cmkservicos.repository.Equipamentos;
 import br.com.iridiumit.cmkservicos.repository.Usuarios;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.security.cmkUserDetails;
@@ -53,9 +52,6 @@ public class AtendimentoController {
 
 	@Autowired
 	private Clientes clientes;
-
-	@Autowired
-	private Equipamentos equipamentos;
 
 	@Autowired
 	private Chamados chamados;
@@ -157,7 +153,8 @@ public class AtendimentoController {
 		if (filtro.getTextoFiltro() == null) {
 			modelAndView.addObject("atendimentos", atendimentos.findByCliente(id, pageable));
 		} else {
-			modelAndView.addObject("atendimentos", atendimentos.findByClienteTipo(id, filtro.getTextoFiltro(), pageable));
+			modelAndView.addObject("atendimentos",
+					atendimentos.findByClienteTipo(id, filtro.getTextoFiltro(), pageable));
 		}
 
 		return modelAndView;
@@ -176,7 +173,7 @@ public class AtendimentoController {
 
 	@GetMapping("editar/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
-		
+
 		Atendimento a = atendimentos.getOne(id);
 
 		return atendimentoEquipamento(a, a.getChamado().getNra());
@@ -200,6 +197,12 @@ public class AtendimentoController {
 		}
 
 		atendimentos.save(atendimento);
+
+		Chamado c = chamados.getOne(atendimento.getChamado().getNra());
+
+		c.setStatus("AGENDADO");
+
+		chamados.save(c);
 
 		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
 

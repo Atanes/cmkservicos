@@ -40,9 +40,6 @@ public class ChamadoController {
 	private static final int RECORDSPERPAGE = 10;
 
 	@Autowired
-	private PageUtils pageUtils;
-
-	@Autowired
 	private Chamados chamados;
 
 	@Autowired
@@ -61,8 +58,11 @@ public class ChamadoController {
 			modelAndView.addObject("chamados",
 					chamados.findByEquipamentoTipo(filtro.getTextoFiltro(), pageable));
 		}
+		
+		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
 
-		modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
+		//modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
+		modelAndView.addObject("controlePagina", pageUtils);
 
 		return modelAndView;
 	}

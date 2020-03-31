@@ -44,9 +44,7 @@ public class EquipamentoController {
 	
 	@Autowired
 	private Clientes clientes;
-	
-	@Autowired
-	private PageUtils pageUtils;
+
 
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYEQUIPAMENTO, direction = Direction.ASC) Pageable pageable
@@ -61,7 +59,10 @@ public class EquipamentoController {
 					equipamentos.findByTipoContainingIgnoreCase(filtro.getTextoFiltro(), pageable));
 		}
 
-		modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
+		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
+		
+		//modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
+		modelAndView.addObject("controlePagina", pageUtils);
 		
 		return modelAndView;
 	}
@@ -113,8 +114,8 @@ public class EquipamentoController {
 
 		Equipamento e = equipamentos.findByNrcmk(equipamento.getNrcmk());
 
-		if (e != null && e.getId() != equipamento.getId()) {
-			result.rejectValue("NrCMK", "nrcmk.existente");
+		if (e != null && e.getNrcmk() != equipamento.getNrcmk()) {
+			result.rejectValue("nrcmk", "nrcmk.existente");
 		}
 
 		if (result.hasErrors()) {
