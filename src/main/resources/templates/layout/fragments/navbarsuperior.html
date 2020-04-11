@@ -127,7 +127,7 @@
 					</ul>
 					<form class="form-inline my-2 my-lg-0" action="/logout" method="post">
 						<i class="far fa-user-circle"></i>&nbsp;
-						<span sec:authentication="name">Bob</span>&nbsp;
+						<span sec:authentication="principal.nome">Bob</span>&nbsp;
 						<button type="submit" class="btn btn-secondary my-2 my-sm-0">
 							<i class="fas fa-sign-out-alt"></i>&nbsp;Sair
 						</button>

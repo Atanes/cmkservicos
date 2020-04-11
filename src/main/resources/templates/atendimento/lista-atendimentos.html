@@ -42,7 +42,7 @@
 		<div class="form-row">
 			<div class="table-responsive-sm col-sm-12">
 				<table id="tabela-produtos"
-					class="table  table-sm table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					class="table table-sm table-striped table-bordered table-hover table-condensed js-sticky-table">
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">Código</th>
@@ -53,8 +53,8 @@
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
-							<td th:text="${atendimento.dadosAtendimento()}">123</td>
-							<td class="text-center">
+							<td class="col-10" th:text="${atendimento.dadosAtendimento()}" th:classappend="${atendimento.chamado.tipo == 'EMERGENCIAL'}? 'alert-emergencial'">123</td>
+							<td class="col-1 text-center">
 									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
 									</a>
