@@ -47,7 +47,8 @@ public class EquipamentoController {
 
 
 	@GetMapping
-	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYEQUIPAMENTO, direction = Direction.ASC) Pageable pageable
+	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
+			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYEQUIPAMENTO, direction = Direction.ASC) Pageable pageable
 			, HttpServletRequest httpServletRequest) {
 
 		ModelAndView modelAndView = new ModelAndView("administracao/equipamento/lista-equipamentos");
@@ -61,7 +62,6 @@ public class EquipamentoController {
 
 		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
 		
-		//modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
 		modelAndView.addObject("controlePagina", pageUtils);
 		
 		return modelAndView;

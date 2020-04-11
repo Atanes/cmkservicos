@@ -39,13 +39,14 @@ import br.com.iridiumit.cmkservicos.repository.Clientes;
 import br.com.iridiumit.cmkservicos.repository.Usuarios;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.security.cmkUserDetails;
+import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
 @Controller
 @RequestMapping("/atendimentos")
 public class AtendimentoController {
 
 	private static final String ORDERBYATENDIMENTO = "dataAtendimento";
-	private static final int RECORDSPERPAGE = 10;
+	private static final int RECORDSPERPAGE = 6;
 
 	@Autowired
 	private Atendimentos atendimentos;
@@ -67,11 +68,15 @@ public class AtendimentoController {
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos");
 
 		if (filtro.getTextoFiltro() == null) {
-			modelAndView.addObject("atendimentos", atendimentos.findAll());
+			modelAndView.addObject("atendimentos", atendimentos.findAll(pageable));
 		} else {
 			modelAndView.addObject("atendimentos",
 					atendimentos.findByEquipamentoTipo(filtro.getTextoFiltro(), pageable));
 		}
+		
+		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
+
+		modelAndView.addObject("controlePagina", pageUtils);
 
 		return modelAndView;
 	}

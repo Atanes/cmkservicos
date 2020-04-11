@@ -61,7 +61,6 @@ public class ChamadoController {
 		
 		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
 
-		//modelAndView.addObject("urlPaginacao", pageUtils.URIPaginacao(httpServletRequest, "textoFiltro"));
 		modelAndView.addObject("controlePagina", pageUtils);
 
 		return modelAndView;
