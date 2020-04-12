@@ -33,23 +33,22 @@ import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
 @Controller
-@RequestMapping("/administracao/clientes/equipamentos")
+@RequestMapping("/administracao/equipamentos")
 public class EquipamentoController {
-	
+
 	private static final String ORDERBYEQUIPAMENTO = "nrcmk";
 	private static final int RECORDSPERPAGE = 10;
 
 	@Autowired
 	private Equipamentos equipamentos;
-	
+
 	@Autowired
 	private Clientes clientes;
 
-
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYEQUIPAMENTO, direction = Direction.ASC) Pageable pageable
-			, HttpServletRequest httpServletRequest) {
+			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYEQUIPAMENTO, direction = Direction.ASC) Pageable pageable,
+			HttpServletRequest httpServletRequest) {
 
 		ModelAndView modelAndView = new ModelAndView("administracao/equipamento/lista-equipamentos");
 
@@ -61,21 +60,20 @@ public class EquipamentoController {
 		}
 
 		PageUtils pageUtils = new PageUtils(httpServletRequest, pageable);
-		
+
 		modelAndView.addObject("controlePagina", pageUtils);
-		
+
 		return modelAndView;
 	}
 
-
-	@DeleteMapping("excluir/{id}")
+	@PostMapping("/excluir/{id}")
 	public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 
 		equipamentos.delete(equipamentos.getOne(id));
 
 		attributes.addFlashAttribute("mensagem", "Equipamento excluido com sucesso!!");
 
-		return "redirect:/administracao/clientes/equipamentos";
+		return "redirect:/administracao/equipamentos";
 	}
 
 	@GetMapping("/editar/{id}")
@@ -83,15 +81,13 @@ public class EquipamentoController {
 
 		return novo(equipamentos.getOne(id));
 	}
-	
+
 	@GetMapping("/incluirEquipamento/{id}")
-	public ModelAndView incluirEquipamento(@PathVariable Integer id) {
+	public ModelAndView incluirEquipamento(@PathVariable Integer id, Equipamento e) {
 
 		ModelAndView modelAndView = new ModelAndView("administracao/equipamento/cadastro-equipamento");
 
 		Cliente c = clientes.getOne(id);
-
-		Equipamento e = new Equipamento();
 
 		e.setCliente(c);
 
@@ -114,27 +110,22 @@ public class EquipamentoController {
 
 		Equipamento e = equipamentos.findByNrcmk(equipamento.getNrcmk());
 
-		if (e != null && e.getNrcmk() != equipamento.getNrcmk()) {
-			result.rejectValue("nrcmk", "nrcmk.existente");
+		if (e != null) {
+			if (!e.getId().equals(equipamento.getId())) {
+
+				result.rejectValue("nrcmk", "nrcmk.existente");
+			}
 		}
 
 		if (result.hasErrors()) {
 			return novo(equipamento);
 		}
-		
-		ModelAndView modelAndView = new ModelAndView("administracao/cliente/lista-cliente-e-equipamentos");
 
 		equipamentos.save(equipamento);
-		
-		Cliente cliente = clientes.getOne(equipamento.getCliente().getId());
 
-		modelAndView.addObject(cliente);
+		attributes.addFlashAttribute("mensagem", "Equipamento salvo com sucesso!!");
 
-		modelAndView.addObject("equipamentos", equipamentos.findByCliente(cliente));
-
-		modelAndView.addObject("mensagem", "Equipamento salvo com sucesso!!");
-
-		return modelAndView;
+		return new ModelAndView("redirect:/administracao/equipamentos");
 
 	}
 

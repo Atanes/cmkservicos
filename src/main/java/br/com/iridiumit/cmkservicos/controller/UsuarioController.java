@@ -124,7 +124,7 @@ public class UsuarioController {
 		Endereco e = usuario.getEndereco();
 		
 		if (u != null) {
-			result.rejectValue("cpf", "usuario.cpf.existente");
+			result.rejectValue("cpf", "usuario.cpf.existente", "Já existe um usuário com esse CPF cadastrado!!");
         }
 		
 		if (result.hasErrors()) {
