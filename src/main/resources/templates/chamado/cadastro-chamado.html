@@ -18,7 +18,7 @@
 			<form method="POST" class="form-vertical js-form-loading" 
 				 th:action="@{/chamados/salvar}" th:object="${chamado}">
 				
-				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 				
 				<input type="hidden" th:field="*{nra}" />
 				<input type="hidden" th:field="*{equipamento}" />

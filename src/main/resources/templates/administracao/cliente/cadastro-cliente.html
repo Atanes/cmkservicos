@@ -21,7 +21,7 @@
 			<form method="POST" class="form-vertical js-form-loading"
 				th:object="${cliente}" th:action="@{/administracao/clientes/salvar}">
 				
-				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 
 				<input type="hidden" th:field="*{id}" />
 				<input type="hidden" th:field="*{endereco}" />
