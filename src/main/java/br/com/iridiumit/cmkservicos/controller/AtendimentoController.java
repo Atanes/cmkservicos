@@ -138,7 +138,7 @@ public class AtendimentoController {
 
 		atendimentos.save(atendimento);
 
-		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/atendimentos/pendencias");
 
@@ -171,7 +171,7 @@ public class AtendimentoController {
 
 		atendimentos.delete(atendimentos.getOne(id));
 
-		attributes.addFlashAttribute("mensagem", "Atendimento excluida com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Atendimento excluida com sucesso!!");
 
 		return "redirect:/atendimentos";
 	}
@@ -209,7 +209,7 @@ public class AtendimentoController {
 
 		chamados.save(c);
 
-		attributes.addFlashAttribute("mensagem", "Atendimento salvo com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/atendimentos");
 

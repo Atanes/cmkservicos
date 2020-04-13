@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Equipamento {
@@ -16,7 +17,7 @@ public class Equipamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message = "{nrcmk.not.empty}")
+	@NotNull(message = "{nrcmk.not.null}")
 	private Integer nrcmk;
 
 	@ManyToOne(fetch = FetchType.LAZY)

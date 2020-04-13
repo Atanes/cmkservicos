@@ -98,7 +98,7 @@ public class ChamadoController {
 		
 		chamados.save(chamado);
 
-		attributes.addFlashAttribute("mensagem", "Chamado salvo com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Chamado salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/chamados");
 
@@ -121,7 +121,7 @@ public class ChamadoController {
 
 		chamados.delete(chamados.getOne(id));
 
-		attributes.addFlashAttribute("mensagem", "Chamado excluido com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Chamado excluido com sucesso!!");
 
 		return "redirect:/chamados";
 	}

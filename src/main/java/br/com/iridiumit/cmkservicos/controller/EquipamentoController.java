@@ -8,13 +8,13 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,9 +69,18 @@ public class EquipamentoController {
 	@PostMapping("/excluir/{id}")
 	public String excluir(@PathVariable Long id, RedirectAttributes attributes) {
 
-		equipamentos.delete(equipamentos.getOne(id));
-
-		attributes.addFlashAttribute("mensagem", "Equipamento excluido com sucesso!!");
+		try {
+			
+			equipamentos.delete(equipamentos.getOne(id));
+			
+			attributes.addFlashAttribute("sucesso", "Equipamento excluido com sucesso!!");
+			
+		} catch (DataIntegrityViolationException e) {
+			
+			System.out.println("Mensagem de erro: " + e.getMessage());
+			
+			attributes.addFlashAttribute("alerta", "Equipamento não pode ser excluido, existem chamados relacionados a ele!!");
+		}
 
 		return "redirect:/administracao/equipamentos";
 	}
@@ -123,7 +132,7 @@ public class EquipamentoController {
 
 		equipamentos.save(equipamento);
 
-		attributes.addFlashAttribute("mensagem", "Equipamento salvo com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Equipamento salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/administracao/equipamentos");
 

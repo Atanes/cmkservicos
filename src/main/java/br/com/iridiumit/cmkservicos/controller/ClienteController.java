@@ -67,7 +67,7 @@ public class ClienteController {
 
 		modelAndView.addObject("equipamentos", equipamentos.findByCliente(c));
 
-		modelAndView.addObject("mensagem", "Cliente salvo com sucesso!");
+		modelAndView.addObject("sucesso", "Cliente salvo com sucesso!");
 
 		return modelAndView;
 	}
@@ -96,7 +96,7 @@ public class ClienteController {
 
 		clientes.save(c);
 
-		attributes.addFlashAttribute("mensagem", "Cliente inativado com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Cliente inativado com sucesso!!");
 
 		return "redirect:/atendimento/clientes";
 	}

@@ -13,7 +13,7 @@
 		
 			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>Cadastro de Relatório de Atendimento - RA</h1>
 			
-			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form method="POST" class="form-vertical js-form-loading" 
 				 th:action="@{/atendimentos/salvar}" th:object="${atendimento}">

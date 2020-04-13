@@ -16,7 +16,7 @@
 			<h1 class="titulo-formulario"><i class="fas fa-user-edit"></i>
 			&nbsp;Editar usuário: <span class="nomeDestaque" th:text="${usuario.cpf}"></span> </h1>
 			
-			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 
 			<form name="formulario" method="POST" class="form-vertical  js-form-loading"
 				th:object="${usuario}" th:action="@{/administracao/usuarios/atualizar}">

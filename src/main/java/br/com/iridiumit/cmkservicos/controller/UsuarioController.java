@@ -56,7 +56,7 @@ public class UsuarioController {
 		
 		usuarioService.excluir(id);
 
-		attributes.addFlashAttribute("mensagem", "Usuário inativado com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Usuário inativado com sucesso!!");
 		
 		return "redirect:/administracao/usuarios";
 	}
@@ -70,7 +70,7 @@ public class UsuarioController {
 		
 		usuarioService.salvar(u);
 
-		attributes.addFlashAttribute("mensagem", "Usuário inativado com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Usuário inativado com sucesso!!");
 		
 		return "redirect:/administracao/usuarios";
 	}
@@ -84,7 +84,7 @@ public class UsuarioController {
 		
 		usuarioService.salvar(u);
 
-		attributes.addFlashAttribute("mensagem", "Usuário re-ativado com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Usuário re-ativado com sucesso!!");
 		
 		return "redirect:/administracao/usuarios";
 	}
@@ -135,7 +135,7 @@ public class UsuarioController {
         	usuario.setEndereco(e);
         
         	usuarioService.incluir(usuario);
-        	attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso!!");
+        	attributes.addFlashAttribute("sucesso", "Usuario salvo com sucesso!!");
         }
 		
 		return new ModelAndView("redirect:/administracao/usuarios/novo");
@@ -152,7 +152,7 @@ public class UsuarioController {
             return editar(usuario);
         } else {
         	usuarioService.atualizar(usuario);
-        	attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso!!");
+        	attributes.addFlashAttribute("sucesso", "Usuario atualizado com sucesso!!");
         }
 		
 		return new ModelAndView("redirect:/administracao/usuarios");

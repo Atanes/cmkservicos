@@ -2,12 +2,23 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
-	<div th:fragment="sucesso">
+	<div th:fragment="geral">
 		<div class="alert alert-success alert-dismissible" role="alert"
-			th:if="${!#strings.isEmpty(mensagem)}">
+			th:if="${!#strings.isEmpty(sucesso)}">
 			<i class="fa fa-check-circle"></i>
-			<span th:text="${mensagem}">
+			<span th:text="${sucesso}">
 				Mensagem sucesso!
+			</span>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    			<span aria-hidden="true">&times;</span>
+  			</button>
+		</div>
+		
+		<div class="alert alert-warning alert-dismissible" role="alert"
+			th:if="${!#strings.isEmpty(alerta)}">
+			<i class="fa fa-check-circle"></i>
+			<span th:text="${alerta}">
+				Mensagem alerta!
 			</span>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
     			<span aria-hidden="true">&times;</span>
