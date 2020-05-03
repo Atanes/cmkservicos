@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="order (pagina, propriedade, texto, lista, icone)">
+
+	<a 	th:href="${pagina.urlOrdenada(propriedade)}">
+		<span th:text="${texto}"></span>
+		<span th:if="${pagina.ordenada(propriedade)} == true">
+			<i class="fas fa-sort-alpha-down" th:if="${pagina.descendente(propriedade)} == false and ${icone} == 'texto'">
+			</i>
+			<i class="fas fa-sort-alpha-up" th:if="${pagina.descendente(propriedade)} == true and ${icone} == 'texto'">
+			</i>
+			<i class="fas fa-sort-numeric-down" th:if="${pagina.descendente(propriedade)} == false and ${icone} == 'numero'">
+			</i>
+			<i class="fas fa-sort-numeric-up" th:if="${pagina.descendente(propriedade)} == true and ${icone} == 'numero'">
+			</i>
+		</span>
+	</a>
+	
+</th:block>
+
+</html>

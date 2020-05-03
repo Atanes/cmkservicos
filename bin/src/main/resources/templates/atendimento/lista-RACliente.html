@@ -16,16 +16,12 @@
 			<span th:text="${cliente.nome}"></span>
 		</h1>
 
-		<div class="alert  alert-success"
-			th:if="${!#strings.isEmpty(mensagem)}">
-			<i class="fa fa-check-circle"></i> <span th:text="${mensagem}">Mensagem
-				sucesso!</span>
-		</div>
+		<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 		
 		<div class="form-row col-sm-6">
 			<div class="pesquisa">
 				<form method="GET" class="form-inline"
-					action="/atendimentos" th:object="${filtro}">
+					action="/atendimentos/cliente/${cliente.id}" th:object="${filtro}">
 					<div class="input-group">
 						<input class="form-control"
 							placeholder="Qual atendimento você está procurando?"
@@ -47,20 +43,14 @@
 					<thead>
 						<tr>
 							<th class="text-center" scope="col">Código</th>
-							<th scope="col">Nr. OS</th>
-							<th scope="col">Tipo</th>
-							<th scope="col">Status</th>
-							<th scope="col">Equipamento</th>
+							<th scope="col">Detalhes</th>
 							<th scope="col" class="text-center">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
-							<td th:text="${atendimento.nros}">123</td>
-							<td th:text="${atendimento.tipo}">123</td>
-							<td th:text="${atendimento.status}">123</td>
-							<td th:text="${atendimento.equipamento.getNrFabricanteModelo()}">123</td>
+							<td th:text="${atendimento.resumoAtendimento()}">123</td>
 							<td class="text-center">
 									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
@@ -69,8 +59,9 @@
 						</tr>
 
 						<tr>
-							<td colspan="6" th:if="${atendimentos.empty}">Nenhum Atendimento
-								cadastrado!!</td>
+							<td colspan="6" th:if="${atendimentos.empty}">
+								Nenhum Atendimento cadastrado!!
+							</td>
 						</tr>
 
 					</tbody>

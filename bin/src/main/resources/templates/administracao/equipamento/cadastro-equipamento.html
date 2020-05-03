@@ -17,12 +17,12 @@
 			<span class="text-primary" th:text="${equipamento.cliente.nome}"></span>
 		</h1>
 		
-		<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+		<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 
-		<form method="POST" class="form-vertical  js-form-loading"
-			th:object="${equipamento}" th:action="@{/administracao/clientes/equipamentos/salvar}">
+		<form method="POST" class="form-vertical js-form-loading"
+			th:object="${equipamento}" th:action="@{/administracao/equipamentos/salvar}">
 
-			<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+			<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{cliente}" />
@@ -31,25 +31,25 @@
 					
 					<div class="col-sm-1">
 						<div class="form-group">
-							<label class="campo_obrigatório" for="nrcmk">Nr. CMK</label>
+							<label class="campo_obrigatorio" for="nrcmk">Nr. CMK</label>
 							<input id="nrcmk" type="text" class="form-control" th:field="*{nrcmk}" />
 						</div>
 					</div>
 					
 					<div class="col-sm-4">
 						<div class="form-group">
-							<label class="campo_obrigatório" for="tipo">Tipo</label>
+							<label class="campo_obrigatorio" for="tipo">Tipo</label>
 							<input id="tipo" type="text" class="form-control" th:field="*{tipo}" />
 						</div>
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="fabricante">Fabricante</label>
+						<label class="campo_obrigatorio" for="fabricante">Fabricante</label>
 						<input id="fabricante" type="text" class="form-control" th:field="*{fabricante}"/>
 					</div>
 					
 					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatório" for="modelo">Modelo</label>
+						<label class="campo_obrigatorio" for="modelo">Modelo</label>
 						<input id="modelo" type="text" class="form-control" th:field="*{modelo}"/>
 					</div>
 					
@@ -58,12 +58,12 @@
 				<div class="form-row">
 				
 					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatório" for="capacidade">Capacidade</label>
+						<label class="campo_obrigatorio" for="capacidade">Capacidade</label>
 						<input id="capacidade" type="text" class="form-control" th:field="*{capacidade}"/>
 					</div>
 				
 					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatório" for="nrserie">Nr. Série</label>
+						<label class="campo_obrigatorio" for="nrserie">Nr. Série</label>
 						<input id="nrserie" type="text" class="form-control" th:field="*{nrserie}"/>
 					</div>
 							

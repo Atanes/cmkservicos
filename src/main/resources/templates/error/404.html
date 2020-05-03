@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorate="~{layout/layoutSimples}">
+<head>
+	<title>Página não encontrada - erro 404</title>
+</head>
+
+<body>
+	<section class="iit-error-panel aw-layout-content js-content layout-pagina" layout:fragment="content">
+
+		<div class="justify-content-md-center">
+			<img src="images/404_error.png">
+
+			<h2>Página não encontrada - erro 404</h2>
+
+			<div class="iit-error-panel__description">
+				<p>Desculpe, a página que você está procurando não foi encontrada!</p>
+				<p>Verifique se a URL digitada e stá correta ou entre em contato com o nosso suporte caso precise de ajuda.</p>
+				<a href="javascript:history.back()" class="btn btn-primary">Voltar
+					para onde estava</a>
+			</div>
+		</div>
+
+</section>
+</body>
+</html>

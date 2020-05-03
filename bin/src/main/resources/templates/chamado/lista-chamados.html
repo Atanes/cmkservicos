@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+</head>
+
+<body>
+
+	<section class="aw-layout-content js-content layout-pagina"
+		layout:fragment="content">
+
+		<h1 class="titulo-formulario">
+			<i class="fas fa-list"></i>Listagem de Chamados
+		</h1>
+
+		<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
+		
+		<div class="form-row col-sm-6">
+			<div class="pesquisa">
+				<form method="GET" class="form-inline"
+					action="/chamados" th:object="${filtro}">
+					<div class="input-group">
+						<input class="form-control"
+							placeholder="Qual chamado você está procurando?"
+							autofocus="autofocus" th:field="*{textoFiltro}"></input>
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-default">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="form-row">
+			<div class="table-responsive-sm col-sm-12">
+				<table id="tabela-produtos"
+					class="table  table-sm table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					<thead>
+						<tr>
+							<th class="text-center" scope="col">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'nra', 'N° RA', ${chamados}, 'numero')">
+								</th:block>
+							</th>
+							<th scope="col">Emissor</th>
+							<th class="text-center" scope="col">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'dataAbertura', 'Data', ${chamados}, 'numero')">
+								</th:block>
+							</th>
+							<th class="text-center" scope="col">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'status', 'Status', ${chamados}, 'texto')">
+								</th:block>
+							</th>
+							<th scope="col">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'equipamento.cliente.nome', 'Cliente', ${chamados}, 'texto')">
+								</th:block>
+							</th>
+							<th scope="col">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'equipamento.tipo', 'Equipamento', ${chamados}, 'texto')">
+								</th:block>
+							</th>
+							<th scope="col" class="text-center">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="chamado: ${chamados}">
+							<td class="text-center" th:text="${chamado.nra}">123</td>
+							<td th:text="${chamado.emissor}">123</td>
+							<td th:text="${chamado.getDataFormatada()}">123</td>
+							<td th:text="${chamado.status}">123</td>
+							<td th:text="${chamado.equipamento.cliente.getNome()}">123</td>
+							<td th:text="${chamado.equipamento.getNrFabricanteModelo()}">123</td>
+							<td class="text-center">
+							<form method="POST"
+									th:onsubmit="'return confirm(\'Posso remover o chamado com o Nr. RA: ' + 
+								${chamado.nra} + ' da base de dados?\');'"
+									th:action="@{/chamados/excluir/{id}(id=${chamado.nra})}">
+									<a class="btn btn-primary btn-sm" th:href="@{/chamados/editar/{id}(id=${chamado.nra})}"
+										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
+									</a>
+									<a class="btn btn-success btn-sm" th:href="@{/atendimentos/novo/{id}(id=${chamado.nra})}"
+										th:title="'Cadastrar Atendimento'"> <span class="fas fa-clipboard-check"></span>
+									</a>
+									<button type="submit" class="btn btn-danger btn-sm" title="Excluir">
+										<span class="far fa-trash-alt"></span>
+									</button>
+								</form>
+									
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="6" th:if="${chamados.empty}">
+								Nenhum Chamado cadastrado!!
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12 paginacao" th:if="${not #lists.isEmpty(chamados.content)}">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination pagination-sm justify-content-center" th:with="paginaAtual=${chamados.number}">
+						
+							<li th:class="${chamados.first} ? 'page-item disabled'">
+								<a class="page-link" th:href="${controlePagina.urlPaginacao('page',paginaAtual - 1)}" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+									<span class="sr-only">Previous</span>
+								</a>
+							</li>
+							<th:block th:each="p : ${#numbers.sequence(1, chamados.totalPages)}" th:with="numeroPagina=${p - 1}">
+								
+								<li th:class="${paginaAtual == numeroPagina} ? 'page-item active'">
+									<a class="page-link" th:href="${controlePagina.urlPaginacao('page',numeroPagina)}">[[${p}]]</a>
+								</li>
+								
+							</th:block>
+							<li th:class="${chamados.last} ? 'page-item disabled'">
+								<a class="page-link" th:href="${controlePagina.urlPaginacao('page',paginaAtual + 1)}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+									<span class="sr-only">Next</span>
+								</a>
+							</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

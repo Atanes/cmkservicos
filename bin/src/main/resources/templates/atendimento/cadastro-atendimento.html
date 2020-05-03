@@ -13,76 +13,74 @@
 		
 			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>Cadastro de Relatório de Atendimento - RA</h1>
 			
-			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form method="POST" class="form-vertical js-form-loading" 
 				 th:action="@{/atendimentos/salvar}" th:object="${atendimento}">
 				
-				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 				
 				<input type="hidden" th:field="*{numero}" />
+				<input type="hidden" th:field="*{chamado}" />
 
 				<div class="form-row">
+				
+					<div class="col-sm-6 form-group">
+						<label for="cliente">Cliente</label>
+						<input id="cliente" type="text" class="form-control" disabled="disabled"
+						th:value="*{chamado.equipamento.cliente.getNome()}" />
+					</div>
 					
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-6 form-group">
+						<label for="equipamento">Equipamento</label>
+						<input id="equipamento" type="text" class="form-control" disabled="disabled"
+						th:value="*{chamado.equipamento.getNrFabricanteModelo()}" />
+					</div>
+				</div>
+				<div class="form-row">
+				
+					<div class="col-sm-3 form-group">
+						<label for="solicitante">Solicitante</label>
+						<input id="solicitante" type="text" class="form-control" disabled="disabled"
+						th:field="*{chamado.solicitante}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label for="tipo">Tipo</label>
+						<input id="tipo" type="text" class="form-control" disabled="disabled"
+						th:field="*{chamado.tipo}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label for="status">Status</label>
+						<input id="status" type="text" class="form-control" disabled="disabled"
+						th:field="*{chamado.status}" />
+					</div>
+					
+					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
 						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
 					</div>
 					
-					<div class="col-sm-2 form-group">
-						<label class="campo_obrigatorio" for="cbotipo">Tipo</label>
-						<select	id="cbotipo" class="form-control" th:field="*{tipo}">
-								<option value="">Selecione o tipo do Atendimento</option>
-								<option th:each="listaTipo: ${ListaTipos}" th:value="${listaTipo}"
-									th:text="${listaTipo.descricao}">Opção 1</option>		
-							</select>
-					</div>
-					
-					<div class="col-sm-4 form-group">
-						<label for="cboequipamento">Equipamento</label>
-						<select	id="cboequipamento" class="form-control" th:field="*{equipamento.id}">
-								<option value="">Selecione o equipamento</option>
-								<option th:each="equipamento: ${equipamentos}" th:value="${equipamento.id}"
-									th:text="${equipamento.getNrFabricanteModelo()}">Opção 1</option>		
-							</select>
-					</div>
-					
-					<div class="col-sm-4 form-group">
-						<label for="cbocliente">Cliente</label>
-						<select id="cbocliente" class="form-control" th:field="*{cliente}">
-								<option value="">Selecione o cliente</option>
-								<option th:each="cliente: ${clientes}" th:value="${cliente.nome}"
-									th:text="${cliente.nome}">Opção 1</option>		
-							</select>
-					</div>
-					
 				</div>
 				
 				<div class="form-row">
 					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="solicitante">Solicitante</label>
-						<input id="solicitante" type="text" class="form-control" th:field="*{solicitante}" />
+					<div class="col-sm-6 form-group">
+						<label for="descricao">Descrição</label>
+						<textarea id="descricao" class="form-control" disabled="disabled"
+						th:field="*{chamado.descricao}"></textarea>
+					</div>
+					
+					<div class="col-sm-6 form-group">
+						<label class="campo_obrigatorio" for="nota">Nota</label>
+						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
 					</div>
 				
 				</div>
 				
 				<div class="form-row">
 				
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="descricao">Descrição</label>
-						<textarea id="descricao" class="form-control" th:field="*{descricao}"></textarea>
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cbostatus">Status</label>
-						<select	id="cbostatus" class="form-control" th:field="*{status}">
-								<option th:if="${atendimento.status}" th:value="${atendimento.status}">
-								<option th:unless="${atendimento.status}" value="">Selecione o status do Atendimento</option>
-								<option th:each="listaStatus: ${ListaStatus}" th:value="${listaStatus}"
-									th:text="${listaStatus.descricao}">Opção 1</option>		
-						</select>
-					</div>
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatorio" for="cboresponsavel">Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
@@ -99,16 +97,7 @@
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
-					</div>
-					
-				</div>
-				
-				<div class="form-row">
-				
-					<div class="col-sm-6 form-group">
-						<label class="campo_obrigatorio" for="nota">Nota</label>
-						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
-					</div>
+					</div>					
 					
 					<div class="col-sm-3">
 						<div class="form-check">
@@ -127,7 +116,6 @@
 					</div>
 				
 				</div>
-
 				
 				<div class="container">
 					<div class="form-row justify-content-between">

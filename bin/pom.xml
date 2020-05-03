@@ -113,12 +113,6 @@
 			<artifactId>xml-apis</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.7.0</version>
-		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
 		<dependency>
 			<groupId>org.webjars</groupId>

@@ -1,0 +1,35 @@
+/*------- Logo do cliente -------*/
+.logocliente {
+	width: 30px;
+}
+
+centralizar {
+	margin-right: -50%;
+}
+
+/*------- Dados do usuário -------*/
+.nome-usuario {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+/*-----------------------------------------------------------*\
+  Error panel
+  - Para ser usado em páginas de erro simpls (404, 500, etc)
+\*-----------------------------------------------------------*/
+.iit-error-panel {
+	margin-top: 2em; 
+	background-color : #cbc9ca;
+	text-align: center;
+}
+
+.iit-error-panel__description {
+	display: block;
+	padding: 18px 0;
+}
+
+.iit-error-panel__code {
+	color: yellow;
+	font-size: 80px;
+	font-weight: normal;
+}

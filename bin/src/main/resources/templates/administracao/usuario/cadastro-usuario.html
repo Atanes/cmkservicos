@@ -5,14 +5,10 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Usuários</title>
-	<script th:src="@{/js/BuscaCEP.js}"></script>
-	<script th:src="@{/js/jquery.mask.min.js}"></script>
-	
-	<script th:src="@{/webjars/jquery.inputmask/4.0.5/jquery.inputmask.bundle.js}"></script>
-	
-	<script th:src="@{/js/mascaras.js}"></script>
-	
-	<script th:src="@{/js/iridiumit.js}"></script>
+	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/BuscaCEP.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/iridiumit.js"></script>
 </head>
 
 <body>
@@ -20,12 +16,12 @@
 		
 			<h1 class="titulo-formulario"><i class="fas fa-user-plus"></i>Cadastro de usuário</h1>
 			
-			<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form name="formulario" method="POST" class="form-vertical  js-form-loading"
 				th:object="${usuario}" th:action="@{/administracao/usuarios/salvar}">
 				
-				<th:block th:insert="layout/fragments/MensagemErro :: erro"></th:block>
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
     			
 				<input type="hidden" th:field="*{id}" />
 				<input type="hidden" th:field="*{endereco}" />

@@ -15,7 +15,7 @@
 			Cliente: <span class="text-primary" th:text="${cliente.id} + ' - ' +${cliente.nome}"></span>
 		</h1>
 		
-		<th:block th:insert="layout/fragments/MensagemGeral :: sucesso"></th:block>
+		<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<div class="form-row">
 			
@@ -57,7 +57,7 @@
 				<div class="row justify-content-between">
 					
 					<a id="btnincluirequipamento" class="btn btn-success btn-sm col-sm-2"
-						th:href="@{/administracao/clientes/equipamentos/incluirEquipamento/{id}(id=${cliente.id})}" th:title="'Incluir Equipamento'">
+						th:href="@{/administracao/equipamentos/incluirEquipamento/{id}(id=${cliente.id})}" th:title="'Incluir Equipamento'">
 						<span class="fas fa-cogs"></span> Equipamento
 					</a>
 					<a id="btneditarcliente" class="btn btn-primary btn-sm col-sm-2"
@@ -97,11 +97,11 @@
 									th:onsubmit="'return confirm(\'Posso remover o equipamento com o Nr. CMK: ' + 
 								${equipamento.nrcmk} + ' da base de dados?\');'"
 									th:action="@{/administracao/clientes/equipamentos/excluir/{id}(id=${equipamento.id})}">
-									<a class="btn btn-primary btn-sm" th:href="@{/administracao/clientes/equipamentos/editar/{id}(id=${equipamento.id})}"
+									<a class="btn btn-primary btn-sm" th:href="@{/administracao/equipamentos/editar/{id}(id=${equipamento.id})}"
 										th:title="Editar"> <span class="fa fa-pencil-alt"></span>
 									</a>
-									<a class="btn btn-success btn-sm" th:href="@{/atendimentos/{id}(id=${equipamento.id})}"
-										th:title="Atendimento"> <span class="fa fa-clipboard-list"></span>
+									<a class="btn btn-success btn-sm" th:href="@{/chamados/novo/{id}(id=${equipamento.id})}"
+										th:title="Chamado"> <span class="fas fa-headset"></span>
 									</a>
 									<button type="submit" class="btn btn-danger btn-sm" title="Excluir">
 										<span class="far fa-trash-alt"></span>
