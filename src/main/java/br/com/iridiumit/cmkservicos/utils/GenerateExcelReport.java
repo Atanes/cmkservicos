@@ -19,7 +19,7 @@ import br.com.iridiumit.cmkservicos.modelos.Usuario;
 public class GenerateExcelReport {
 
 	public static ByteArrayInputStream usersToExcel(List<Usuario> users) throws IOException {
-		String[] COLUMNs = { "Id", "CPF", "Nome", "E-mail", "Telefone", "Login" };
+		String[] COLUMNs = { "Id", "CPF", "Nome", "E-mail", "Telefone" };
 		try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream();) {
 			Sheet sheet = workbook.createSheet("Usuarios");
 
@@ -49,7 +49,6 @@ public class GenerateExcelReport {
 				row.createCell(2).setCellValue(user.getNome());
 				row.createCell(3).setCellValue(user.getEmail());
 				row.createCell(4).setCellValue(user.getTelefone1());
-				row.createCell(5).setCellValue(user.getLogin());
 
 			}
 
@@ -59,7 +58,6 @@ public class GenerateExcelReport {
 			sheet.autoSizeColumn(2);
 			sheet.autoSizeColumn(3);
 			sheet.autoSizeColumn(4);
-			sheet.autoSizeColumn(5);
 
 			workbook.write(out);
 			return new ByteArrayInputStream(out.toByteArray());

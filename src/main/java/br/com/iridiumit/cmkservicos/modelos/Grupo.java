@@ -1,23 +1,33 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "permissao")
-public class Permissao implements Serializable {
+@Table(name = "grupo")
+public class Grupo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
 	private String nome;
+	
+	@ManyToMany
+	@JoinTable(name = "grupo_permissao", joinColumns = @JoinColumn(name = "codigo_grupo")
+			, inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
+	private List<Permissao> permissoes;
 
 	public Long getCodigo() {
 		return codigo;
@@ -35,29 +45,12 @@ public class Permissao implements Serializable {
 		this.nome = nome;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
+	public List<Permissao> getPermissoes() {
+		return permissoes;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Permissao other = (Permissao) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
 	}
-
+	
 }

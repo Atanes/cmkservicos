@@ -1,5 +1,7 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Equipamento {
+public class Equipamento implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,152 +50,110 @@ public class Equipamento {
 	private String planta;
 
 	private String unidade;
-
 	
+	public Equipamento() {
+		
+	}
+	
+	public Equipamento(Cliente e) {
+		this.cliente = e;
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public Integer getNrcmk() {
 		return nrcmk;
 	}
 
-
-
 	public void setNrcmk(Integer nrcmk) {
 		this.nrcmk = nrcmk;
 	}
-
-
 
 	public Cliente getCliente() {
 		return cliente;
 	}
 
-
-
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-
-
 
 	public String getTipo() {
 		return tipo;
 	}
 
-
-
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-
 
 	public String getFabricante() {
 		return fabricante;
 	}
 
-
-
 	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
-
-
 
 	public String getModelo() {
 		return modelo;
 	}
 
-
-
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-
-
 
 	public String getCapacidade() {
 		return capacidade;
 	}
 
-
-
 	public void setCapacidade(String capacidade) {
 		this.capacidade = capacidade;
 	}
-
-
 
 	public String getNrserie() {
 		return nrserie;
 	}
 
-
-
 	public void setNrserie(String nrserie) {
 		this.nrserie = nrserie;
 	}
-
-
 
 	public String getSetor() {
 		return setor;
 	}
 
-
-
 	public void setSetor(String setor) {
 		this.setor = setor;
 	}
-
-
 
 	public String getArea() {
 		return area;
 	}
 
-
-
 	public void setArea(String area) {
 		this.area = area;
 	}
-
-
 
 	public String getPlanta() {
 		return planta;
 	}
 
-
-
 	public void setPlanta(String planta) {
 		this.planta = planta;
 	}
-
-
 
 	public String getUnidade() {
 		return unidade;
 	}
 
-
-
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;
 	}
-
-
 
 	public String getNrFabricanteModelo() {
 
@@ -206,8 +168,6 @@ public class Equipamento {
 		return resposta;
 	}
 
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -216,8 +176,6 @@ public class Equipamento {
 		result = prime * result + ((nrcmk == null) ? 0 : nrcmk.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -240,6 +198,5 @@ public class Equipamento {
 			return false;
 		return true;
 	}
-
 
 }

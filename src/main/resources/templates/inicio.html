@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org"
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
 	layout:decorate="~{layout/layout}">
 <head>
 </head>
 
 <body>
-	<section class="aw-layout-content  js-content"
-		layout:fragment="content">
+	<section class="aw-layout-content js-content" layout:fragment="content">
 		<div class="content center">
 			<div class="layout-pagina">
 				<div class="page-header">
@@ -18,8 +17,8 @@
 						</a>
 					</div>
 					<h3>
-						<span sec:authentication="principal.nome"></span>, Bem vindo
-						ao sistema!
+						Olá, <span th:text="${#authentication.principal.usuario.nome}">Bob</span>
+						, seja muito bem vindo ao sistema da CMK!
 					</h3>
 					<p>Use o menu acima para navegar.</p>
 				</div>

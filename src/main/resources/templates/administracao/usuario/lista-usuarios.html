@@ -23,7 +23,7 @@
 				<div class="input-group col-sm-4">
 					<input class="form-control"
 						placeholder="Qual usuário você está procurando?"
-						autofocus="autofocus" th:field="*{nome}">
+						autofocus="autofocus" th:field="*{textoFiltro}">
 					<div class="input-group-append">
 						<button type="submit" class="btn btn-default">
 							<i class="fas fa-search"></i>
@@ -38,21 +38,18 @@
 					class="table table-sm table-striped table-bordered table-hover table-sm js-sticky-table">
 					<thead>
 						<tr>
-							<th scope="col" class="text-center">Login</th>
 							<th scope="col">Nome</th>
 							<th scope="col">E-mail</th>
-							<th scope="col">permisssão</th>
+							<th scope="col">Grupo(s)</th>
 							<th scope="col">Status</th>
 							<th scope="col" class="text-center">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="usuario: ${usuarios}">
-							<td class="text-center" th:text="${usuario.login}">1</td>
-
 							<td th:text="${usuario.nome}">usuario1</td>
 							<td th:text="${usuario.email}">123</td>
-							<td th:text="${usuario.permissoes}">123</td>
+							<td th:text="${usuario.getLista_de_Grupos()}">123</td>
 							<td th:text="${usuario.ativo} ? 'Ativo' : 'Inativo'">123</td>
 							<td class="text-center">
 									<a class="btn btn-primary btn-sm"

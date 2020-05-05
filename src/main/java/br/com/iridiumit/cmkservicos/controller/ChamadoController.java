@@ -26,10 +26,10 @@ import br.com.iridiumit.cmkservicos.modelos.Chamado;
 import br.com.iridiumit.cmkservicos.modelos.Equipamento;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Status;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Tipos;
+import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
 import br.com.iridiumit.cmkservicos.repository.Equipamentos;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
-import br.com.iridiumit.cmkservicos.security.cmkUserDetails;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
 @Controller
@@ -69,7 +69,7 @@ public class ChamadoController {
 	@GetMapping("/novo/{id}")
 	public ModelAndView chamadoEquipamento(Chamado chamado, @PathVariable Long id) {
 		
-		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getLogin();
+		String userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 
 		ModelAndView modelAndView = new ModelAndView("chamado/cadastro-chamado");
 		

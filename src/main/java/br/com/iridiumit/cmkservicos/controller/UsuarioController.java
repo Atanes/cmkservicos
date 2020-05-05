@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,37 +25,45 @@ import br.com.iridiumit.cmkservicos.modelos.Endereco;
 import br.com.iridiumit.cmkservicos.modelos.Usuario;
 import br.com.iridiumit.cmkservicos.relatorio.UsuarioREL;
 import br.com.iridiumit.cmkservicos.repository.Enderecos;
-import br.com.iridiumit.cmkservicos.repository.filtros.UsuarioFiltro;
-import br.com.iridiumit.cmkservicos.service.UsuarioService;
+import br.com.iridiumit.cmkservicos.repository.Grupos;
+import br.com.iridiumit.cmkservicos.repository.Usuarios;
+import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 
 @Controller
 @RequestMapping("/administracao/usuarios")
 public class UsuarioController {
 	
 	@Autowired
-	private UsuarioService usuarioService;
+	private Usuarios usuarios;
 	
 	@Autowired
 	private Enderecos enderecos;
 	
+	@Autowired
+	private Grupos grupos;
+	
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping
-	public ModelAndView listar(@ModelAttribute("filtro") UsuarioFiltro filtro) {
+	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro) {
 		
 		ModelAndView modelAndView = new ModelAndView("administracao/usuario/lista-usuarios");
 		
-		if(filtro.getNome() == null) {
-			modelAndView.addObject("usuarios", usuarioService.listarTodos());
+		if(filtro.getTextoFiltro() == null) {
+			modelAndView.addObject("usuarios", usuarios.findAll());
 		}else {
-			modelAndView.addObject("usuarios", usuarioService.filtrar(filtro.getNome()));
+			modelAndView.addObject("usuarios", usuarios.findByNomeContainingIgnoreCase(filtro.getTextoFiltro()));
 		}
 		
 		return modelAndView;
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/excluir/{id}")
 	public String remover(@PathVariable Long id, RedirectAttributes attributes) {
 		
-		usuarioService.excluir(id);
+		usuarios.deleteById(id);
 
 		attributes.addFlashAttribute("sucesso", "Usuário inativado com sucesso!!");
 		
@@ -64,11 +73,11 @@ public class UsuarioController {
 	@GetMapping("/inativar/{id}")
 	public String inativar(@PathVariable Long id, RedirectAttributes attributes) {
 		
-		Usuario u = usuarioService.localizar(id);
+		Usuario u = usuarios.getOne(id);
 		
 		u.setAtivo(false);
 		
-		usuarioService.salvar(u);
+		usuarios.save(u);
 
 		attributes.addFlashAttribute("sucesso", "Usuário inativado com sucesso!!");
 		
@@ -78,11 +87,11 @@ public class UsuarioController {
 	@GetMapping("/ativar/{id}")
 	public String ativar(@PathVariable Long id, RedirectAttributes attributes) {
 		
-		Usuario u = usuarioService.localizar(id);
+		Usuario u = usuarios.getOne(id);
 		
 		u.setAtivo(true);
 		
-		usuarioService.salvar(u);
+		usuarios.save(u);
 
 		attributes.addFlashAttribute("sucesso", "Usuário re-ativado com sucesso!!");
 		
@@ -92,7 +101,7 @@ public class UsuarioController {
 	@GetMapping("/{id}")
 	public ModelAndView editar(@PathVariable Long id) {
 
-		return editar(usuarioService.localizar(id));
+		return editar(usuarios.getOne(id));
 	}
 
 	@GetMapping("/novo")
@@ -101,7 +110,7 @@ public class UsuarioController {
 		
 		modelAndView.addObject(usuario);
 		
-		modelAndView.addObject("permissoes", usuarioService.permissoes());
+		modelAndView.addObject("grupos", grupos.findAll());
 
 		return modelAndView;
 	}
@@ -112,7 +121,7 @@ public class UsuarioController {
 
 		modelAndView.addObject(usuario);
 		
-		modelAndView.addObject("permissoes", usuarioService.permissoes());
+		modelAndView.addObject("grupos", grupos.findAll());
 
 		return modelAndView;
 	}
@@ -120,7 +129,7 @@ public class UsuarioController {
 	@PostMapping("/salvar")
 	public ModelAndView salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attributes) {
 	
-		Usuario u = usuarioService.localizarCPF(usuario.getCpf());
+		Usuario u = usuarios.findByCpf(usuario.getCpf());
 		Endereco e = usuario.getEndereco();
 		
 		if (u != null) {
@@ -133,8 +142,11 @@ public class UsuarioController {
         } else {
         	enderecos.save(e);
         	usuario.setEndereco(e);
+        	
+        	String senha = passwordEncoder.encode(usuario.getSenha());
+    		usuario.setSenha(senha);
         
-        	usuarioService.incluir(usuario);
+        	usuarios.save(usuario);
         	attributes.addFlashAttribute("sucesso", "Usuario salvo com sucesso!!");
         }
 		
@@ -151,7 +163,7 @@ public class UsuarioController {
 		if (result.hasErrors()) {
             return editar(usuario);
         } else {
-        	usuarioService.atualizar(usuario);
+        	usuarios.save(usuario);
         	attributes.addFlashAttribute("sucesso", "Usuario atualizado com sucesso!!");
         }
 		
@@ -164,7 +176,7 @@ public class UsuarioController {
 
 		UsuarioREL relatorio = new UsuarioREL();
 		try {
-			relatorio.imprimir(usuarioService.listarTodos());
+			relatorio.imprimir(usuarios.findAll());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

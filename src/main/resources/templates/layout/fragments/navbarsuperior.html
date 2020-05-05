@@ -16,7 +16,7 @@
 				<div id="navbarSupportedContent" class="collapse navbar-collapse">
 
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Chamados 
@@ -36,7 +36,7 @@
 									</a>
 								</div>
 							</li>
-							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA') or hasRole('CMK_ADMIN')">
+							<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ANALISTA') or hasRole('ROLE_CMK_ADMIN')">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Atendimentos 
@@ -56,29 +56,29 @@
 									</a>
 								</div>
 							</li>
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
 								Relatórios
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="/relatorio/chamados"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-headset"></i>
 									Chamados
 								</a>
 								<a class="dropdown-item" href="/relatorio/atendimentos"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-clipboard-check"></i>
 									Atendimentos
 								</a>
 								<a class="dropdown-item" href="/relatorio/clientes"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-address-card"></i>
 									Clientes
 								</a>
 								<a class="dropdown-item" href="/relatorio/usuarios"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-file-pdf"></i>
 									Usuários - PDF
 								</a>
@@ -95,7 +95,7 @@
 					
 					<!-- Menu com as funções de administração do sistema -->
 
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 							<a	href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">
 									Administração
@@ -127,7 +127,7 @@
 					</ul>
 					<form class="form-inline my-2 my-lg-0" action="/logout" method="post">
 						<i class="far fa-user-circle"></i>&nbsp;
-						<span sec:authentication="principal.nome">Bob</span>&nbsp;
+						<span th:text="${#authentication.principal.usuario.nome}">Bob</span>&nbsp;
 						<button type="submit" class="btn btn-secondary my-2 my-sm-0">
 							<i class="fas fa-sign-out-alt"></i>&nbsp;Sair
 						</button>

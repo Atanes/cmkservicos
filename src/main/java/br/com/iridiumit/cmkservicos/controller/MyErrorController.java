@@ -28,7 +28,7 @@ public class MyErrorController implements ErrorController  {
 	            return "error/403";
 	        }
 	    }
-	    return "error";
+	    return "error/error";
 	}
  
     @Override

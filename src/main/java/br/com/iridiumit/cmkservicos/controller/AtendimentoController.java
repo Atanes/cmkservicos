@@ -32,13 +32,13 @@ import br.com.iridiumit.cmkservicos.modelos.Chamado;
 import br.com.iridiumit.cmkservicos.modelos.Cliente;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Status;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Tipos;
+import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.relatorio.AtendimentosREL;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
 import br.com.iridiumit.cmkservicos.repository.Clientes;
 import br.com.iridiumit.cmkservicos.repository.Usuarios;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
-import br.com.iridiumit.cmkservicos.security.cmkUserDetails;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
 @Controller
@@ -84,8 +84,7 @@ public class AtendimentoController {
 	@GetMapping("/pendencias")
 	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro) {
 
-		String userLogin = ((cmkUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getLogin();
+		String userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-pendencias");
 

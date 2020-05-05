@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.iridiumit.cmkservicos.modelos.Cliente;
 import br.com.iridiumit.cmkservicos.modelos.Equipamento;
 import br.com.iridiumit.cmkservicos.relatorio.EquipamentoREL;
 import br.com.iridiumit.cmkservicos.repository.Clientes;
@@ -92,13 +91,11 @@ public class EquipamentoController {
 	}
 
 	@GetMapping("/incluirEquipamento/{id}")
-	public ModelAndView incluirEquipamento(@PathVariable Integer id, Equipamento e) {
+	public ModelAndView incluirEquipamento(@PathVariable Integer id) {
 
 		ModelAndView modelAndView = new ModelAndView("administracao/equipamento/cadastro-equipamento");
 
-		Cliente c = clientes.getOne(id);
-
-		e.setCliente(c);
+		Equipamento e = new Equipamento(clientes.getOne(id));
 
 		modelAndView.addObject(e);
 

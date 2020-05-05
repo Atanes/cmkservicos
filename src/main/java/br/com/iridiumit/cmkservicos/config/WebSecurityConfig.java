@@ -1,52 +1,58 @@
 package br.com.iridiumit.cmkservicos.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import br.com.iridiumit.cmkservicos.security.cmkUserDetailsService;
-
-
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private cmkUserDetailsService userDetailsService;
+	UserDetailsService userDetailsService;
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.
-			authorizeRequests()
-				.antMatchers(
-					"/resources/**",
-	                "/registration**",
-	                "/js/**",
-	                "/css/**",
-	                "/images/**",
-	                "/webjars/**",
-	                "/error**").permitAll()
-				.antMatchers("/").hasAnyRole("CMK_ADMIN", "CMK_COORDENADOR", "CMK_ANALISTA", "CMK_GESTOR")
+		http.authorizeRequests()
 				.antMatchers("/administracao/**").hasAnyRole("CMK_ADMIN")
 				.antMatchers("/relatorio/**").hasAnyRole("CMK_ADMIN","CMK_COORDENADOR","CMK_GESTOR")
 				.antMatchers("/atendimentos**").hasAnyRole("CMK_ADMIN","CMK_ANALISTA","CMK_COORDENADOR","CMK_GESTOR")
-				.anyRequest()
+				.anyRequest()				
 				.authenticated()
-			.and()
-			.formLogin()
-				.loginPage("/entrar")
-				.permitAll()
-			.and()
-			.logout()
-				.logoutSuccessUrl("/entrar?logout")
-				.permitAll()
-			.and()
-			.rememberMe()
-				.userDetailsService(userDetailsService)
-			.and()
-			.exceptionHandling().accessDeniedPage("/acessonegado");
+				.and()
+			.formLogin() // Para colocar o formulário de login quando usamos Spring Security
+				.loginPage("/login") // URL para o formulário de login
+				.permitAll() // permissão de acesso para todos ao formulário de login
+				.defaultSuccessUrl("/inicio", true)
+				.and()
+			.sessionManagement() // Controla a sessão
+				.maximumSessions(1) // O número máximo de sessões simultaneas para o mesmo usuário
+				.expiredUrl("/login"); // Chama a página escolhida no caso de exceder o nr. de acessos ao mesmo tempo
+	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/webjars/**")
+				.antMatchers("/images/**")
+				.antMatchers("/css/**")
+				.antMatchers("/js/**");
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
