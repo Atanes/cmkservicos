@@ -27,8 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/administracao/**").hasAnyRole("CMK_ADMIN")
-				.antMatchers("/relatorio/**").hasAnyRole("CMK_ADMIN","CMK_COORDENADOR","CMK_GESTOR")
-				.antMatchers("/atendimentos**").hasAnyRole("CMK_ADMIN","CMK_ANALISTA","CMK_COORDENADOR","CMK_GESTOR")
+				.antMatchers("/chamados").hasAnyRole("CMK_ADMIN", "CMK_COORDENADOR","CMK_GESTOR","CMK_ANALISTA")
+				.antMatchers("/chamados/**").hasAnyRole("CMK_ADMIN","CMK_COORDENADOR")
+				.antMatchers("/relatorios/**").hasAnyRole("CMK_ADMIN","CMK_COORDENADOR","CMK_GESTOR")
+				.antMatchers("/atendimentos").hasAnyRole("CMK_ADMIN", "CMK_ANALISTA","CMK_COORDENADOR","CMK_GESTOR")
+				.antMatchers("/atendimentos/**").hasAnyRole("CMK_ADMIN","CMK_ANALISTA","CMK_COORDENADOR","CMK_GESTOR", "CMK_TECNICO")
 				.anyRequest()				
 				.authenticated()
 				.and()

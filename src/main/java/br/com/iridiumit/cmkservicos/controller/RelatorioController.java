@@ -30,7 +30,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 @Controller
-@RequestMapping("/relatorio")
+@RequestMapping("/relatorios")
 public class RelatorioController {
 	
 	@Autowired

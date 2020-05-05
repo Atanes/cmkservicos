@@ -16,7 +16,7 @@
 				<div id="navbarSupportedContent" class="collapse navbar-collapse">
 
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+						<li class="nav-item dropdown">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Chamados 
@@ -36,7 +36,7 @@
 									</a>
 								</div>
 							</li>
-							<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ANALISTA') or hasRole('ROLE_CMK_ADMIN')">
+							<li class="nav-item dropdown">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Atendimentos 
@@ -56,37 +56,37 @@
 									</a>
 								</div>
 							</li>
-						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
 								Relatórios
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/relatorio/chamados"
-									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/chamados"
+									target="_blank">
 									<i class="fas fa-headset"></i>
 									Chamados
 								</a>
-								<a class="dropdown-item" href="/relatorio/atendimentos"
-									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/atendimentos"
+									target="_blank">
 									<i class="fas fa-clipboard-check"></i>
 									Atendimentos
 								</a>
-								<a class="dropdown-item" href="/relatorio/clientes"
-									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/clientes"
+									target="_blank">
 									<i class="fas fa-address-card"></i>
 									Clientes
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios"
-									target="_blank" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/usuarios"
+									target="_blank">
 									<i class="fas fa-file-pdf"></i>
 									Usuários - PDF
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios_Excel" target="_blank">
+								<a class="dropdown-item" href="/relatorios/usuarios_Excel" target="_blank">
 									<i class="fas fa-file-excel"></i>
 									Usuários - Excel
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios_CSV" target="_blank"> 
+								<a class="dropdown-item" href="/relatorios/usuarios_CSV" target="_blank"> 
 									<i class="fas fa-file-csv"></i>
 									Usuários - CSV
 								</a>
@@ -95,18 +95,18 @@
 					
 					<!-- Menu com as funções de administração do sistema -->
 
-						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
+						<li class="nav-item dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 							<a	href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">
 									Administração
 							</a>
 
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/administracao/usuarios">
+								<a class="dropdown-item" href="/administracao/usuarios" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-users"></i>
 									Listar Usuários
 								</a>
-								<a class="dropdown-item" href="/administracao/usuarios/novo">
+								<a class="dropdown-item" href="/administracao/usuarios/novo" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-user-plus"></i>
 									Incluir Usuário
 								</a>
