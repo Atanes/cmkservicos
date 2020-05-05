@@ -38,7 +38,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 
 		List<String> permissoes = usuarios.listaPermissoes(usuario);
-		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority("ROLE_" + p.toUpperCase())));
+		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.toUpperCase())));
 		
 		System.out.println(authorities.toString());
 
