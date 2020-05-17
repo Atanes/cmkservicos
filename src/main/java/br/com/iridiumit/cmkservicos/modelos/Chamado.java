@@ -77,6 +77,12 @@ public class Chamado {
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 		return formato.format(d);
 	}
+	
+	public String getDataCurta() {
+		Date d = this.dataAbertura; 
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy"); 
+		return formato.format(d);
+	}
 
 	public String getTipo() {
 		return tipo;

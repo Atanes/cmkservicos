@@ -4,6 +4,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/layout}">
 <head>
+	<link th:href="@{/css/estilo.css}"	rel="stylesheet" />
 </head>
 
 <body>
@@ -74,10 +75,10 @@
 						<tr th:each="chamado: ${chamados}">
 							<td class="text-center" th:text="${chamado.nra}">123</td>
 							<td th:text="${chamado.emissor}">123</td>
-							<td th:text="${chamado.getDataFormatada()}">123</td>
+							<td th:text="${chamado.getDataCurta()}">123</td>
 							<td th:text="${chamado.status}">123</td>
 							<td th:text="${chamado.equipamento.cliente.getNome()}">123</td>
-							<td th:text="${chamado.equipamento.getNrFabricanteModelo()}">123</td>
+							<td th:text="${chamado.equipamento.getTipoFabricanteModeloNrSerie()}">123</td>
 							<td class="text-center">
 							<form method="POST"
 									th:onsubmit="'return confirm(\'Posso remover o chamado com o Nr. RA: ' + 
