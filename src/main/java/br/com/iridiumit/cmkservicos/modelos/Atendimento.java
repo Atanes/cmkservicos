@@ -197,13 +197,14 @@ public class Atendimento {
 	}
 	
 	public String resumoAtendimento() {
-		return "Tipo: " + this.getChamado().getTipo() + ", Equipamento: " + this.getChamado().getEquipamento().getNrFabricanteModelo() + ", Descrição: "
-				+ this.getChamado().getDescricao();
+		return "Tipo: " + this.getChamado().getTipo() + ", Equipamento: " 
+				+ this.getChamado().getEquipamento().getTipoFabricanteModeloNrSerie() 
+				+ ", Descrição: " + this.getChamado().getDescricao();
 	}
 	
 	public String dadosAtendimento() {
 		return "O.S.: " + this.getNros() + ", Tipo: " + this.getChamado().getTipo() + ", Equipamento: " 
-				+ this.getChamado().getEquipamento().getNrFabricanteModelo() + ", Descrição: "
+				+ this.getChamado().getEquipamento().getTipoFabricanteModeloNrSerie() + ", Descrição: "
 				+ this.getChamado().getDescricao() + ", Status: " + this.getChamado().getStatus() 
 				+ ", Executor : " + this.getExecutor() ;
 	}

@@ -155,14 +155,16 @@ public class Equipamento implements Serializable {
 		this.unidade = unidade;
 	}
 
-	public String getNrFabricanteModelo() {
+	public String getTipoFabricanteModeloNrSerie() {
 
-		String resposta = "";
-
-		if (this.modelo == null) {
-			resposta = this.nrcmk + " - " + this.tipo + " - " + this.fabricante;
-		} else {
-			resposta = this.nrcmk + " - " + this.tipo + " - " + this.fabricante + " - " + this.modelo;
+		String resposta = this.tipo + " - " + this.fabricante;
+		
+		if(this.modelo != null) {
+			resposta += " - " + this.modelo;
+		}
+		
+		if(this.nrserie != null) {
+			resposta += " - " + this.nrserie;
 		}
 
 		return resposta;

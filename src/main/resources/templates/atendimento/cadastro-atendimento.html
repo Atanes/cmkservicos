@@ -82,16 +82,16 @@
 				<div class="form-row">
 				
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboresponsavel">Responsável</label>
+						<label class="campo_obrigatorio" for="cboresponsavel">Técnico Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
-								<option value="">Selecione o responsável pelo Atendimento</option>
+								<option value="">Selecione o técnico responsável pelo Atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboaprovador">Aprovador</label>
+						<label class="campo_obrigatorio" for="cboaprovador">Gestor Responsável</label>
 						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
 								<option value="">Selecione o gestor do responsável pelo atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"

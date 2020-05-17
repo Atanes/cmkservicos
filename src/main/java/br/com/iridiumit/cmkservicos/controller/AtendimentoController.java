@@ -14,7 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +31,6 @@ import br.com.iridiumit.cmkservicos.modelos.Chamado;
 import br.com.iridiumit.cmkservicos.modelos.Cliente;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Status;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Tipos;
-import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.relatorio.AtendimentosREL;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
@@ -81,22 +79,6 @@ public class AtendimentoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/pendencias")
-	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro) {
-
-		String userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-
-		ModelAndView modelAndView = new ModelAndView("atendimento/lista-pendencias");
-
-		if (filtro.getTextoFiltro() == null) {
-			modelAndView.addObject("atendimentos", atendimentos.findByExecutor(userLogin));
-		} else {
-			modelAndView.addObject("atendimentos",
-					atendimentos.findByTipoAndExecutor(filtro.getTextoFiltro(), userLogin));
-		}
-
-		return modelAndView;
-	}
 
 	@GetMapping("/novo/{id}")
 	public ModelAndView atendimentoEquipamento(Atendimento atendimento, @PathVariable Long id) {
@@ -114,34 +96,7 @@ public class AtendimentoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/realizar/{id}")
-	public ModelAndView realizarAtendimento(@PathVariable Long id) {
-
-		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
-
-		Atendimento atendimento = atendimentos.getOne(id);
-
-		modelAndView.addObject(atendimento);
-
-		return modelAndView;
-	}
-
-	@PostMapping("/realizar/salvar")
-	public ModelAndView realizarAtendimentoSalvar(@Valid Atendimento atendimento, BindingResult result,
-			RedirectAttributes attributes) {
-
-		if (result.hasErrors()) {
-			System.out.println(result.getFieldErrorCount() + ", " + result.getFieldError());
-			return realizarAtendimento(atendimento.getNumero());
-		}
-
-		atendimentos.save(atendimento);
-
-		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
-
-		return new ModelAndView("redirect:/atendimentos/pendencias");
-
-	}
+	
 
 	@GetMapping("/cliente/{id}")
 	public ModelAndView SelecaoPorCliente(@ModelAttribute("filtro") FiltroGeral filtro, @PathVariable Integer id,

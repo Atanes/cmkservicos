@@ -42,17 +42,21 @@
 								aria-expanded="false">Atendimentos 
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/chamados">
+									<a class="dropdown-item" href="/chamados" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 										<i class="fas fa-clipboard-check"></i>
 										Incluir
 									</a>
-									<a class="dropdown-item" href="#">
+									<a class="dropdown-item" href="/tecnico/pendencias" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_TECNICO')">
 										<i class="fas fa-id-card-alt"></i>
-										Atender
+										Atender - Técnico
 									</a>
-									<a class="dropdown-item" href="/atendimentos">
+									<a class="dropdown-item" href="/atendimentos" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 										<i class="fas fa-list-ol"></i>
 										Listar Atendimentos
+									</a>
+									<a class="dropdown-item" href="/tecnico" sec:authorize="hasRole('ROLE_CMK_TECNICO')">
+										<i class="fas fa-list-ol"></i>
+										Listar Atendimentos - Técnico
 									</a>
 								</div>
 							</li>

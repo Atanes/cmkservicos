@@ -5,7 +5,7 @@
 	layout:decorate="~{layout/layout}">
 <head>
 </head>
-
+	<link th:href="@{/css/estilo.css}"	rel="stylesheet" />
 <body>
 
 	<section class="aw-layout-content js-content layout-pagina"
@@ -20,7 +20,7 @@
 		<div class="form-row col-sm-6">
 			<div class="pesquisa">
 				<form method="GET" class="form-inline"
-					action="/atendimentos/pendencias" th:object="${filtro}">
+					action="/tecnico/pendencias" th:object="${filtro}">
 					<div class="input-group">
 						<input class="form-control"
 							placeholder="Qual atendimento você está procurando?"
@@ -36,36 +36,38 @@
 		</div>
 		
 		<div class="form-row">
-			<div class="table-responsive-sm col-sm-12">
+					<div class="table-responsive-sm col-sm-12">
 				<table id="tabela-produtos"
-					class="table  table-sm table-striped  table-bordered  table-hover  table-condensed  js-sticky-table">
+					class="table table-sm table-striped table-bordered table-hover table-condensed js-sticky-table">
 					<thead>
 						<tr>
-							<th class="text-center" scope="col">Código</th>
-							<th scope="col">Nr. OS</th>
-							<th scope="col">Tipo</th>
-							<th scope="col">Status</th>
-							<th scope="col">Cliente</th>
-							<th scope="col" class="text-center">Ações</th>
+							<th class="text-center">
+								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
+									'numero', 'Código', ${atendimentos}, 'numero')">
+								</th:block>
+							</th>
+							<th>Detalhes</th>
+							<th class="text-center">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
-							<td th:text="${atendimento.nros}">123</td>
-							<td th:text="${atendimento.tipo}">123</td>
-							<td th:text="${atendimento.status}">123</td>
-							<td th:text="${atendimento.cliente}">123</td>
-							<td class="text-center">
-									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/realizar/{id}(id=${atendimento.numero})}"
+							<td th:text="${atendimento.dadosAtendimento()}" th:classappend="${atendimento.chamado.tipo == 'EMERGENCIAL'}? 'alert-emergencial'">123</td>
+							<td class="text-center iit-grupo-acoes-botoes">
+									<a class="btn btn-primary btn-sm" th:href="@{/tecnico/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
+									</a>
+									<a class="btn btn-success btn-sm" th:href="@{/tecnico/iniciar/{id}(id=${atendimento.numero})}"
+										th:title="'Iniciar atendimento'"> <i class="fas fa-id-card-alt"></i>
 									</a>
 							</td>
 						</tr>
 
 						<tr>
-							<td colspan="6" th:if="${atendimentos.empty}">Nenhum Atendimento
-								cadastrado!!</td>
+							<td colspan="6" th:if="${atendimentos.empty}">
+								Nenhum Atendimento cadastrado!!
+							</td>
 						</tr>
 
 					</tbody>

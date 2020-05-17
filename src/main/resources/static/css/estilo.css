@@ -33,3 +33,11 @@ centralizar {
 	font-size: 80px;
 	font-weight: normal;
 }
+
+.table-sm .btn-sm {
+    font-size: .5em;
+    padding-top: .25em;
+    padding-bottom: .25em;
+    padding-left: .35em;
+    padding-right: .35em;
+}
