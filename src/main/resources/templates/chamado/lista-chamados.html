@@ -78,7 +78,7 @@
 							<td th:text="${chamado.getDataCurta()}">123</td>
 							<td th:text="${chamado.status}">123</td>
 							<td th:text="${chamado.equipamento.cliente.getNome()}">123</td>
-							<td th:text="${chamado.equipamento.getTipoFabricanteModeloNrSerie()}">123</td>
+							<td th:text="${chamado.equipamento}">123</td>
 							<td class="text-center">
 							<form method="POST"
 									th:onsubmit="'return confirm(\'Posso remover o chamado com o Nr. RA: ' + 

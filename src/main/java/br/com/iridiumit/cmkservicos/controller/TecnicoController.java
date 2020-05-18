@@ -84,6 +84,8 @@ public class TecnicoController {
 		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
 
 		Atendimento atendimento = atendimentos.getOne(id);
+		
+		atendimento.getChamado().setStatus("ATENDIMENTO");
 
 		modelAndView.addObject(atendimento);
 
@@ -98,10 +100,12 @@ public class TecnicoController {
 			System.out.println(result.getFieldErrorCount() + ", " + result.getFieldError());
 			return realizarAtendimento(atendimento.getNumero());
 		}
+		
+		atendimento.getChamado().setStatus("FINALIZADO");
 
 		atendimentos.save(atendimento);
 
-		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
+		attributes.addFlashAttribute("sucesso", "Atendimento finalizado e salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/tecnico/pendencias");
 

@@ -14,7 +14,7 @@
 			<h1 class="titulo-formulario">
 				<i class="fa fa-clipboard-list"></i>
 				Atendimento para o Equipamento:
-				<span class="text-primary" th:text="${atendimento.equipamento.getNrFabricanteModelo()}"></span>
+				<span class="text-primary" th:text="${atendimento.equipamento}"></span>
 				<br>Cliente: <span class="text-primary" th:text="${atendimento.equipamento.cliente.nome}"></span>
 			</h1>
 			
@@ -34,7 +34,7 @@
 					
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
-						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
+						<input id="nros" type="text" class="form-control" th:field="*{nros}" required/>
 					</div>
 					
 					<div class="col-sm-3 form-group">
@@ -94,8 +94,8 @@
 				<div class="form-row">
 				
 					<div class="col-sm-8 form-group">
-						<label for="nota">Nota</label>
-						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
+						<label for="nota">Informações adicionais</label>
+						<input id="nota" type="text" class="form-control" th:field="*{nota}" required />
 					</div>
 					
 					<div class="col-sm-2">
@@ -118,7 +118,7 @@
 
 				<div class="container">
 					<div class="form-row justify-content-between">
-						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+						<button class="btn btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
 							<i class="far fa-save"></i> Salvar
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"

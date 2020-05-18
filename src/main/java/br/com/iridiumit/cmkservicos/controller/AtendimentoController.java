@@ -138,21 +138,11 @@ public class AtendimentoController {
 		return atendimentoEquipamento(a, a.getChamado().getNra());
 	}
 
-	@GetMapping("/novo")
-	public ModelAndView novo(Atendimento atendimento) {
-
-		ModelAndView modelAndView = new ModelAndView("/atendimento/cadastro-RAEquipamento");
-
-		modelAndView.addObject(atendimento);
-
-		return modelAndView;
-	}
-
 	@PostMapping("/salvar")
 	public ModelAndView salvar(@Valid Atendimento atendimento, BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
-			return novo(atendimento);
+			return atendimentoEquipamento(atendimento, atendimento.getChamado().getNra());
 		}
 
 		atendimentos.save(atendimento);

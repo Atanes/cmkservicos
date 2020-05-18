@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,6 +24,7 @@ public class Atendimento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
 	
+	@NotNull(message = "{nros.not.empty}")
 	private Integer nros;
 	
 	@Column(name="data_atendimento")
@@ -62,10 +64,10 @@ public class Atendimento {
 	
 	private String ObsNaoApto;
 	
-	@NotNull(message = "{executor.not.null}")
+	@NotEmpty(message = "{executor.not.null}")
 	private String executor;
 	
-	@NotNull(message = "{aprovador.not.null}")
+	@NotEmpty(message = "{aprovador.not.null}")
 	private String aprovador;
 	
 	public Long getNumero() {

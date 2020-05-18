@@ -50,11 +50,11 @@ public class Equipamento implements Serializable {
 	private String planta;
 
 	private String unidade;
-	
+
 	public Equipamento() {
-		
+
 	}
-	
+
 	public Equipamento(Cliente e) {
 		this.cliente = e;
 	}
@@ -158,12 +158,27 @@ public class Equipamento implements Serializable {
 	public String getTipoFabricanteModeloNrSerie() {
 
 		String resposta = this.tipo + " - " + this.fabricante;
-		
-		if(this.modelo != null) {
+
+		if (this.modelo != null) {
 			resposta += " - " + this.modelo;
 		}
-		
-		if(this.nrserie != null) {
+
+		if (this.nrserie != null) {
+			resposta += " - " + this.nrserie;
+		}
+
+		return resposta;
+	}
+
+	@Override
+	public String toString() {
+		String resposta = this.tipo + " - " + this.fabricante;
+
+		if (this.modelo != null) {
+			resposta += " - " + this.modelo;
+		}
+
+		if (this.nrserie != null) {
 			resposta += " - " + this.nrserie;
 		}
 

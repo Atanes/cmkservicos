@@ -54,12 +54,13 @@
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
-							<td th:text="${atendimento.dadosAtendimento()}" th:classappend="${atendimento.chamado.tipo == 'EMERGENCIAL'}? 'alert-emergencial'">123</td>
+							<td th:text="${atendimento.dadosAtendimento()}" 
+								th:classappend="${atendimento.chamado.tipo == 'EMERGENCIAL' and atendimento.chamado.status != 'FINALIZADO'}? 'alert-emergencial'">123</td>
 							<td class="text-center">
 									<a class="btn btn-primary btn-sm" th:href="@{/atendimentos/editar/{id}(id=${atendimento.numero})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
 									</a>
-									<a class="btn btn-success btn-sm" th:href="@{/atendimentos/iniciar/{id}(id=${atendimento.numero})}"
+									<a class="btn btn-success btn-sm" th:href="@{tecnico/realizar/{id}(id=${atendimento.numero})}"
 										th:title="'Iniciar atendimento'"> <i class="fas fa-id-card-alt"></i>
 									</a>
 							</td>

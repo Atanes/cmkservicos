@@ -38,6 +38,8 @@ public class ChamadoController {
 	
 	private static final String ORDERBYCHAMADO = "dataAbertura";
 	private static final int RECORDSPERPAGE = 10;
+	
+	UsuarioSistema userLogin;
 
 	@Autowired
 	private Chamados chamados;
@@ -69,7 +71,7 @@ public class ChamadoController {
 	@GetMapping("/novo/{id}")
 	public ModelAndView chamadoEquipamento(Chamado chamado, @PathVariable Long id) {
 		
-		String userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 		ModelAndView modelAndView = new ModelAndView("chamado/cadastro-chamado");
 		
@@ -77,7 +79,7 @@ public class ChamadoController {
 
 		chamado.setEquipamento(e);
 		
-		chamado.setEmissor(userLogin);
+		chamado.setEmissor(userLogin.getUsuario().getNome());
 		
 		chamado.setDataAbertura(new Date());
 		
