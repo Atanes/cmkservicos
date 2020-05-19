@@ -18,8 +18,8 @@ centralizar {
   - Para ser usado em páginas de erro simpls (404, 500, etc)
 \*-----------------------------------------------------------*/
 .iit-error-panel {
-	margin-top: 2em; 
-	background-color : #cbc9ca;
+	margin-top: 2em;
+	background-color: #cbc9ca;
 	text-align: center;
 }
 
@@ -35,9 +35,83 @@ centralizar {
 }
 
 .table-sm .btn-sm {
-    font-size: .5em;
-    padding-top: .25em;
-    padding-bottom: .25em;
-    padding-left: .35em;
-    padding-right: .35em;
+	font-size: .5em;
+	padding-top: .25em;
+	padding-bottom: .25em;
+	padding-left: .35em;
+	padding-right: .35em;
+}
+
+.navbar-cmk-dark .navbar-brand {
+	color: #fff
+}
+
+.navbar-cmk-dark .dropdown-item {
+	color: #fff
+}
+
+
+.navbar-cmk-dark .navbar-brand:focus, .navbar-cmk-dark .navbar-brand:hover
+	{
+	color: #fff
+}
+
+.navbar-cmk-dark .navbar-nav .nav-link  {
+	color: rgba(255, 255, 255, .75)
+}
+
+.navbar-cmk-dark .navbar-nav .nav-link:focus, .navbar-cmk-dark .navbar-nav .nav-link:hover
+	{
+	color: rgba(255, 255, 255, .95)
+}
+
+.navbar-cmk-dark .navbar-nav .nav-link.disabled {
+	color: rgba(255, 255, 255, .25)
+}
+
+.navbar-cmk-dark .navbar-nav .active>.nav-link, .navbar-cmk-dark .navbar-nav .nav-link.active,
+	.navbar-cmk-dark .navbar-nav .nav-link.show, .navbar-cmk-dark .navbar-nav .show>.nav-link
+	{
+	color: #fff
+}
+
+.navbar-cmk-dark .navbar-toggler {
+	color: rgba(255, 255, 255, .75);
+	border-color: rgba(255, 255, 255, .1)
+}
+
+.navbar-cmk-dark .navbar-toggler-icon {
+	background-image:
+		url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+
+.navbar-cmk-dark .navbar-text {
+	color: rgba(255, 255, 255, .75)
+}
+
+.navbar-cmk-dark .navbar-text a {
+	color: #fff
+}
+
+.navbar-cmk-dark .navbar-text a:focus, .navbar-cmk-dark .navbar-text a:hover
+	{
+	color: #fff
+}
+
+.bg-cmk-dark {
+	background-color: #343a40 !important
+}
+
+.bg-cmk-dark .dropdown-menu, .bg-cmk-dark .dropdown-item {
+	background-color: #343a40 !important
+}
+
+a.bg-cmk-dark:focus, a.bg-cmk-dark:hover, button.bg-cmk-dark:focus, button.bg-cmk-dark:hover
+	{
+	background-color: #1d2124 !important
+}
+
+a.dropdown-item:focus, a.dropdown-item:hover
+	{
+	background-color: #1d2124 !important
 }
