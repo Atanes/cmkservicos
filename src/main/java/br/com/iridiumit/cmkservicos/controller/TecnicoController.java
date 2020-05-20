@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.iridiumit.cmkservicos.modelos.Atendimento;
+import br.com.iridiumit.cmkservicos.modelos.Chamado;
 import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
+import br.com.iridiumit.cmkservicos.repository.Chamados;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
@@ -35,6 +37,9 @@ public class TecnicoController {
 	
 	@Autowired
 	private Atendimentos atendimentos;
+	
+	@Autowired
+	private Chamados chamados;
 	
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
@@ -85,7 +90,11 @@ public class TecnicoController {
 
 		Atendimento atendimento = atendimentos.getOne(id);
 		
-		atendimento.getChamado().setStatus("ATENDIMENTO");
+		Chamado c = atendimento.getChamado();
+
+		c.setStatus("ATENDIMENTO");
+
+		chamados.save(c);
 
 		modelAndView.addObject(atendimento);
 
@@ -101,7 +110,11 @@ public class TecnicoController {
 			return realizarAtendimento(atendimento.getNumero());
 		}
 		
-		atendimento.getChamado().setStatus("FINALIZADO");
+		Chamado c = atendimento.getChamado();
+
+		c.setStatus("FINALIZADO");
+
+		chamados.save(c);
 
 		atendimentos.save(atendimento);
 
