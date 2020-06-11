@@ -58,7 +58,7 @@
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
+						<label for="nros">Nr. OS</label>
 						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
 					</div>
 					
@@ -98,14 +98,6 @@
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
 					</div>					
-					
-					<div class="col-sm-3">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
-					</div>
 					
 					<div class="col-sm-3">
 						<div class="form-check">

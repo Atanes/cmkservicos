@@ -53,18 +53,15 @@
 						<label class="campo_obrigatório" for="status">Status: </label>
 						<span class="text-primary" th:text="*{chamado.status}"></span>
 					</div>
+					
+					<div class="col-sm-2 form-group">
+						<label class="campo_obrigatório" for="nota">Nr. Nota: </label>
+						<span class="text-primary" th:text="*{nota}"></span>
+					</div>
 				
 				</div>
 				
 				<div class="form-row">
-					
-					<div class="col-sm-3">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
-					</div>
 					
 					<div class="col-sm-3">
 						<div class="form-check">
@@ -79,26 +76,20 @@
 						<span class="text-primary" th:text="*{aprovador}"></span>
 					</div>
 					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="nota">Nota: </label>
-						<span class="text-primary" th:text="*{nota}"></span>
+					<div class="col-sm-6 form-group">
+						<label class="campo_obrigatório" for="descricao">Descrição</label>
+						<textarea id="descricao" class="form-control" th:field="*{chamado.descricao}"></textarea>
 					</div>
-					
 				</div>
 				
 				<div class="form-row">
 				
-					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatório" for="descricao">Descrição</label>
-						<textarea id="descricao" class="form-control" th:field="*{chamado.descricao}"></textarea>
-					</div>
-					
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-6 form-group">
 						<label class="campo_obrigatório" for="diagnostico">Diagnostico</label>
 						<textarea id="diagnostico" class="form-control" th:field="*{diagnostico}"></textarea>
 					</div>
 					
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-6 form-group">
 						<label class="campo_obrigatório" for="observacoes">Observações</label>
 						<textarea id="observacoes" class="form-control" th:field="*{observacoes}"></textarea>
 					</div>
@@ -126,7 +117,7 @@
 							<i class="far fa-save"></i> Salvar
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
-							th:href="@{/atendimentos/pendencias}" th:title="'Cancelar operação'"> 
+							th:href="@{/tecnico/pendencias}" th:title="'Cancelar operação'"> 
 							<i class="far fa-window-close"></i> Cancelar
 						</a>
 					</div>

@@ -13,7 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,7 +23,7 @@ public class Atendimento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
 	
-	@NotNull(message = "{nros.not.empty}")
+	//@NotNull(message = "{nros.not.empty}")
 	private Integer nros;
 	
 	@Column(name="data_atendimento")
@@ -51,8 +50,6 @@ public class Atendimento {
 	
 	//@NotEmpty(message = "{diagnostico.not.empty}")
 	private String diagnostico;
-	
-	private boolean programada;
 	
 	private boolean mparada;
 	
@@ -172,14 +169,6 @@ public class Atendimento {
 
 	public void setExecutor(String executor) {
 		this.executor = executor;
-	}
-
-	public boolean isProgramada() {
-		return programada;
-	}
-
-	public void setProgramada(boolean programada) {
-		this.programada = programada;
 	}
 
 	public boolean isMparada() {
