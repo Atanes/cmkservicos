@@ -21,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.iridiumit.cmkservicos.modelos.Cliente;
+import br.com.iridiumit.cmkservicos.modelos.Contato;
 import br.com.iridiumit.cmkservicos.modelos.Endereco;
 import br.com.iridiumit.cmkservicos.relatorio.ClienteREL;
 import br.com.iridiumit.cmkservicos.repository.Clientes;
+import br.com.iridiumit.cmkservicos.repository.Contatos;
 import br.com.iridiumit.cmkservicos.repository.Enderecos;
 import br.com.iridiumit.cmkservicos.repository.Equipamentos;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
@@ -40,6 +42,9 @@ public class ClienteController {
 
 	@Autowired
 	private Enderecos enderecos;
+	
+	@Autowired
+	private Contatos contatos;
 
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro) {
@@ -197,6 +202,86 @@ public class ClienteController {
 		InputStream in = this.getClass().getResourceAsStream("/relatorios/Relatorio_de_Clientes.pdf");
 		return IOUtils.toByteArray(in);
 
+	}
+	
+	//Métodos para as operações relacionadas aos contatos dos clientes
+	
+	@GetMapping("/contatos/{id}")
+	public ModelAndView listarContatos(@PathVariable Integer id, @ModelAttribute("filtro") FiltroGeral filtro) {
+		
+		Cliente c = clientes.getOne(id);
+		
+		ModelAndView modelAndView = new ModelAndView("administracao/cliente/contato/lista-contatos");
+		modelAndView.addObject(c);
+
+		/*
+		 * if (filtro.getTextoFiltro() == null) { modelAndView.addObject("contatos",
+		 * contatos.findByCliente(c)); } else { modelAndView.addObject("contatos",
+		 * contatos.findByNomeContainingIgnoreCaseAndCliente(filtro.getTextoFiltro(),c))
+		 * ; }
+		 */
+		modelAndView.addObject("contatos", contatos.findByCliente(c));
+		return modelAndView;
+	}
+	
+	@GetMapping("/contatos/novo/{id}")
+	public ModelAndView novoContato(@PathVariable Integer id, Contato contato) {
+		
+		Cliente c = clientes.getOne(id);
+
+		ModelAndView modelAndView = new ModelAndView("administracao/cliente/contato/cadastro-contato");
+		
+		modelAndView.addObject(c);
+
+		modelAndView.addObject(contato);
+
+		return modelAndView;
+	}
+	
+	@PostMapping("/contatos/salvar/{id}")
+	public ModelAndView salvarContato(@PathVariable Integer id, @Valid Contato contato, BindingResult result, RedirectAttributes attributes) {
+
+		Contato c = contatos.findByEmail(contato.getEmail());
+
+		if (c != null) {
+			if (!contato.getId().equals(c.getId())) {
+
+				result.rejectValue("email", "email.contato.existente");
+			}
+		}
+
+		if (result.hasErrors()) {
+			return novoContato(contato.getCliente().getId(), contato);
+		}
+		
+		contato.setCliente(clientes.getOne(id));
+
+		contatos.save(contato);
+
+		attributes.addFlashAttribute("mensagem", "Contato salvo com sucesso!!");
+
+		return new ModelAndView("redirect:/administracao/clientes/contatos/" + contato.getCliente().getId());
+
+	}
+	
+	@GetMapping("/contatos/excluir/{id}")
+	public String excluirContato(@PathVariable Integer id, RedirectAttributes attributes) {
+		
+		Cliente c = contatos.getOne(id).getCliente();
+
+		contatos.delete(contatos.getOne(id));
+
+		attributes.addFlashAttribute("sucesso", "Contato excluido com sucesso!!");
+
+		return "redirect:/administracao/clientes/contatos/" + c.getId() ;
+	}
+
+	@GetMapping("/contatos/editar/{id}")
+	public ModelAndView editarContato(@PathVariable Integer id) {
+		
+		Contato c = contatos.getOne(id);
+		
+		return novoContato(c.getCliente().getId(), c);
 	}
 
 }

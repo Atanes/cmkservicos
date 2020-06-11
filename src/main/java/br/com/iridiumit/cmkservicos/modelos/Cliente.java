@@ -46,6 +46,11 @@ public class Cliente {
     private Endereco endereco;
 	
 	private boolean ativo;
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "cliente")
+    private Set<Contato> contato = new HashSet<>();
 
 	public Integer getId() {
 		return id;
@@ -109,6 +114,14 @@ public class Cliente {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Set<Contato> getContato() {
+		return contato;
+	}
+
+	public void setContato(Set<Contato> contato) {
+		this.contato = contato;
 	}
 
 	@Override
