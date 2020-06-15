@@ -20,23 +20,35 @@ public class Contato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 
-	@NotEmpty (message = "{nome.not.blank}")
+	@NotEmpty(message = "{nome.not.blank}")
 	private String nome;
-	
+
 	@NotEmpty(message = "{email.not.blank}")
 	@Email(message = "{email.not.valid}")
 	private String email;
-	
+
 	@NotEmpty(message = "{telefone1.not.blank}")
 	private String telefone1;
-	
+
 	@NotEmpty(message = "{departamento.not.blank}")
 	private String departamento;
+
+	public Contato() {
+
+	}
+
+	public Contato(Cliente cliente, String nome, String email, String fone, String depart) {
+		this.cliente = cliente;
+		this.nome = nome;
+		this.email = email;
+		this.departamento = depart;
+		this.telefone1 = fone;
+	}
 
 	public Integer getId() {
 		return id;
@@ -110,6 +122,5 @@ public class Contato implements Serializable {
 			return false;
 		return true;
 	}
-	
 
 }

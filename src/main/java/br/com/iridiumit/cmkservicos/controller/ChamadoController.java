@@ -28,6 +28,7 @@ import br.com.iridiumit.cmkservicos.modelos.Lista_de_Status;
 import br.com.iridiumit.cmkservicos.modelos.Lista_de_Tipos;
 import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
+import br.com.iridiumit.cmkservicos.repository.Contatos;
 import br.com.iridiumit.cmkservicos.repository.Equipamentos;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
@@ -46,6 +47,9 @@ public class ChamadoController {
 
 	@Autowired
 	private Equipamentos equipamentos;
+	
+	@Autowired
+	private Contatos contatos;
 
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro, 
@@ -85,6 +89,8 @@ public class ChamadoController {
 		
 		chamado.setStatus("ELABORADO");
 		
+		modelAndView.addObject("contatos", contatos.findByCliente(e.getCliente()));
+		
 		modelAndView.addObject(chamado);
 
 		return modelAndView;
@@ -103,6 +109,21 @@ public class ChamadoController {
 		attributes.addFlashAttribute("sucesso", "Chamado salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/chamados");
+
+	}
+	
+	@PostMapping("/salvaregeraratendimento")
+	public ModelAndView salvaregeraratendimento(@Valid Chamado chamado, BindingResult result, RedirectAttributes attributes) {
+		
+		if (result.hasErrors()) {
+			return chamadoEquipamento(chamado, chamado.getEquipamento().getId());
+		}
+		
+		Chamado c = chamados.saveAndFlush(chamado);
+
+		attributes.addFlashAttribute("sucesso", "Chamado salvo com sucesso!!");
+
+		return new ModelAndView("redirect:/atendimentos/novo/" + c.getNra());
 
 	}
 	
