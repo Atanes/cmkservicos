@@ -238,6 +238,10 @@ public class ClienteController {
 	@PostMapping("/contatos/salvar/{id}")
 	public ModelAndView salvarContato(@PathVariable Integer id, @Valid Contato contato, BindingResult result, RedirectAttributes attributes) {
 
+		if (result.hasErrors()) {
+			return novoContato(id, contato);
+		}
+		
 		Contato c = contatos.findByEmail(contato.getEmail());
 
 		if (c != null) {
@@ -248,7 +252,7 @@ public class ClienteController {
 		}
 
 		if (result.hasErrors()) {
-			return novoContato(contato.getCliente().getId(), contato);
+			return novoContato(id, contato);
 		}
 		
 		contato.setCliente(clientes.getOne(id));
