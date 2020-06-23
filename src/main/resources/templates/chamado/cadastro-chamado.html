@@ -17,7 +17,7 @@
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
-			<form method="POST" class="form-vertical js-form-loading" 
+			<form th:action="@{/chamados/salvar}" method="POST" class="form-vertical js-form-loading" 
 				 th:object="${chamado}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
@@ -108,8 +108,7 @@
 				
 				<div class="container">
 					<div class="form-row justify-content-between">
-						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar"
-							th:formaction="@{/chamados/salvar}" >
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
 							<i class="far fa-save"></i> Salvar
 						</button>
 						<button class="btn btn-info btn-sm col-sm-3" type="submit" title="Salvar e gerar atendimento"
