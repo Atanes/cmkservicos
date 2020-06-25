@@ -1,5 +1,6 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,6 +16,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Atendimento {
@@ -52,6 +54,10 @@ public class Atendimento {
 	private String diagnostico;
 	
 	private boolean mparada;
+	
+	@Column(name="mparada_datahora")
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime mparadaDataHora;
 	
 	private boolean cobrar;
 	
@@ -177,6 +183,14 @@ public class Atendimento {
 
 	public void setMparada(boolean mparada) {
 		this.mparada = mparada;
+	}
+
+	public LocalDateTime getMparadaDataHora() {
+		return mparadaDataHora;
+	}
+
+	public void setMparadaDataHora(LocalDateTime mparadaDataHora) {
+		this.mparadaDataHora = mparadaDataHora;
 	}
 
 	public boolean isCobrar() {

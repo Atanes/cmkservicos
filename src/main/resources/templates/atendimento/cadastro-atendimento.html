@@ -6,6 +6,12 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Relatório de Atendimento - RA</title>
+	<script th:src="@{/js/iridiumit.js}"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		mostraCampo();
+	});
+	</script>
 </head>
 
 <body>
@@ -102,11 +108,18 @@
 					<div class="col-sm-3">
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" id="mparada"
-								th:field="*{mparada}">
+								th:field="*{mparada}" onchange="mostraCampo(this)">
 							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
 						</div>
 					</div>
-				
+					
+					<div id="mparadadatahora" class="col-sm-3">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="mparadaDataHora">Data e hora da parada</label>
+							<input id="mparadaDataHora" type="datetime-local" class="form-control"
+								th:field="*{mparadaDataHora}" />
+						</div>
+					</div>
 				</div>
 				
 				<div class="container">
