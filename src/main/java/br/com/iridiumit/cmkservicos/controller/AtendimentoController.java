@@ -184,5 +184,19 @@ public class AtendimentoController {
 	public List<Lista_de_Tipos> ListaTipos() {
 		return Arrays.asList(Lista_de_Tipos.values());
 	}
+	
+	// Métodos para inclusão de apontamento
+	
+	@GetMapping("novoapontamento/{id}")
+	public ModelAndView apontamento() {
+
+		Atendimento a = atendimentos.getOne(5l);
+		
+		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-Apontamento");
+		
+		modelAndView.addObject(a);
+
+		return modelAndView;
+	}
 
 }

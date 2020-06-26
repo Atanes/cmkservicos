@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	layout:decorate="~{layout/layout}">
+<head>
+	<title>Cadastro de Relatório de Atendimento - RA</title>
+	<script th:src="@{/js/iridiumit.js}"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		mostraCampo();
+	});
+	</script>
+</head>
+
+<body>
+	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
+		
+			<h1 class="titulo-formulario">
+				<i class="fa fa-clipboard-list"></i>
+				Atendimento para o Equipamento:
+				<span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
+				<br>Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+			</h1>
+			
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
+			
+			<form method="POST" class="form-vertical js-form-loading" 
+				 th:object="${atendimento}">
+				
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3 form-group">
+						<label for="colaborador">Técnico: Marcos Roberto</label>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="dataapontamento">Data: 26/06/2020</label>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio:</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="fimtrabalho">Fim:</label>
+							<div class="bw-field-action">
+								<input id="fimtrabalho" type="datetime-local" class="form-control" />
+								<div id="botaoModal" class="bw-field-action__icon">
+									<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir apontamento">
+										<i class="fas fa-plus-circle bw-glyphicon-large"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatorio" for="colaborador">Técnico:</label>
+						<select	id="colaborador" class="form-control">
+								<option value="">Marcos Roberto</option>
+								<option value="">Carlos Roberto</option>
+								<option value="">Adriano Pontes</option>
+								<option value="">Daniel Carvalho</option>
+						</select>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="dataapontamento">Data: 26/06/2020</label>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio:</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="fimtrabalho">Fim:</label>
+							<div class="bw-field-action">
+								<input id="fimtrabalho" type="datetime-local" class="form-control" />
+								<div id="botaoModal" class="bw-field-action__icon">
+									<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir apontamento">
+										<i class="fas fa-plus-circle bw-glyphicon-large"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="container">
+					<div class="form-row justify-content-between">
+						<button class="btn btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Salvar
+						</button>
+						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
+							th:href="@{/atendimentos}" th:title="'Cancelar operação'"> 
+							<i class="far fa-window-close"></i> Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+	</section>
+</body>
+</html>
