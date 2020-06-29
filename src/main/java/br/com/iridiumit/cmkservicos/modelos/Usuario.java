@@ -162,6 +162,9 @@ public class Usuario implements Serializable {
 
 		for (Grupo g : this.grupos) {
 			ListaGrupos += g.getNome();
+			if (this.grupos.iterator().hasNext()) {
+				ListaGrupos += ", ";
+			}
 		}
 
 		return ListaGrupos;

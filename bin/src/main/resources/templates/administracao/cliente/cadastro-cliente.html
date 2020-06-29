@@ -5,7 +5,6 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Clientes</title>
-	<script src="https://kit.fontawesome.com/a30559e34e.js"></script>
   	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/BuscaCEP.js"></script>
   	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
@@ -28,28 +27,24 @@
 
 				<div class="form-row">
 					
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<div class="form-group">
 							<label class="campo_obrigatorio" for="nome">Nome</label>
 							<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 						</div>
 					</div>
 					
-					<div class="col-sm-6 form-group">
+					<div class="col-sm-4 form-group">
 						<label class="campo_obrigatorio" for="email">E-mail</label>
 						<input id="email" type="text" class="form-control" th:field="*{email}"/>
 					</div>
 					
-				</div>
-				
-				<div class="form-row">
-				
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-2 form-group">
 						<label class="campo_obrigatorio" for="telefone1">Telefone principal</label>
 						<input id="telefone1" type="text" class="form-control fone" th:field="*{telefone1}"/>
 					</div>
 							
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-2 form-group">
 						<label for="telefone2">Telefone adicional</label>
 						<input id="telefone2" type="text" class="form-control fone" th:field="*{telefone2}"/>
 					</div>

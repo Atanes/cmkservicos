@@ -91,8 +91,8 @@
 						<label class="campo_obrigatorio" for="cboresponsavel">Técnico Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
 								<option value="">Selecione o técnico responsável pelo Atendimento</option>
-								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
-									th:text="${usuario.nome}">Opção 1</option>		
+								<option th:each="tecnico: ${tecnicos}" th:value="${tecnico.nome}"
+									th:text="${tecnico.nome}">Opção 1</option>		
 						</select>
 					</div>
 					
@@ -100,8 +100,8 @@
 						<label class="campo_obrigatorio" for="cboaprovador">Gestor Responsável</label>
 						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
 								<option value="">Selecione o gestor do responsável pelo atendimento</option>
-								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
-									th:text="${usuario.nome}">Opção 1</option>		
+								<option th:each="aprovador: ${aprovadores}" th:value="${aprovador.nome}"
+									th:text="${aprovador.nome}">Opção 1</option>		
 						</select>
 					</div>					
 					
@@ -126,6 +126,10 @@
 					<div class="form-row justify-content-between">
 						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
 							<i class="far fa-save"></i> Salvar
+						</button>
+						<button class="btn btn-info btn-sm col-sm-3" type="submit" title="Salvar e realizar atendimento"
+							th:formaction="@{/atendimentos/salvareatender}" sec:authorize="hasRole('ROLE_CMK_TECNICO')">
+							<i class="fas fa-clipboard-check"></i> Realizar atendimento
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
 							th:href="@{/atendimentos}" th:title="'Cancelar operação'"> 

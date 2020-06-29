@@ -49,10 +49,10 @@
 					<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('grupos')} ? has-error">
 						<label class="campo_obrigatorio" for="grupo">Grupo</label>
 						
-						<select id="grupo" class="form-control" th:field="*{grupos}">
+						<select class="selectpicker" th:field="*{grupos}" multiple>
 							<option value="">Selecione o grupo do usuário</option>
 							<option th:each="grupo: ${grupos}"
-							th:value="${grupo.codigo}" th:text="${grupo.nome}">Opção 1</option>
+							th:value="${{grupo.codigo}}" th:text="${grupo.nome}">Opção 1</option>
 						</select>
 					</div>
 					

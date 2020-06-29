@@ -24,19 +24,21 @@
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 
 				<input type="hidden" th:field="*{id}" />
-				<input type="hidden" th:field="*{cpf}" />
 				<input type="hidden" th:field="*{senha}" />
 				<input type="hidden" th:field="*{endereco}" />
 				
 				
 				<div class="form-row">
-				
-					<div class="col-sm-3 form-group">
-						<label for="login">Login</label>
-						<input id="login" type="text" class="form-control" th:field="*{login}" readonly/>
+					
+					<div class="col-sm-2">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="cpf">CPF</label>
+							<input id="cpf" type="text"	class="form-control cpf"
+							th:field="*{cpf}" />
+						</div>
 					</div>
 					
-					<div class="col-sm-5 form-group">
+					<div class="col-sm-4 form-group">
 						<label class="campo_obrigatorio" for="nome">Nome</label>
 						<input id="nome" type="text" class="form-control" th:field="*{nome}" />
 					</div>
@@ -46,19 +48,25 @@
 						<input id="email" type="text" class="form-control" th:field="*{email}" />
 					</div>
 					
+					<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('grupos')} ? has-error">
+						<label class="campo_obrigatorio" for="grupo">Grupo</label>
+						
+						<select id="grupo" class="form-control" th:field="*{grupos}">
+							<option value="">Selecione o grupo do usuário</option>
+							<option th:each="grupo: ${grupos}"
+							th:value="${grupo.codigo}" th:text="${grupo.nome}">Opção 1</option>
+						</select>
+					</div>
+					
 				</div>
 				
 				<div class="form-row">
-				
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="permissao">Permissão</label>
-						
-						<select id="permissao" class="form-control" th:field="*{permissoes}">
-							<option th:each="permissao: ${permissoes}"
-							th:value="${permissao.id}" th:text="${#strings.substring(permissao.nome,8)}">Opção 1</option>
-						</select>
+					
+					<div class="form-group col-md-2">
+						<label class="campo_obrigatorio" for="idade">Idade</label>
+						<input type="date" class="form-control" id="idade" th:field="*{dataNascimento}">
 					</div>
-				
+					
 					<div class="col-sm-2 form-group">
 						<label class="campo_obrigatorio" for="telefone1">Telefone principal</label>
 						<input id="telefone1" type="text" class="form-control fone" th:field="*{telefone1}"/>

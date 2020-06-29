@@ -89,7 +89,9 @@ public class AtendimentoController {
 
 		atendimento.setChamado(c);
 
-		modelAndView.addObject("usuarios", usuarios.findAllByOrderByNome());
+		modelAndView.addObject("tecnicos", usuarios.UsuariosPorPermissao("ROLE_CMK_TECNICO"));
+		
+		modelAndView.addObject("aprovadores", usuarios.UsuariosPorPermissao("ROLE_CMK_GESTOR"));
 
 		modelAndView.addObject(atendimento);
 
@@ -156,6 +158,27 @@ public class AtendimentoController {
 		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
 
 		return new ModelAndView("redirect:/atendimentos");
+
+	}
+	
+	@PostMapping("/salvareatender")
+	public ModelAndView salvareatender(@Valid Atendimento atendimento, BindingResult result, RedirectAttributes attributes) {
+
+		if (result.hasErrors()) {
+			return atendimentoEquipamento(atendimento, atendimento.getChamado().getNra());
+		}
+
+		Atendimento a = atendimentos.saveAndFlush(atendimento);
+
+		Chamado c = chamados.getOne(a.getChamado().getNra());
+
+		c.setStatus("AGENDADO");
+
+		chamados.save(c);
+
+		attributes.addFlashAttribute("sucesso", "Atendimento salvo com sucesso!!");
+
+		return new ModelAndView("redirect:/tecnico/realizar/" + a.getNumero());
 
 	}
 

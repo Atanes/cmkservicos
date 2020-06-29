@@ -13,8 +13,8 @@
 		
 			<h1 class="titulo-formulario"><i class="fa fa-clipboard-list"></i>
 				Realizar Atendimento - Equipamento: 
-				<span class="text-primary" th:text="${atendimento.equipamento.getNrFabricanteModelo()}"></span>
-				<br>Cliente: <span class="text-primary" th:text="${atendimento.equipamento.cliente.nome}"></span>
+				<span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
+				<br>Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
 				 - Executor: <span class="text-primary" th:text="${atendimento.executor}"></span>
 				
 			</h1>
@@ -22,18 +22,14 @@
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form method="POST" class="form-vertical js-form-loading" 
-				 th:action="@{/atendimentos/realizar/salvar}" th:object="${atendimento}">
+				 th:action="@{/tecnico/realizar/salvar}" th:object="${atendimento}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 				
 				<input type="hidden" th:field="*{numero}" />
-				<input type="hidden" th:field="*{emissor}" />
-				<input type="hidden" th:field="*{cliente}" />
-				<input type="hidden" th:field="*{equipamento}" />
-				<input type="hidden" th:field="*{solicitante}" />
-				<input type="hidden" th:field="*{status}" />
+				<input type="hidden" th:field="*{chamado}" />
 				<input type="hidden" th:field="*{executor}" />
-				<input type="hidden" th:field="*{tipo}" />
+				<input type="hidden" th:field="*{nros}" />
 				<input type="hidden" th:field="*{aprovador}" />
 
 				<div class="form-row">
@@ -45,30 +41,27 @@
 					
 					<div class="col-sm-2 form-group">
 						<label for="tipo">Tipo: </label>
-						<span class="text-primary" th:text="*{tipo}"></span>
+						<span class="text-primary" th:text="*{chamado.tipo}"></span>
 					</div>
 					
 					<div class="col-sm-3 form-group">
 						<label for="solicitante">Solicitante: </label>
-						<span class="text-primary" th:text="*{solicitante}"></span>
+						<span class="text-primary" th:text="*{chamado.solicitante}"></span>
 					</div>
 					
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatório" for="status">Status: </label>
-						<span class="text-primary" th:text="*{status}"></span>
+						<span class="text-primary" th:text="*{chamado.status}"></span>
+					</div>
+					
+					<div class="col-sm-2 form-group">
+						<label class="campo_obrigatório" for="nota">Nr. Nota: </label>
+						<span class="text-primary" th:text="*{nota}"></span>
 					</div>
 				
 				</div>
 				
 				<div class="form-row">
-					
-					<div class="col-sm-3">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
-					</div>
 					
 					<div class="col-sm-3">
 						<div class="form-check">
@@ -83,26 +76,20 @@
 						<span class="text-primary" th:text="*{aprovador}"></span>
 					</div>
 					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="nota">Nota: </label>
-						<span class="text-primary" th:text="*{nota}"></span>
+					<div class="col-sm-6 form-group">
+						<label class="campo_obrigatório" for="descricao">Descrição</label>
+						<textarea id="descricao" class="form-control" th:field="*{chamado.descricao}"></textarea>
 					</div>
-					
 				</div>
 				
 				<div class="form-row">
 				
-					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatório" for="descricao">Descrição</label>
-						<textarea id="descricao" class="form-control" th:field="*{descricao}"></textarea>
-					</div>
-					
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-6 form-group">
 						<label class="campo_obrigatório" for="diagnostico">Diagnostico</label>
 						<textarea id="diagnostico" class="form-control" th:field="*{diagnostico}"></textarea>
 					</div>
 					
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-6 form-group">
 						<label class="campo_obrigatório" for="observacoes">Observações</label>
 						<textarea id="observacoes" class="form-control" th:field="*{observacoes}"></textarea>
 					</div>
@@ -130,7 +117,7 @@
 							<i class="far fa-save"></i> Salvar
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
-							th:href="@{/atendimentos/pendencias}" th:title="'Cancelar operação'"> 
+							th:href="@{/tecnico/pendencias}" th:title="'Cancelar operação'"> 
 							<i class="far fa-window-close"></i> Cancelar
 						</a>
 					</div>

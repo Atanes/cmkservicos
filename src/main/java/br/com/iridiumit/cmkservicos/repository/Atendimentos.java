@@ -37,7 +37,7 @@ public interface Atendimentos extends JpaRepository<Atendimento, Long>, PagingAn
 	@Query("SELECT a FROM Atendimento a WHERE a.chamado.tipo = ?1 and a.executor = ?2")
 	List<Atendimento> findByTipoAndExecutor(String tipo, String executor);
 	
-	@Query("SELECT a FROM Atendimento a WHERE a.executor = ?1 and a.chamado.status != 'FINALIZADO'")
+	@Query("SELECT a FROM Atendimento a WHERE a.executor = ?1 and a.chamado.status != 'FINALIZADO' ORDER BY a.chamado.dataAbertura")
 	Page<Atendimento> findByExecutorAberto(String executor, Pageable pageable);
 	
 	Atendimento findByNros(Integer nros);

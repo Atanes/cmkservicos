@@ -19,6 +19,9 @@ public interface Usuarios extends JpaRepository<Usuario, Long> {
 	
 	List<Usuario> findAllByOrderByNome();
 	
+	@Query("select u from Usuario u inner join u.grupos g inner join g.permissoes p where p.nome = ?1 order by u.nome")
+	List<Usuario> UsuariosPorPermissao(String permissao);
+	
 	boolean existsById(long id);
 	boolean existsByEmail(String email);
 	Usuario findByEmail(String email);

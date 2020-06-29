@@ -4,10 +4,10 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 	<body>
-	<nav class="navbar navbar-light navbar-expand-lg justify-content-between fixed-top layout-menu" th:fragment="menusuperior">
+	<nav class="navbar navbar-cmk-dark bg-cmk-dark navbar-expand-lg justify-content-between fixed-top layout-menu" th:fragment="menusuperior">
 			<div class="container">
 				<a class="navbar-brand" href="/">
-					<img class="logo_cliente_P" th:src="@{/images/logo_cmk.png}">
+					<img class="logo_cliente_P" th:src="@{/images/logo-cmk-white.png}">
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
    					<span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
 				<div id="navbarSupportedContent" class="collapse navbar-collapse">
 
 					<ul class="navbar-nav mr-auto">
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="dropdown">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Chamados 
@@ -36,57 +36,61 @@
 									</a>
 								</div>
 							</li>
-							<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ANALISTA') or hasRole('CMK_ADMIN')">
+							<li class="dropdown">
 							<a	class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">Atendimentos 
 							</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="/chamados">
+									<a class="dropdown-item" href="/chamados" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 										<i class="fas fa-clipboard-check"></i>
 										Incluir
 									</a>
-									<a class="dropdown-item" href="#">
+									<a class="dropdown-item" href="/tecnico/pendencias" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_TECNICO')">
 										<i class="fas fa-id-card-alt"></i>
-										Atender
+										Atender - Técnico
 									</a>
-									<a class="dropdown-item" href="/atendimentos">
+									<a class="dropdown-item" href="/atendimentos" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 										<i class="fas fa-list-ol"></i>
 										Listar Atendimentos
 									</a>
+									<a class="dropdown-item" href="/tecnico" sec:authorize="hasRole('ROLE_CMK_TECNICO')">
+										<i class="fas fa-list-ol"></i>
+										Listar Atendimentos - Técnico
+									</a>
 								</div>
 							</li>
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 							<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">
 								Relatórios
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/relatorio/chamados"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/chamados"
+									target="_blank">
 									<i class="fas fa-headset"></i>
 									Chamados
 								</a>
-								<a class="dropdown-item" href="/relatorio/atendimentos"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/atendimentos"
+									target="_blank">
 									<i class="fas fa-clipboard-check"></i>
 									Atendimentos
 								</a>
-								<a class="dropdown-item" href="/relatorio/clientes"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/clientes"
+									target="_blank">
 									<i class="fas fa-address-card"></i>
 									Clientes
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios"
-									target="_blank" sec:authorize="hasRole('CMK_ADMIN')">
+								<a class="dropdown-item" href="/relatorios/usuarios"
+									target="_blank">
 									<i class="fas fa-file-pdf"></i>
 									Usuários - PDF
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios_Excel" target="_blank">
+								<a class="dropdown-item" href="/relatorios/usuarios_Excel" target="_blank">
 									<i class="fas fa-file-excel"></i>
 									Usuários - Excel
 								</a>
-								<a class="dropdown-item" href="/relatorio/usuarios_CSV" target="_blank"> 
+								<a class="dropdown-item" href="/relatorios/usuarios_CSV" target="_blank"> 
 									<i class="fas fa-file-csv"></i>
 									Usuários - CSV
 								</a>
@@ -95,18 +99,18 @@
 					
 					<!-- Menu com as funções de administração do sistema -->
 
-						<li class="nav-item dropdown" sec:authorize="hasRole('CMK_ADMIN')">
+						<li class="dropdown" sec:authorize="hasRole('ROLE_CMK_ADMIN') or hasRole('ROLE_CMK_COORDENADOR')">
 							<a	href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
 								role="button" aria-haspopup="true" aria-expanded="false">
 									Administração
 							</a>
 
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="/administracao/usuarios">
+								<a class="dropdown-item" href="/administracao/usuarios" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-users"></i>
 									Listar Usuários
 								</a>
-								<a class="dropdown-item" href="/administracao/usuarios/novo">
+								<a class="dropdown-item" href="/administracao/usuarios/novo" sec:authorize="hasRole('ROLE_CMK_ADMIN')">
 									<i class="fas fa-user-plus"></i>
 									Incluir Usuário
 								</a>
@@ -126,14 +130,15 @@
 						</li>
 					</ul>
 					<form class="form-inline my-2 my-lg-0" action="/logout" method="post">
-						<i class="far fa-user-circle"></i>&nbsp;
-						<span sec:authentication="principal.nome">Bob</span>&nbsp;
-						<button type="submit" class="btn btn-secondary my-2 my-sm-0">
-							<i class="fas fa-sign-out-alt"></i>&nbsp;Sair
+						<i class="navbar-text far fa-user-circle"></i>&nbsp;
+						<span class="navbar-text" th:text="${#authentication.principal.usuario.nome}">Bob</span>&nbsp;
+						<button type="submit" class="btn btn-secondary my-2 my-sm-0" title="Sair">
+							<i class="fas fa-sign-out-alt"></i>
 						</button>
 
 						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					</form>
+
 				</div>
 			</div>
 		</nav>

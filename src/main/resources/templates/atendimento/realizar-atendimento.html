@@ -6,15 +6,21 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Realizar Atendimento</title>
+	<script th:src="@{/js/iridiumit.js}"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		mostraCampo();
+	});
+	</script>
 </head>
 
 <body>
 	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
 		
 			<h1 class="titulo-formulario"><i class="fa fa-clipboard-list"></i>
-				Realizar Atendimento - Equipamento: 
-				<span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
-				<br>Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+				Realizar Atendimento - Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+				<br>Equipamento: <span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
+				
 				 - Executor: <span class="text-primary" th:text="${atendimento.executor}"></span>
 				
 			</h1>
@@ -28,18 +34,15 @@
 				
 				<input type="hidden" th:field="*{numero}" />
 				<input type="hidden" th:field="*{chamado}" />
-				<input type="hidden" th:field="*{executor}" />
-				<input type="hidden" th:field="*{nros}" />
-				<input type="hidden" th:field="*{aprovador}" />
 
 				<div class="form-row">
 					
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-3 form-group">
 						<label for="nros">Nr. OS: </label>
 						<span class="text-primary" th:text="*{nros}"></span>
 					</div>
 					
-					<div class="col-sm-2 form-group">
+					<div class="col-sm-3 form-group">
 						<label for="tipo">Tipo: </label>
 						<span class="text-primary" th:text="*{chamado.tipo}"></span>
 					</div>
@@ -50,11 +53,6 @@
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatório" for="status">Status: </label>
-						<span class="text-primary" th:text="*{chamado.status}"></span>
-					</div>
-					
-					<div class="col-sm-2 form-group">
 						<label class="campo_obrigatório" for="nota">Nr. Nota: </label>
 						<span class="text-primary" th:text="*{nota}"></span>
 					</div>
@@ -68,6 +66,14 @@
 							<input class="form-check-input" type="checkbox" id="mparada"
 								th:field="*{mparada}">
 							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
+						</div>
+					</div>
+					
+					<div id="mparadadatahora" class="col-sm-3">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="mparadaDataHora">Data e hora da parada</label>
+							<input id="mparadaDataHora" type="datetime-local" class="form-control"
+								th:field="*{mparadaDataHora}" />
 						</div>
 					</div>
 					

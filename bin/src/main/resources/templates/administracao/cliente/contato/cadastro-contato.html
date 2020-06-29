@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+<head>
+	<title>Cadastro de Contatos</title>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
+</head>
+
+<body>
+	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
+		
+			<h1 class="titulo-formulario"><i class="far fa-handshake"></i>
+				Cadastro de contatos para o Cliente: <span class="text-primary" th:text="${cliente.id} + ' - ' +${cliente.nome}"></span>
+			</h1>
+			
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
+			
+			<form method="POST" class="form-vertical js-form-loading"
+				th:object="${contato}" th:action="@{/administracao/clientes/contatos/salvar/{id}(id=${cliente.id})}">
+				
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
+
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{cliente}"/>
+
+				<div class="form-row">
+					
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="nome">Nome</label>
+							<input id="nome" type="text" class="form-control" th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="col-sm-4 form-group">
+						<label class="campo_obrigatorio" for="email">E-mail</label>
+						<input id="email" type="email" class="form-control" th:field="*{email}"/>
+					</div>
+					
+					<div class="col-sm-2 form-group">
+						<label class="campo_obrigatorio" for="telefone1">Telefone</label>
+						<input id="telefone1" type="text" class="form-control fone" th:field="*{telefone1}"/>
+					</div>
+							
+					<div class="col-sm-2 form-group">
+						<label for="departamento">Departamento</label>
+						<input id="departamento" type="text" class="form-control" th:field="*{departamento}"/>
+					</div>
+					
+				</div>
+				
+				<div class="container">
+					<div class="form-row justify-content-between">
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Salvar
+						</button>
+						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
+							th:href="@{/administracao/clientes}" th:title="'Cancelar operação'"> 
+							<i class="far fa-window-close"></i> Cancelar
+						</a>
+					</div>
+				</div>
+			</form>
+		</section>
+</body>
+</html>

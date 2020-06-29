@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layout/layoutSimples}">
+<head>
+	<title>Problema no servidor - erro 500</title>
+</head>
+
+<body>
+	<section class="iit-error-panel aw-layout-content js-content layout-pagina" layout:fragment="content">
+
+		<div class="justify-content-md-center">
+			<img src="/images/500_error.jpg">
+
+			<h2>Problema no servidor - erro 500</h2>
+
+			<div class="iit-error-panel__description">
+				<p>Desculpe mas ocorreu um erro no processamento das informações!</p>
+				<p>Favor contatar o administrador do sistema!</p>
+				<a href="javascript:history.back()" class="btn btn-primary">Voltar
+					para onde estava</a>
+			</div>
+		</div>
+
+	</section>
+
+</body>
+</html>

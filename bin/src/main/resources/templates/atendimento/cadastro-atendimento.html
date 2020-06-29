@@ -34,7 +34,7 @@
 					<div class="col-sm-6 form-group">
 						<label for="equipamento">Equipamento</label>
 						<input id="equipamento" type="text" class="form-control" disabled="disabled"
-						th:value="*{chamado.equipamento.getNrFabricanteModelo()}" />
+						th:value="*{chamado.equipamento}" />
 					</div>
 				</div>
 				<div class="form-row">
@@ -58,7 +58,7 @@
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
+						<label for="nros">Nr. OS</label>
 						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
 					</div>
 					
@@ -73,7 +73,7 @@
 					</div>
 					
 					<div class="col-sm-6 form-group">
-						<label class="campo_obrigatorio" for="nota">Nota</label>
+						<label class="campo_obrigatorio" for="nota">Informações adicionais</label>
 						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
 					</div>
 				
@@ -82,30 +82,22 @@
 				<div class="form-row">
 				
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboresponsavel">Responsável</label>
+						<label class="campo_obrigatorio" for="cboresponsavel">Técnico Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
-								<option value="">Selecione o responsável pelo Atendimento</option>
+								<option value="">Selecione o técnico responsável pelo Atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboaprovador">Aprovador</label>
+						<label class="campo_obrigatorio" for="cboaprovador">Gestor Responsável</label>
 						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
 								<option value="">Selecione o gestor do responsável pelo atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
 					</div>					
-					
-					<div class="col-sm-3">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
-					</div>
 					
 					<div class="col-sm-3">
 						<div class="form-check">

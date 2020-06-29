@@ -5,7 +5,6 @@
 	layout:decorate="~{layout/layout}">
 <head>
 </head>
-
 <body>
 
 	<section class="aw-layout-content js-content layout-pagina"
@@ -53,10 +52,10 @@
 							</th>
 							<th scope="col">
 								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
-									'tipo', 'Tipo', ${equipamentos}, 'texto')">
+									'tipo', 'Equipamento', ${equipamentos}, 'texto')">
 								</th:block>
 							</th>
-							<th scope="col">
+							<!-- <th scope="col">
 								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
 									'modelo', 'Modelo', ${equipamentos}, 'texto')">
 								</th:block>
@@ -70,7 +69,8 @@
 								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
 									'nrserie', 'Nr. Série', ${equipamentos}, 'numero')">
 								</th:block>
-							</th>
+							</th> -->
+							
 							<th class="text-center" scope="col">Ações</th>
 						</tr>
 					</thead>
@@ -79,10 +79,11 @@
 							<td class="text-center" th:text="${equipamento.id}">123</td>
 							<td class="text-center" th:text="${equipamento.nrcmk}">123</td>
 							<td th:text="${equipamento.cliente.nome}">123</td>
-							<td th:text="${equipamento.tipo}">123</td>
+							<td th:text="${equipamento}">123</td>
+							<!-- <td th:text="${equipamento.tipo}">123</td>
 							<td th:text="${equipamento.modelo}">123</td>
 							<td th:text="${equipamento.fabricante}">123</td>
-							<td class="text-center" th:text="${equipamento.nrserie}">123</td>
+							<td class="text-center" th:text="${equipamento.nrserie}">123</td> -->
 							<td class="text-center">
 								<form method="POST"
 									th:onsubmit="'return confirm(\'Posso remover o equipamento com o Nr. CMK: ' + 

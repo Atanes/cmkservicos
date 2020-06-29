@@ -74,10 +74,10 @@
 						<tr th:each="chamado: ${chamados}">
 							<td class="text-center" th:text="${chamado.nra}">123</td>
 							<td th:text="${chamado.emissor}">123</td>
-							<td th:text="${chamado.getDataFormatada()}">123</td>
+							<td th:text="${chamado.getDataCurta()}">123</td>
 							<td th:text="${chamado.status}">123</td>
 							<td th:text="${chamado.equipamento.cliente.getNome()}">123</td>
-							<td th:text="${chamado.equipamento.getNrFabricanteModelo()}">123</td>
+							<td th:text="${chamado.equipamento}">123</td>
 							<td class="text-center">
 							<form method="POST"
 									th:onsubmit="'return confirm(\'Posso remover o chamado com o Nr. RA: ' + 
@@ -98,7 +98,7 @@
 						</tr>
 
 						<tr>
-							<td colspan="6" th:if="${chamados.empty}">
+							<td colspan="7" th:if="${chamados.empty}">
 								Nenhum Chamado cadastrado!!
 							</td>
 						</tr>

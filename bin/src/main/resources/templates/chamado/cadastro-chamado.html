@@ -6,6 +6,8 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Chamados</title>
+	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
 </head>
 
 <body>
@@ -16,7 +18,7 @@
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form method="POST" class="form-vertical js-form-loading" 
-				 th:action="@{/chamados/salvar}" th:object="${chamado}">
+				 th:object="${chamado}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 				
@@ -28,17 +30,17 @@
 
 				<div class="form-row">
 				
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-2 form-group">
 						<label for="emissor">Emissor</label>
 						<input id="emissor" type="text" class="form-control" th:value="*{emissor}" disabled="disabled"/>
 					</div>
 				
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-2 form-group">
 						<label for="datahora">Data e Hora</label>
 						<input id="datahora" type="text" class="form-control" th:value="${chamado.getDataFormatada()}" disabled="disabled"/>
 					</div>
 
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-2 form-group">
 						<label for="nra">Nº Chamado</label>
 						<input id="nra" type="text" class="form-control" th:value="*{nra}" disabled="disabled"/>
 					</div>
@@ -46,10 +48,26 @@
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatorio" for="cbotipo">Atendimento</label>
 						<select	id="cbotipo" class="form-control" th:field="*{tipo}">
-								<option value="">Selecione o tipo do Atendimento</option>
-								<option th:each="listaTipo: ${ListaTipos}" th:value="${listaTipo}"
-									th:text="${listaTipo.descricao}">Opção 1</option>		
+							<option value="">Selecione o tipo do Atendimento</option>
+							<option th:each="listaTipo: ${ListaTipos}" th:value="${listaTipo}"
+								th:text="${listaTipo.descricao}">Opção 1</option>		
+						</select>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatorio" for="cbosolicitante">Solicitante</label>
+						<div class="bw-field-action">
+							<select	id="cbosolicitante" class="form-control" th:field="*{solicitante}" 
+								onchange="try{setCustomValidity('')}catch(e){}">
+								<option value="">Selecione o solicitante</option>
+								<option th:each="contato: ${contatos}" th:value="${contato.nome}"
+									th:text="${contato.nome}">Opção 1</option>		
 							</select>
+							<div id="botaoModal" class="bw-field-action__icon">
+								<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir novo contato">
+									<i class="fas fa-plus-circle bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				
@@ -57,19 +75,13 @@
 				
 				<div class="form-row">
 				
-					<div class="col-sm-8 form-group">
+					<div class="col-sm-4 form-group">
 						<label for="cliente">Cliente</label>
 						<input id="cliente" type="text" class="form-control" th:value="*{equipamento.cliente.getNome()}" 
 							disabled="disabled"/>
 					</div>
 					
-					<div class="col-sm-4 form-group">
-						<label class="campo_obrigatorio" for="solicitante">Solicitante</label>
-						<input id="solicitante" type="text" class="form-control" th:field="*{solicitante}" />
-					</div>
-				</div>
-				<div class="form-row">
-					<div class="col-sm-12 form-group">
+					<div class="col-sm-8 form-group">
 						<label for="endereco">Endereço</label>
 						<input id="endereco" type="text" class="form-control" 
 							disabled="disabled" th:value="*{equipamento.cliente.endereco.getEndereco()}"/>
@@ -82,7 +94,7 @@
 					<div class="col-sm-12 form-group">
 						<label for="equipamento">Equipamento</label>
 						<input id="equipamento" type="text" class="form-control" 
-							disabled="disabled" th:value="*{equipamento.getNrFabricanteModelo()}"/>
+							disabled="disabled" th:value="*{equipamento}"/>
 					</div>
 				</div>
 				<div class="form-row">
@@ -96,8 +108,13 @@
 				
 				<div class="container">
 					<div class="form-row justify-content-between">
-						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar"
+							th:formaction="@{/chamados/salvar}" >
 							<i class="far fa-save"></i> Salvar
+						</button>
+						<button class="btn btn-info btn-sm col-sm-3" type="submit" title="Salvar e gerar atendimento"
+							th:formaction="@{/chamados/salvaregeraratendimento}">
+							<i class="fas fa-clipboard-check"></i> Salvar e gerar atendimento
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"
 							th:href="@{/chamados}" th:title="'Cancelar operação'"> 
@@ -106,6 +123,7 @@
 					</div>
 				</div>
 			</form>
+			<div th:replace="chamado/cadastro-contato-modal :: modalContato"></div>
 	</section>
 </body>
 </html>

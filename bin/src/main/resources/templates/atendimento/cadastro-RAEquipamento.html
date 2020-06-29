@@ -14,7 +14,7 @@
 			<h1 class="titulo-formulario">
 				<i class="fa fa-clipboard-list"></i>
 				Atendimento para o Equipamento:
-				<span class="text-primary" th:text="${atendimento.equipamento.getNrFabricanteModelo()}"></span>
+				<span class="text-primary" th:text="${atendimento.equipamento}"></span>
 				<br>Cliente: <span class="text-primary" th:text="${atendimento.equipamento.cliente.nome}"></span>
 			</h1>
 			
@@ -34,7 +34,7 @@
 					
 					<div class="col-sm-3 form-group">
 						<label class="campo_obrigatorio" for="nros">Nr. OS</label>
-						<input id="nros" type="text" class="form-control" th:field="*{nros}" />
+						<input id="nros" type="text" class="form-control" th:field="*{nros}" required/>
 					</div>
 					
 					<div class="col-sm-3 form-group">
@@ -72,16 +72,16 @@
 					
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboresponsavel">Responsável</label>
+						<label class="campo_obrigatorio" for="cboresponsavel">Técnico Responsável</label>
 						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
-								<option value="">Selecione o responsável pelo Atendimento</option>
+								<option value="">Selecione o técnico responsável pelo Atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
 									th:text="${usuario.nome}">Opção 1</option>		
 						</select>
 					</div>
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboaprovador">Aprovador</label>
+						<label class="campo_obrigatorio" for="cboaprovador">Gestor Responsável</label>
 						<select	id="cboaprovador" class="form-control" th:field="*{aprovador}">
 								<option value="">Selecione o gestor do responsável pelo atendimento</option>
 								<option th:each="usuario: ${usuarios}" th:value="${usuario.nome}"
@@ -93,17 +93,9 @@
 				
 				<div class="form-row">
 				
-					<div class="col-sm-8 form-group">
-						<label for="nota">Nota</label>
-						<input id="nota" type="text" class="form-control" th:field="*{nota}" />
-					</div>
-					
-					<div class="col-sm-2">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="programado"
-								th:field="*{programada}">
-							<label class="form-check-label"	for="programada"> Programada </label>
-						</div>
+					<div class="col-sm-10 form-group">
+						<label for="nota">Informações adicionais</label>
+						<input id="nota" type="text" class="form-control" th:field="*{nota}" required />
 					</div>
 					
 					<div class="col-sm-2">
@@ -118,7 +110,7 @@
 
 				<div class="container">
 					<div class="form-row justify-content-between">
-						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+						<button class="btn btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
 							<i class="far fa-save"></i> Salvar
 						</button>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"

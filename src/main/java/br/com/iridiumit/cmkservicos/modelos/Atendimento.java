@@ -59,11 +59,21 @@ public class Atendimento {
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime mparadaDataHora;
 	
+	@Column(name="mliberada_datahora")
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime mliberadaDataHora;
+	
 	private boolean cobrar;
+	
+	private boolean apto;
 	
 	private String observacoes;
 	
+	private boolean aptocomresalvas;
+	
 	private String resalvas;
+	
+	private boolean naoapto;
 	
 	private String ObsNaoApto;
 	
@@ -72,6 +82,8 @@ public class Atendimento {
 	
 	@NotEmpty(message = "{aprovador.not.null}")
 	private String aprovador;
+	
+	private String acompanhante;
 	
 	public Long getNumero() {
 		return numero;
@@ -137,6 +149,14 @@ public class Atendimento {
 		this.diagnostico = diagnostico;
 	}
 
+	public boolean isApto() {
+		return apto;
+	}
+
+	public void setApto(boolean apto) {
+		this.apto = apto;
+	}
+
 	public String getObservacoes() {
 		return observacoes;
 	}
@@ -145,12 +165,28 @@ public class Atendimento {
 		this.observacoes = observacoes;
 	}
 
+	public boolean isAptocomresalvas() {
+		return aptocomresalvas;
+	}
+
+	public void setAptocomresalvas(boolean aptocomresalvas) {
+		this.aptocomresalvas = aptocomresalvas;
+	}
+
 	public String getResalvas() {
 		return resalvas;
 	}
 
 	public void setResalvas(String resalvas) {
 		this.resalvas = resalvas;
+	}
+
+	public boolean isNaoapto() {
+		return naoapto;
+	}
+
+	public void setNaoapto(boolean naoapto) {
+		this.naoapto = naoapto;
 	}
 
 	public String getObsNaoApto() {
@@ -177,6 +213,14 @@ public class Atendimento {
 		this.executor = executor;
 	}
 
+	public String getAcompanhante() {
+		return acompanhante;
+	}
+
+	public void setAcompanhante(String acompanhante) {
+		this.acompanhante = acompanhante;
+	}
+
 	public boolean isMparada() {
 		return mparada;
 	}
@@ -191,6 +235,14 @@ public class Atendimento {
 
 	public void setMparadaDataHora(LocalDateTime mparadaDataHora) {
 		this.mparadaDataHora = mparadaDataHora;
+	}
+
+	public LocalDateTime getMliberadaDataHora() {
+		return mliberadaDataHora;
+	}
+
+	public void setMliberadaDataHora(LocalDateTime mliberadaDataHora) {
+		this.mliberadaDataHora = mliberadaDataHora;
 	}
 
 	public boolean isCobrar() {

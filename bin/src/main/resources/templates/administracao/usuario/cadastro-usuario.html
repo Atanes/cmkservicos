@@ -18,7 +18,7 @@
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
-			<form name="formulario" method="POST" class="form-vertical  js-form-loading"
+			<form name="formulario" method="POST" class="form-vertical js-form-loading"
 				th:object="${usuario}" th:action="@{/administracao/usuarios/salvar}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
@@ -46,19 +46,23 @@
 						<input id="email" class="form-control" th:field="*{email}" type="text" placeholder="seunome@dominio.com.br" title="E-mail"/>
 					</div>
 					
-					<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('permissoes')} ? has-error">
-						<label class="campo_obrigatorio" for="permissao">Permissão</label>
+					<div class="col-sm-2 form-group" th:classappend="${#fields.hasErrors('grupos')} ? has-error">
+						<label class="campo_obrigatorio" for="grupo">Grupo</label>
 						
-						<select id="permissao" class="form-control" th:field="*{permissoes}">
-							<option value="">Selecione o tipo de permissão</option>
-							<option th:each="permissao: ${permissoes}"
-							th:value="${permissao.id}" th:text="${#strings.substring(permissao.nome,9)}">Opção 1</option>
+						<select id="grupo" class="form-control" th:field="*{grupos}">
+							<option value="">Selecione o grupo do usuário</option>
+							<option th:each="grupo: ${grupos}"
+							th:value="${grupo.codigo}" th:text="${grupo.nome}">Opção 1</option>
 						</select>
 					</div>
 					
 				</div>
 				
 				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label class="campo_obrigatorio" for="idade">Idade</label>
+						<input type="date" class="form-control" id="idade" th:field="*{dataNascimento}">
+					</div>
 				
 					<div class="col-sm-2 form-group">
 						<label class="campo_obrigatorio" for="telefone1">Telefone principal</label>
@@ -68,11 +72,6 @@
 					<div class="col-sm-2 form-group">
 						<label for="telefone2">Telefone adicional</label>
 						<input id="telefone2" type="text" class="form-control fone" th:field="*{telefone2}"/>
-					</div>
-				
-					<div class="col-sm-4 form-group">
-						<label for="login">Login</label>
-						<input id="login" type="text" class="form-control" th:field="*{login}" readonly/>
 					</div>
 					
 					<div class="col-sm-4 form-group">
