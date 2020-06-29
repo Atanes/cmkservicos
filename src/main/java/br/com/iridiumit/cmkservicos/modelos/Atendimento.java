@@ -69,6 +69,8 @@ public class Atendimento {
 	
 	private String observacoes;
 	
+	private String servicos;
+	
 	private boolean aptocomresalvas;
 	
 	private String resalvas;
@@ -163,6 +165,14 @@ public class Atendimento {
 
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
+	}
+	
+	public String getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(String servicos) {
+		this.servicos = servicos;
 	}
 
 	public boolean isAptocomresalvas() {

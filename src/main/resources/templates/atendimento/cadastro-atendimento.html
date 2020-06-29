@@ -2,14 +2,14 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Cadastro de Relatório de Atendimento - RA</title>
 	<script th:src="@{/js/iridiumit.js}"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
-		mostraCampo();
+		mostraDataHoraParada();
 	});
 	</script>
 </head>
@@ -108,7 +108,7 @@
 					<div class="col-sm-3">
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox" id="mparada"
-								th:field="*{mparada}" onchange="mostraCampo(this)">
+								th:field="*{mparada}" onchange="mostraDataHoraParada(this)">
 							<label class="form-check-label"	for="mparada"> Máquina Parada </label>
 						</div>
 					</div>

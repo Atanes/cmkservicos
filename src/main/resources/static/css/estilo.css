@@ -113,6 +113,16 @@
 	margin-right: 5px;
 }
 
+.titulo-secao {
+	margin: 0;
+	margin-top: 5px;
+	margin-botton: 5px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #e3f2fd;
+	font-size: 1rem;
+	font-weight: normal;
+}
+
 .layout-menu {
 	background-color: #e3f2fd;
 	color: black;
