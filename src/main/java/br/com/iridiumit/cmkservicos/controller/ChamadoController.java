@@ -1,7 +1,7 @@
 package br.com.iridiumit.cmkservicos.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,13 +79,17 @@ public class ChamadoController {
 
 		ModelAndView modelAndView = new ModelAndView("chamado/cadastro-chamado");
 		
+		if(chamado == null) {
+			chamado = new Chamado();
+		}
+		
 		Equipamento e = equipamentos.getOne(id);
 
 		chamado.setEquipamento(e);
 		
 		chamado.setEmissor(userLogin.getUsuario().getNome());
 		
-		chamado.setDataAbertura(new Date());
+		chamado.setDataAbertura(LocalDateTime.now());
 		
 		chamado.setStatus("ELABORADO");
 		

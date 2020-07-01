@@ -20,7 +20,7 @@
 		<div class="form-row col-sm-6">
 			<div class="pesquisa">
 				<form method="GET" class="form-inline"
-					action="/administracao/clientes/contatos/{id}(id=${cliente.id})" th:object="${filtro}">
+					action="/contatos/{id}(id=${cliente.id})" th:object="${filtro}">
 					<div class="input-group">
 						<input class="form-control"
 							placeholder="Qual contato você está procurando?"
@@ -57,12 +57,12 @@
 							<td th:text="${contato.departamento}">123</td>
 							<td class="text-center">
 								<a class="btn btn-danger btn-sm"
-										th:title="Excluir" th:href="@{/administracao/clientes/contatos/excluir/{id}(id=${contato.id})}"
+										th:title="Excluir" th:href="@{/contatos/excluir/{id}(id=${contato.id})}"
 										th:attr="onclick='return confirm(\'Deseja realmente excluir o contato ' 
 												+ ${contato.nome} + ' ?\');'">
 										<i class="far fa-trash-alt"></i>
 								</a>
-								<a class="btn btn-primary btn-sm" th:href="@{/administracao/clientes/contatos/editar/{id}(id=${contato.id})}"
+								<a class="btn btn-primary btn-sm" th:href="@{/contatos/editar/{id}(id=${contato.id})}"
 										th:title="Editar"> <i class="fa fa-pencil-alt"></i>
 								</a>
 							</td>
@@ -78,7 +78,7 @@
 				<div class="container">
 					<div class="form-row justify-content-between">
 						<a id="btnaddcontato" class="btn btn-info btn-sm col-sm-2" 
-							th:href="@{/administracao/clientes/contatos/novo/{id}(id=${cliente.id})}" th:title="'Novo Contato'">
+							th:href="@{/contatos/novo/{id}(id=${cliente.id})}" th:title="'Novo Contato'">
 							<i class="far fa-user"></i> Novo Contato
 						</a>
 						<a id="btncancelar" class="btn btn-warning btn-sm col-sm-2"

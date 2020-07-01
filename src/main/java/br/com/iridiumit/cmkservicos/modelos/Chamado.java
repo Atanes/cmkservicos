@@ -1,8 +1,7 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,11 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Chamado {
@@ -28,9 +26,8 @@ public class Chamado {
 	private String emissor;
 	
 	@Column(name="abertura")
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd-MMM-yyyy HH:mm")
-	private Date dataAbertura;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime dataAbertura;
 	
 	@NotEmpty(message = "{tipo.not.empty}")
 	private String tipo;
@@ -64,22 +61,22 @@ public class Chamado {
 		this.emissor = emissor;
 	}
 
-	public Date getDataAbertura() {
+	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
 	}
 
-	public void setDataAbertura(Date dataAbertura) {
+	public void setDataAbertura(LocalDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 	
 	public String getDataFormatada() {
-		Date d = this.dataAbertura; 
+		LocalDateTime d = this.dataAbertura; 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 		return formato.format(d);
 	}
 	
 	public String getDataCurta() {
-		Date d = this.dataAbertura; 
+		LocalDateTime d = this.dataAbertura; 
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy"); 
 		return formato.format(d);
 	}

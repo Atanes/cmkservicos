@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/atendimentos/**").hasAnyRole("CMK_ADMIN","CMK_ANALISTA","CMK_COORDENADOR","CMK_GESTOR", "CMK_TECNICO")
 				.antMatchers("/tecnico").hasAnyRole("CMK_ADMIN","CMK_GESTOR", "CMK_TECNICO")
 				.antMatchers("/tecnico/**").hasAnyRole("CMK_ADMIN","CMK_GESTOR", "CMK_TECNICO")
+				.antMatchers("/contatos/incluirContato").hasAnyRole("CMK_ADMIN","CMK_ANALISTA","CMK_TECNICO")
 				.anyRequest()				
 				.authenticated()
 				.and()

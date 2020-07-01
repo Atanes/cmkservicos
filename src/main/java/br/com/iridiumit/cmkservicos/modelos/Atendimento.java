@@ -1,7 +1,6 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,20 +25,13 @@ public class Atendimento {
 	//@NotNull(message = "{nros.not.empty}")
 	private Integer nros;
 	
-	@Column(name="data_atendimento")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
-	private Date dataAtendimento;
-	
 	@Column(name="inicio_atendimento")
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "HH:mm")
-	private Date inicioAtendimento;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime inicioAtendimento;
 	
 	@Column(name="fim_atendimento")
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(pattern = "HH:mm")
-	private Date fimAtendimento;
+	@DateTimeFormat(iso = ISO.DATE_TIME)
+	private LocalDateTime fimAtendimento;
 	
 	@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chamado_id", nullable = false)
@@ -103,27 +93,19 @@ public class Atendimento {
 		this.chamado = chamado;
 	}
 
-	public Date getDataAtendimento() {
-		return dataAtendimento;
-	}
-
-	public void setDataAtendimento(Date dataAtendimento) {
-		this.dataAtendimento = dataAtendimento;
-	}
-
-	public Date getInicioAtendimento() {
+	public LocalDateTime getInicioAtendimento() {
 		return inicioAtendimento;
 	}
 
-	public void setFimAtendimento(Date fimAtendimento) {
+	public void setFimAtendimento(LocalDateTime fimAtendimento) {
 		this.fimAtendimento = fimAtendimento;
 	}
 	
-	public Date getFimAtendimento() {
+	public LocalDateTime getFimAtendimento() {
 		return fimAtendimento;
 	}
 
-	public void setInicioAtendimento(Date inicioAtendimento) {
+	public void setInicioAtendimento(LocalDateTime inicioAtendimento) {
 		this.inicioAtendimento = inicioAtendimento;
 	}
 

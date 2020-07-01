@@ -19,7 +19,7 @@
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
 			<form method="POST" class="form-vertical js-form-loading"
-				th:object="${contato}" th:action="@{/administracao/clientes/contatos/salvar/{id}(id=${cliente.id})}">
+				th:object="${contato}" th:action="@{/contatos/salvar/{id}(id=${cliente.id})}">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
 

@@ -11,7 +11,7 @@ $(function() {
 	var inputDepartContato = $('#departContato');
 	var idCliente = $('#idCliente');
 	
-	var url = '/administracao/clientes/incluirContato';
+	var url = '/contatos/incluirContato';
 	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-contato');
 	
 	modal.on('shown.bs.modal', onModalShow);

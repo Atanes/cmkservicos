@@ -1,11 +1,14 @@
 package br.com.iridiumit.cmkservicos.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ import br.com.iridiumit.cmkservicos.modelos.Chamado;
 import br.com.iridiumit.cmkservicos.modelos.UsuarioSistema;
 import br.com.iridiumit.cmkservicos.repository.Atendimentos;
 import br.com.iridiumit.cmkservicos.repository.Chamados;
+import br.com.iridiumit.cmkservicos.repository.Contatos;
 import br.com.iridiumit.cmkservicos.repository.filtros.FiltroGeral;
 import br.com.iridiumit.cmkservicos.utils.PageUtils;
 
@@ -30,7 +34,6 @@ import br.com.iridiumit.cmkservicos.utils.PageUtils;
 @RequestMapping("/tecnico")
 public class TecnicoController {
 	
-	private static final String ORDERBYATENDIMENTO = "dataAtendimento";
 	private static final int RECORDSPERPAGE = 6;
 	
 	UsuarioSistema userLogin;
@@ -41,9 +44,12 @@ public class TecnicoController {
 	@Autowired
 	private Chamados chamados;
 	
+	@Autowired
+	private Contatos contatos;
+	
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 		
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -64,7 +70,7 @@ public class TecnicoController {
 	
 	@GetMapping("/pendencias")
 	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro, 
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 		
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -85,16 +91,24 @@ public class TecnicoController {
 	
 	@GetMapping("/realizar/{id}")
 	public ModelAndView realizarAtendimento(@PathVariable Long id) {
+		
+		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
 
 		Atendimento atendimento = atendimentos.getOne(id);
 		
+		atendimento.setExecutor(userLogin.getUsuario().getNome());
+		
 		Chamado c = atendimento.getChamado();
 
 		c.setStatus("ATENDIMENTO");
-
-		chamados.save(c);
+		
+		atendimento.setInicioAtendimento(LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)));
+		
+		modelAndView.addObject("contatos", contatos.findByCliente(c.getEquipamento().getCliente()));
+		
+		modelAndView.addObject(chamados.saveAndFlush(c));
 
 		modelAndView.addObject(atendimento);
 

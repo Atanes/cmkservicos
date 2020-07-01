@@ -6,6 +6,8 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<title>Realizar Atendimento</title>
+	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
 	<script th:src="@{/js/iridiumit.js}"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -37,6 +39,8 @@
 				
 				<input type="hidden" th:field="*{numero}" />
 				<input type="hidden" th:field="*{chamado}" />
+				<input type="hidden" th:field="*{executor}" />
+				<input type="hidden" th:field="*{aprovador}" />
 
 				<div class="form-row">
 					
@@ -61,12 +65,17 @@
 					</div>
 				
 				</div>
+				<h3 class="titulo-secao">Descrição: <span class="text-primary" th:text="*{chamado.descricao}"></span></h3>
 				
 				<div class="form-row">
 				
-					<div class="col-sm-6 form-group">
-						<label class="campo_obrigatório" for="descricao">Descrição</label>
-						<textarea id="descricao" class="form-control" th:field="*{chamado.descricao}" readonly="readonly"></textarea>
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="inicioAtendimento">Hora inicio</label>
+						<input id="inicioAtendimento" type="datetime-local" class="form-control" th:field="*{inicioAtendimento}"/>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="fimAtendimento">Hora fim</label>
+						<input id="fimAtendimento" type="datetime-local" class="form-control" th:field="*{fimAtendimento}"/>
 					</div>
 				
 					<div class="col-sm-6 form-group">
@@ -104,7 +113,7 @@
 						<div class="form-group">
 							<label class="campo_obrigatorio" for="mparadaDataHora">Data e hora da parada</label>
 							<input id="mparadaDataHora" type="datetime-local" class="form-control"
-								th:field="*{mparadaDataHora}" />
+								th:field="*{mparadaDataHora}" required="required"/>
 						</div>
 					</div>
 					
@@ -145,7 +154,24 @@
 					</div>
 					
 				</div>
-
+				<div class="form-row">
+				<div class="col-sm-3 form-group">
+						<label class="titulo-secao text-primary" for="cbosolicitante">Atendimento acompanhado por</label>
+						<div class="bw-field-action">
+							<select	id="cbosolicitante" class="form-control" th:field="*{acompanhante}" 
+								onchange="try{setCustomValidity('')}catch(e){}">
+								<option value="">Selecione o acompanhante</option>
+								<option th:each="contato: ${contatos}" th:value="${contato.nome}"
+									th:text="${contato.nome}">Opção 1</option>		
+							</select>
+							<div id="botaoModal" class="bw-field-action__icon">
+								<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir novo contato">
+									<i class="fas fa-plus-circle bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 				
 				<div class="container">
 					<div class="form-row justify-content-between">
@@ -159,6 +185,7 @@
 					</div>
 				</div>
 			</form>
+			<div th:replace="chamado/cadastro-contato-modal :: modalContato"></div>
 	</section>
 </body>
 </html>
