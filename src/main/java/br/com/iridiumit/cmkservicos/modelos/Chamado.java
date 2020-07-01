@@ -2,6 +2,8 @@ package br.com.iridiumit.cmkservicos.modelos;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -71,13 +73,13 @@ public class Chamado {
 	
 	public String getDataFormatada() {
 		LocalDateTime d = this.dataAbertura; 
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
+		 DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		return formato.format(d);
 	}
 	
 	public String getDataCurta() {
-		LocalDateTime d = this.dataAbertura; 
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy"); 
+		LocalDateTime d = this.dataAbertura;
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		return formato.format(d);
 	}
 

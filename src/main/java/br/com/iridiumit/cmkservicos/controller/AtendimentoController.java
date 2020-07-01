@@ -11,7 +11,6 @@ import javax.validation.Valid;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -43,7 +42,6 @@ import br.com.iridiumit.cmkservicos.utils.PageUtils;
 @RequestMapping("/atendimentos")
 public class AtendimentoController {
 
-	private static final String ORDERBYATENDIMENTO = "dataAtendimento";
 	private static final int RECORDSPERPAGE = 6;
 
 	@Autowired
@@ -60,7 +58,7 @@ public class AtendimentoController {
 
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos");
@@ -102,7 +100,7 @@ public class AtendimentoController {
 
 	@GetMapping("/cliente/{id}")
 	public ModelAndView SelecaoPorCliente(@ModelAttribute("filtro") FiltroGeral filtro, @PathVariable Integer id,
-			@PageableDefault(size = RECORDSPERPAGE, sort = ORDERBYATENDIMENTO, direction = Direction.ASC) Pageable pageable,
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
 			HttpServletRequest httpServletRequest) {
 
 		Cliente c = clientes.getOne(id);

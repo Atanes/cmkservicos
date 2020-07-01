@@ -113,7 +113,7 @@
 						<div class="form-group">
 							<label class="campo_obrigatorio" for="mparadaDataHora">Data e hora da parada</label>
 							<input id="mparadaDataHora" type="datetime-local" class="form-control"
-								th:field="*{mparadaDataHora}" required="required"/>
+								th:field="*{mparadaDataHora}"/>
 						</div>
 					</div>
 					
@@ -155,7 +155,7 @@
 					
 				</div>
 				<div class="form-row">
-				<div class="col-sm-3 form-group">
+					<div class="col-sm-3 form-group">
 						<label class="titulo-secao text-primary" for="cbosolicitante">Atendimento acompanhado por</label>
 						<div class="bw-field-action">
 							<select	id="cbosolicitante" class="form-control" th:field="*{acompanhante}" 
