@@ -1,6 +1,5 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

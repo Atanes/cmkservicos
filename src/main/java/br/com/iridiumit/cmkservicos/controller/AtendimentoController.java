@@ -2,6 +2,7 @@ package br.com.iridiumit.cmkservicos.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -209,11 +210,15 @@ public class AtendimentoController {
 	// Métodos para inclusão de apontamento
 	
 	@GetMapping("novoapontamento/{id}")
-	public ModelAndView apontamento() {
+	public ModelAndView apontamento(@PathVariable Long id) {
 
-		Atendimento a = atendimentos.getOne(5l);
+		Atendimento a = atendimentos.getOne(id);
 		
-		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-Apontamento");
+		ModelAndView modelAndView = new ModelAndView("atendimento/cadastro-apontamento");
+		
+		modelAndView.addObject("tecnicos", usuarios.UsuariosPorPermissao("ROLE_CMK_TECNICO"));
+		
+		modelAndView.addObject("dataApontamento", LocalDate.now());
 		
 		modelAndView.addObject(a);
 

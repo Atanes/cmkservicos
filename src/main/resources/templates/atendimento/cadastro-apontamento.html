@@ -2,10 +2,10 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
 	layout:decorate="~{layout/layout}">
 <head>
-	<title>Cadastro de Relatório de Atendimento - RA</title>
+	<title>Cadastro de Apontamentos</title>
 	<script th:src="@{/js/iridiumit.js}"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
@@ -19,9 +19,9 @@
 		
 			<h1 class="titulo-formulario">
 				<i class="fa fa-clipboard-list"></i>
-				Atendimento para o Equipamento:
-				<span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
-				<br>Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+				Atendimento para o Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+				, em: <span class="text-primary" th:text="${atendimento.getDataAtendimento()}"></span>
+				<br>Equipamento: <span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
 			</h1>
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
@@ -34,22 +34,24 @@
 				<div class="form-row">
 					
 					<div class="col-sm-3 form-group">
-						<label for="colaborador">Técnico: Marcos Roberto</label>
+						<label for="tecnico">Técnico</label>
+						<input id="tecnico" type="text" class="form-control" th:value="${atendimento.executor}" disabled/>
 					</div>
-					<div class="col-sm-3 form-group">
-						<label for="dataapontamento">Data: 26/06/2020</label>
-					</div>
+					<!-- <div class="col-sm-3 form-group">
+						<label for="dataapontamento">Data</label>
+						<input id="dataapontamento" type="text" class="form-control" th:value="${dataApontamento}"/>
+					</div> -->
 					
 					<div class="col-sm-3 form-group">
 						<div class="form-group">
-							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio:</label>
+							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio</label>
 							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
 						</div>
 					</div>
 					
 					<div class="col-sm-3 form-group">
 						<div class="form-group">
-							<label class="campo_obrigatorio" for="fimtrabalho">Fim:</label>
+							<label class="campo_obrigatorio" for="fimtrabalho">Fim</label>
 							<div class="bw-field-action">
 								<input id="fimtrabalho" type="datetime-local" class="form-control" />
 								<div id="botaoModal" class="bw-field-action__icon">
@@ -66,28 +68,27 @@
 				<div class="form-row">
 					
 					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="colaborador">Técnico:</label>
-						<select	id="colaborador" class="form-control">
-								<option value="">Marcos Roberto</option>
-								<option value="">Carlos Roberto</option>
-								<option value="">Adriano Pontes</option>
-								<option value="">Daniel Carvalho</option>
+						<label class="campo_obrigatorio" for="cboresponsavel">Técnico</label>
+						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
+								<option value="">Selecione o técnico para apontamento</option>
+								<option th:each="tecnico: ${tecnicos}" th:value="${tecnico.nome}"
+									th:text="${tecnico.nome}">Opção 1</option>		
 						</select>
 					</div>
-					<div class="col-sm-3 form-group">
+					<!-- <div class="col-sm-3 form-group">
 						<label for="dataapontamento">Data: 26/06/2020</label>
-					</div>
+					</div> -->
 					
 					<div class="col-sm-3 form-group">
 						<div class="form-group">
-							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio:</label>
+							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio</label>
 							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
 						</div>
 					</div>
 					
 					<div class="col-sm-3 form-group">
 						<div class="form-group">
-							<label class="campo_obrigatorio" for="fimtrabalho">Fim:</label>
+							<label class="campo_obrigatorio" for="fimtrabalho">Fim</label>
 							<div class="bw-field-action">
 								<input id="fimtrabalho" type="datetime-local" class="form-control" />
 								<div id="botaoModal" class="bw-field-action__icon">

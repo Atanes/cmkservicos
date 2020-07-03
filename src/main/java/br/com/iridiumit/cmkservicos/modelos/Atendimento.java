@@ -1,6 +1,7 @@
 package br.com.iridiumit.cmkservicos.modelos;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -95,6 +96,12 @@ public class Atendimento {
 
 	public LocalDateTime getInicioAtendimento() {
 		return inicioAtendimento;
+	}
+	
+	public String getDataAtendimento() {
+		LocalDateTime d = this.inicioAtendimento;
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return formato.format(d);
 	}
 
 	public void setFimAtendimento(LocalDateTime fimAtendimento) {
