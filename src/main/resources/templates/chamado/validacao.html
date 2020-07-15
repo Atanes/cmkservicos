@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{layout/layout}">
+<head>
+	<title>Validação Apontamento</title>
+	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/jquery.mask.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/gh/Atanes/Arquivos_Estaticos@master/js/mascaras.js"></script>
+	<script th:src="@{/js/iridiumit.js}"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		mostraDataHoraInicioFim();
+		equipApto();
+		equipNaoApto();
+		equipAptoResalvas();
+	});
+	</script>
+</head>
+
+<body>
+	<section class="aw-layout-content js-content layout-pagina" layout:fragment="content">
+		
+			<h1 class="titulo-formulario"><i class="fa fa-clipboard-list"></i>
+				Realizar Atendimento - Cliente: <span class="text-primary" th:text="${atendimento.chamado.equipamento.cliente.nome}"></span>
+				- Solicitante: <span class="text-primary" th:text="${atendimento.chamado.solicitante}"></span>
+				<br>Equipamento: <span class="text-primary" th:text="${atendimento.chamado.equipamento}"></span>
+				- Executor: <span class="text-primary" th:text="${atendimento.executor}"></span>
+				
+			</h1>
+			
+			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
+			
+			<form method="POST" class="form-vertical js-form-loading" 
+				 th:action="@{/tecnico/realizar/salvar}" th:object="${atendimento}">
+				
+				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
+				
+				<input type="hidden" th:field="*{numero}" />
+				<input type="hidden" th:field="*{chamado}" />
+				<input type="hidden" th:field="*{executor}" />
+				<input type="hidden" th:field="*{aprovador}" />
+
+				<div class="form-row">
+					
+					<div class="col-sm-3 form-group">
+						<label for="nros">Nr. OS: </label>
+						<span class="text-primary" th:text="*{nros}"></span>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label for="tipo">Tipo: </label>
+						<span class="text-primary" th:text="*{chamado.tipo}"></span>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="nota">Nr. Nota: </label>
+						<span class="text-primary" th:text="*{nota}"></span>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="aprovador">Aprovador: </label>
+						<span class="text-primary" th:text="*{aprovador}"></span>
+					</div>
+				<br>
+				<hr>
+				
+				</div>
+				<h3 class="titulo-secao">Descrição da Solicitação: <span class="text-primary" th:text="*{chamado.descricao}"></span>
+				<br>Diagnóstico do Chamado: <span class="text-primary"></span>
+				<br>Desrição dos Serviços Executados: <span class="text-primary"></span>
+				<br>Observações: <span class="text-primary"></span>				
+				
+				</h3>
+				
+				<div class="form-row">
+				
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="">Equipamento parou que horas:</label>
+						<input id="" type="datetime-local" class="form-control"/>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="">Equipamento liberado que horas:</label>
+						<input id="" type="datetime-local" class="form-control"/>
+					</div>
+				<br>	
+				<hr>
+								
+				</div>
+				
+				<h4 class="titulo-secao text-primary">Status final do equipamento após atendimento</h4>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="">Apto para operar sem ressalvas:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="">Apto para operar com ressalvas:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label class="campo_obrigatório" for="">Não apto para operar:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+				
+				</div>
+				
+				<div class="form-row">
+					<div class="colm-sm-6 form-group">
+						<label class="campo_obrigatório" for="">Ressalvas ou Justificativas:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+					<div class="colm-sm=6 form-group">
+						<label class="campo_obrigatório" for="">Especificar Defeito Característico - NÃO APTO:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+				</div>
+				<br>
+				<hr>
+				<br>
+				
+				<div class="form-row">
+					<div class="colm-sm-6 form-group">
+						<label class="campo_obrigatório" for="">Movimento que Apresentou Falha:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+					<div class="colm-sm-6 form-group">
+						<label class="campo_obrigatório" for="">Sistema que Apresentou Falha:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+					<div class="colm-sm-6 form-group">
+						<label class="campo_obrigatório" for="">Componente que Apresentou Falha:</label>
+						<input id="" type="" class="form-control"/>
+					</div>
+				</div>
+				
+				<br>
+				<hr>
+				
+				
+				<h4 class="titulo-secao text-primary">Efetuar Cobrança</h4>
+				
+				<div class="form-row">
+					
+					<div class="col-sm-3">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="apto"
+								th:field="*{apto}" onchange="equipApto(this)">
+							<label class="form-check-label"	for="apto">Sim</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" id="naoapto"
+								th:field="*{naoapto}" onchange="equipNaoApto(this)">
+							<label class="form-check-label"	for="naoapto">Não</label>
+						</div>
+					</div>
+					
+				</div>
+				
+				<br>
+				<hr>
+				
+				<h4 class="titulo-secao text-primary">Apontamento Colaborador</h4>
+				
+				<div class="form-row">
+					<div class="col-sm-3 form-group">
+						<label for="tecnico">Técnico</label>
+						<input id="tecnico" type="text" class="form-control" th:value="${atendimento.executor}" disabled/>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<label for="tecnico">Código</label>
+						<input id="tecnico" type="text" class="form-control" th:value="${atendimento.executor}" disabled/>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Data Saída</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Data Início</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Data Término</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="col-sm-3 form-group">
+						<div class="form-group">
+							<label class="campo_obrigatorio" for="iniciotrabalho">Data Retorno</label>
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="form-row">
+					<div class="col-sm-3 form-group">
+						<label for="tecnico">KM</label>
+						<input id="tecnico" type="text" class="form-control" th:value="${atendimento.executor}" disabled/>
+					</div>
+					
+				</div>
+				
+				<br>
+				<hr>
+				
+				<div class="container">
+					<div class="form-row justify-content-between">
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Salvar
+						</button>
+						<button class="btn  btn-primary btn-sm col-sm-2" type="submit" title="Salvar">
+							<i class="far fa-save"></i> Validar
+						</button>
+					</div>
+				</div>
+			</form>
+			
+	</section>
+</body>
+</html>
