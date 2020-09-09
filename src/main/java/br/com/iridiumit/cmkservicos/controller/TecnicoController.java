@@ -3,7 +3,6 @@ package br.com.iridiumit.cmkservicos.controller;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -33,81 +32,81 @@ import br.com.iridiumit.cmkservicos.utils.PageUtils;
 @Controller
 @RequestMapping("/tecnico")
 public class TecnicoController {
-	
+
 	private static final int RECORDSPERPAGE = 6;
-	
+
 	UsuarioSistema userLogin;
-	
+
 	@Autowired
 	private Atendimentos atendimentos;
-	
+
 	@Autowired
 	private Chamados chamados;
-	
+
 	@Autowired
 	private Contatos contatos;
-	
+
 	@GetMapping
 	public ModelAndView listar(@ModelAttribute("filtro") FiltroGeral filtro,
-			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
-			HttpServletRequest httpServletRequest) {
-		
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable, HttpServletRequest httpServletRequest) {
+
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-atendimentos");
 
 		if (filtro.getTextoFiltro() == null) {
-			modelAndView.addObject("atendimentos", atendimentos.findByExecutor(userLogin.getUsuario().getNome(), pageable));
-		} else {
 			modelAndView.addObject("atendimentos",
-					atendimentos.findByEquipamentoTipoExecutor(filtro.getTextoFiltro(), userLogin.getUsuario().getNome(), pageable));
+					atendimentos.findByExecutor(userLogin.getUsuario().getNome(), pageable));
+		} else {
+			modelAndView.addObject("atendimentos", atendimentos.findByEquipamentoTipoExecutor(filtro.getTextoFiltro(),
+					userLogin.getUsuario().getNome(), pageable));
 		}
 
 		modelAndView.addObject("controlePagina", new PageUtils(httpServletRequest, pageable));
 
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/pendencias")
-	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro, 
-			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable,
-			HttpServletRequest httpServletRequest) {
-		
+	public ModelAndView listarPendencias(@ModelAttribute("filtro") FiltroGeral filtro,
+			@PageableDefault(size = RECORDSPERPAGE) Pageable pageable, HttpServletRequest httpServletRequest) {
+
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/lista-pendencias");
 
 		if (filtro.getTextoFiltro() == null) {
-			modelAndView.addObject("atendimentos", atendimentos.findByExecutorAberto(userLogin.getUsuario().getNome(), pageable));
-		} else {
 			modelAndView.addObject("atendimentos",
-					atendimentos.findByEquipamentoTipoExecutorAberto(filtro.getTextoFiltro(), userLogin.getUsuario().getNome(), pageable));
+					atendimentos.findByExecutorAberto(userLogin.getUsuario().getNome(), pageable));
+		} else {
+			modelAndView.addObject("atendimentos", atendimentos.findByEquipamentoTipoExecutorAberto(
+					filtro.getTextoFiltro(), userLogin.getUsuario().getNome(), pageable));
 		}
-		
+
 		modelAndView.addObject("controlePagina", new PageUtils(httpServletRequest, pageable));
 
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/realizar/{id}")
 	public ModelAndView realizarAtendimento(@PathVariable Long id) {
-		
+
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
 		ModelAndView modelAndView = new ModelAndView("atendimento/realizar-atendimento");
 
 		Atendimento atendimento = atendimentos.getOne(id);
-		
+
 		atendimento.setExecutor(userLogin.getUsuario().getNome());
-		
+
 		Chamado c = atendimento.getChamado();
 
 		c.setStatus("ATENDIMENTO");
-		
-		atendimento.setInicioAtendimento(LocalDateTime.of(LocalDate.now(), LocalTime.of(00,00)));
-		
+
+		atendimento.setInicioAtendimento(LocalDateTime.of(LocalDate.now(), LocalTime.of(00, 00)));
+
 		modelAndView.addObject("contatos", contatos.findByCliente(c.getEquipamento().getCliente()));
-		
+
 		modelAndView.addObject(chamados.saveAndFlush(c));
 
 		modelAndView.addObject(atendimento);
@@ -120,10 +119,9 @@ public class TecnicoController {
 			RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
-			System.out.println(result.getFieldErrorCount() + ", " + result.getFieldError());
 			return realizarAtendimento(atendimento.getNumero());
 		}
-		
+
 		Chamado c = atendimento.getChamado();
 
 		c.setStatus("FINALIZADO");
@@ -137,6 +135,5 @@ public class TecnicoController {
 		return new ModelAndView("redirect:/tecnico/pendencias");
 
 	}
-	
-	
+
 }

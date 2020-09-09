@@ -7,11 +7,7 @@
 <head>
 	<title>Cadastro de Apontamentos</title>
 	<script th:src="@{/js/iridiumit.js}"></script>
-	<script type="text/javascript">
-	$(document).ready(function() {
-		mostraCampo();
-	});
-	</script>
+
 </head>
 
 <body>
@@ -26,26 +22,24 @@
 			
 			<th:block th:insert="layout/fragments/MensagemGeral :: geral"></th:block>
 			
-			<form method="POST" class="form-vertical js-form-loading" 
-				 th:object="${atendimento}">
+			<form id="form_apontamentos" th:action="@{/tecnico/apontamento/salvar/{id}(id=${atendimento.numero})}" th:object="${apontamento}" method="POST">
 				
 				<th:block th:insert="layout/fragments/MensagemErro :: erros"></th:block>
+				
+				<input type="hidden" th:field="*{responsavel}">
+				<input type="hidden" th:field="*{dataApontamento}">
 				
 				<div class="form-row">
 					
 					<div class="col-sm-3 form-group">
 						<label for="tecnico">Técnico</label>
-						<input id="tecnico" type="text" class="form-control" th:value="${atendimento.executor}" disabled/>
+						<input id="tecnico" type="text" class="form-control" name="tecnico" th:field="*{tecnico}"/>
 					</div>
-					<!-- <div class="col-sm-3 form-group">
-						<label for="dataapontamento">Data</label>
-						<input id="dataapontamento" type="text" class="form-control" th:value="${dataApontamento}"/>
-					</div> -->
 					
 					<div class="col-sm-3 form-group">
 						<div class="form-group">
 							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio</label>
-							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
+							<input id="iniciotrabalho" type="datetime-local" class="form-control" th:field="*{inicioTrabalho}"/>
 						</div>
 					</div>
 					
@@ -53,7 +47,7 @@
 						<div class="form-group">
 							<label class="campo_obrigatorio" for="fimtrabalho">Fim</label>
 							<div class="bw-field-action">
-								<input id="fimtrabalho" type="datetime-local" class="form-control" />
+								<input id="fimtrabalho" type="datetime-local" class="form-control" th:field="*{fimTrabalho}"/>
 								<div id="botaoModal" class="bw-field-action__icon">
 									<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir apontamento">
 										<i class="fas fa-plus-circle bw-glyphicon-large"></i>
@@ -64,44 +58,7 @@
 					</div>
 					
 				</div>
-				
-				<div class="form-row">
 					
-					<div class="col-sm-3 form-group">
-						<label class="campo_obrigatorio" for="cboresponsavel">Técnico</label>
-						<select	id="cboresponsavel" class="form-control" th:field="*{executor}">
-								<option value="">Selecione o técnico para apontamento</option>
-								<option th:each="tecnico: ${tecnicos}" th:value="${tecnico.nome}"
-									th:text="${tecnico.nome}">Opção 1</option>		
-						</select>
-					</div>
-					<!-- <div class="col-sm-3 form-group">
-						<label for="dataapontamento">Data: 26/06/2020</label>
-					</div> -->
-					
-					<div class="col-sm-3 form-group">
-						<div class="form-group">
-							<label class="campo_obrigatorio" for="iniciotrabalho">Inicio</label>
-							<input id="iniciotrabalho" type="datetime-local" class="form-control" />
-						</div>
-					</div>
-					
-					<div class="col-sm-3 form-group">
-						<div class="form-group">
-							<label class="campo_obrigatorio" for="fimtrabalho">Fim</label>
-							<div class="bw-field-action">
-								<input id="fimtrabalho" type="datetime-local" class="form-control" />
-								<div id="botaoModal" class="bw-field-action__icon">
-									<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoContato" title="Incluir apontamento">
-										<i class="fas fa-plus-circle bw-glyphicon-large"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-
 				<div class="container">
 					<div class="form-row justify-content-between">
 						<button class="btn btn-primary btn-sm col-sm-2" type="submit" title="Salvar">

@@ -42,6 +42,7 @@
 					class="table table-sm table-striped table-bordered table-hover table-condensed js-sticky-table">
 					<thead>
 						<tr>
+							<th>Chamado</th>
 							<th class="text-center">
 								<th:block th:replace="layout/fragments/Ordenacao :: order (${controlePagina}, 
 									'numero', 'Código', ${atendimentos}, 'numero')">
@@ -53,6 +54,7 @@
 					</thead>
 					<tbody>
 						<tr th:each="atendimento: ${atendimentos}">
+							<td class="text-center" th:text="${atendimento.chamado.nra}">123</td>
 							<td class="text-center" th:text="${atendimento.numero}">123</td>
 							<td th:text="${atendimento.dadosAtendimento()}" 
 								th:classappend="${atendimento.chamado.tipo == 'EMERGENCIAL' and atendimento.chamado.status != 'FINALIZADO'}? 'alert-emergencial'">123</td>

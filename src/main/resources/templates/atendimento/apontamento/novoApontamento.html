@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+	<div class="form-row" th:object="${apontamento}">
+	
+		<input type="hidden" th:field="*{responsavel}"> <input
+			type="hidden" th:field="*{dataApontamento}">
+	
+		<div class="col-sm-3 form-group">
+			<label class="campo_obrigatorio" for="cboresponsavel">Técnico</label>
+			<select id="cboresponsavel" class="form-control" name="tecnico"
+				th:field="*{tecnico}">
+				<option value="">Selecione o técnico para apontamento</option>
+				<option th:each="tecnico: ${tecnicos}" th:text="${tecnico.nome}"
+					th:value="${tecnico.nome}">Opção 1</option>
+			</select>
+		</div>
+		<div class="col-sm-3 form-group">
+			<div class="form-group">
+				<label class="campo_obrigatorio" for="iniciotrabalho">Inicio</label>
+				<input id="iniciotrabalho" type="datetime-local" class="form-control"
+					th:field="*{inicioTrabalho}" />
+			</div>
+		</div>
+		<div class="col-sm-3 form-group">
+			<div class="form-group">
+				<label class="campo_obrigatorio" for="fimtrabalho">Fim</label>
+				<div class="bw-field-action">
+					<input id="fimtrabalho" type="datetime-local" class="form-control"
+						th:field="*{fimTrabalho}" />
+					<div id="botaoModal" class="bw-field-action__icon">
+						<a href="#" data-toggle="modal"
+							data-target="#modalCadastroRapidoContato"
+							title="Incluir apontamento"> <i
+							class="fas fa-plus-circle bw-glyphicon-large"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+</html>

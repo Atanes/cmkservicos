@@ -2,7 +2,7 @@ package br.com.iridiumit.cmkservicos.modelos;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 
@@ -18,66 +20,70 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 public class Atendimento {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long numero;
-	
-	//@NotNull(message = "{nros.not.empty}")
+
 	private Integer nros;
-	
-	@Column(name="inicio_atendimento")
+
+	@Column(name = "inicio_atendimento")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime inicioAtendimento;
-	
-	@Column(name="fim_atendimento")
+
+	@Column(name = "fim_atendimento")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime fimAtendimento;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "chamado_id", nullable = false)
-    private Chamado chamado;
-	
-	//@NotEmpty(message = "{nota.not.empty}")
+	@JoinColumn(name = "chamado_id", nullable = false)
+	private Chamado chamado;
+
+	@OneToMany
+	@JoinTable(name = "atendimento_apontamentos", joinColumns = @JoinColumn(name = "codigo_atendimento")
+			, inverseJoinColumns = @JoinColumn(name = "codigo_apontamento"))
+	private List<Apontamento> apontamentos;
+
 	private String nota;
-	
-	//@NotEmpty(message = "{diagnostico.not.empty}")
+
+	private String infoAdicionais;
+
 	private String diagnostico;
-	
+
 	private boolean mparada;
-	
-	@Column(name="mparada_datahora")
+
+	@Column(name = "mparada_datahora")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime mparadaDataHora;
-	
-	@Column(name="mliberada_datahora")
+
+	@Column(name = "mliberada_datahora")
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime mliberadaDataHora;
-	
+
 	private boolean cobrar;
-	
+
 	private boolean apto;
-	
+
 	private String observacoes;
-	
+
 	private String servicos;
-	
+
 	private boolean aptocomresalvas;
-	
+
 	private String resalvas;
-	
+
 	private boolean naoapto;
-	
+
 	private String ObsNaoApto;
-	
+
 	@NotEmpty(message = "{executor.not.null}")
 	private String executor;
-	
+
 	@NotEmpty(message = "{aprovador.not.null}")
 	private String aprovador;
-	
+
 	private String acompanhante;
-	
+
 	public Long getNumero() {
 		return numero;
 	}
@@ -97,7 +103,7 @@ public class Atendimento {
 	public LocalDateTime getInicioAtendimento() {
 		return inicioAtendimento;
 	}
-	
+
 	public String getDataAtendimento() {
 		LocalDateTime d = this.inicioAtendimento;
 		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -107,7 +113,7 @@ public class Atendimento {
 	public void setFimAtendimento(LocalDateTime fimAtendimento) {
 		this.fimAtendimento = fimAtendimento;
 	}
-	
+
 	public LocalDateTime getFimAtendimento() {
 		return fimAtendimento;
 	}
@@ -130,6 +136,14 @@ public class Atendimento {
 
 	public void setNota(String nota) {
 		this.nota = nota;
+	}
+
+	public String getInfoAdicionais() {
+		return infoAdicionais;
+	}
+
+	public void setInfoAdicionais(String infoAdicionais) {
+		this.infoAdicionais = infoAdicionais;
 	}
 
 	public String getDiagnostico() {
@@ -155,7 +169,7 @@ public class Atendimento {
 	public void setObservacoes(String observacoes) {
 		this.observacoes = observacoes;
 	}
-	
+
 	public String getServicos() {
 		return servicos;
 	}
@@ -203,7 +217,7 @@ public class Atendimento {
 	public void setAprovador(String aprovador) {
 		this.aprovador = aprovador;
 	}
-	
+
 	public String getExecutor() {
 		return executor;
 	}
@@ -251,18 +265,26 @@ public class Atendimento {
 	public void setCobrar(boolean cobrar) {
 		this.cobrar = cobrar;
 	}
-	
-	public String resumoAtendimento() {
-		return "Tipo: " + this.getChamado().getTipo() + ", Equipamento: " 
-				+ this.getChamado().getEquipamento().getTipoFabricanteModeloNrSerie() 
-				+ ", Descrição: " + this.getChamado().getDescricao();
+
+	public List<Apontamento> getApontamentos() {
+		return apontamentos;
 	}
-	
-	public String dadosAtendimento() {
-		return "O.S.: " + this.getNros() + ", Tipo: " + this.getChamado().getTipo() + ", Equipamento: " 
+
+	public void setApontamentos(List<Apontamento> apontamentos) {
+		this.apontamentos = apontamentos;
+	}
+
+	public String resumoAtendimento() {
+		return "Tipo: " + this.getChamado().getTipo() + ", Equipamento: "
 				+ this.getChamado().getEquipamento().getTipoFabricanteModeloNrSerie() + ", Descrição: "
-				+ this.getChamado().getDescricao() + ", Status: " + this.getChamado().getStatus() 
-				+ ", Executor : " + this.getExecutor() ;
+				+ this.getChamado().getDescricao();
+	}
+
+	public String dadosAtendimento() {
+		return "O.S.: " + this.getNros() + ", Tipo: " + this.getChamado().getTipo() + ", Equipamento: "
+				+ this.getChamado().getEquipamento().getTipoFabricanteModeloNrSerie() + ", Descrição: "
+				+ this.getChamado().getDescricao() + ", Status: " + this.getChamado().getStatus() + ", Executor : "
+				+ this.getExecutor();
 	}
 
 	@Override
@@ -288,6 +310,6 @@ public class Atendimento {
 		} else if (!numero.equals(other.numero))
 			return false;
 		return true;
-	}	
+	}
 
 }

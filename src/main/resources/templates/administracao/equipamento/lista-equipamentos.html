@@ -85,20 +85,9 @@
 							<td th:text="${equipamento.fabricante}">123</td>
 							<td class="text-center" th:text="${equipamento.nrserie}">123</td> -->
 							<td class="text-center">
-								<form method="POST"
-									th:onsubmit="'return confirm(\'Posso remover o equipamento com o Nr. CMK: ' + 
-								${equipamento.nrcmk} + ' da base de dados?\');'"
-									th:action="@{/administracao/equipamentos/excluir/{id}(id=${equipamento.id})}">
-									<a class="btn btn-primary btn-sm" th:href="@{/administracao/equipamentos/editar/{id}(id=${equipamento.id})}"
-										th:title="Editar"> <span class="fa fa-pencil-alt"></span>
-									</a>
-									<a class="btn btn-success btn-sm" th:href="@{/chamados/novo/{id}(id=${equipamento.id})}"
-										th:title="'Cadastrar Chamado'"> <span class="fas fa-headset"></span>
-									</a>
-									<button type="submit" class="btn btn-danger btn-sm" title="Excluir">
-										<span class="far fa-trash-alt"></span>
-									</button>
-								</form>
+								<a class="btn btn-success btn-sm" th:href="@{/chamados/novo/{id}(id=${equipamento.id})}"
+									th:title="'Cadastrar Chamado'"> <span class="fas fa-headset"></span>
+								</a>
 							</td>
 						</tr>
 
