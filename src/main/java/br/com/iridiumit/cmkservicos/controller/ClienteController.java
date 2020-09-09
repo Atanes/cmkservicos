@@ -2,15 +2,19 @@ package br.com.iridiumit.cmkservicos.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -182,6 +186,24 @@ public class ClienteController {
 		return new ModelAndView("redirect:/administracao/clientes/" + cliente.getId());
 
 	}
+	
+	@RequestMapping(consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody List<Cliente> pesquisar(String nome) {
+		validarTamanhoNome(nome);
+		return clientes.findByNomeContainingIgnoreCaseAndAtivo(nome, true);
+	}
+
+	private void validarTamanhoNome(String nome) {
+		if (StringUtils.isEmpty(nome) || nome.length() < 3) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<Void> tratarIllegalArgumentException(IllegalArgumentException e) {
+		return ResponseEntity.badRequest().build();
+	}
+	
 
 	@GetMapping(value = "/rel-clientes", produces = MediaType.APPLICATION_PDF_VALUE)
 	public @ResponseBody byte[] getRelClientes() throws IOException {

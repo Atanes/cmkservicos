@@ -77,7 +77,7 @@ public class ChamadoController {
 		
 		userLogin = ((UsuarioSistema) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-		ModelAndView modelAndView = new ModelAndView("chamado/cadastro-chamado");
+		ModelAndView modelAndView = new ModelAndView("chamado/cadastro-chamado2");
 		
 		if(chamado == null) {
 			chamado = new Chamado();

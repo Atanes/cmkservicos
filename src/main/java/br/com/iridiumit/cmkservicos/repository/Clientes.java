@@ -14,4 +14,6 @@ public interface Clientes extends JpaRepository<Cliente, Integer>{
 	
 	List<Cliente> findByAtivo(boolean ativo);
 
+	List<Cliente> findByNomeStartingWithIgnoreCase(String nome);
+
 }
